@@ -1,0 +1,2 @@
+git clone https://github.com/GameStat-Stieglitz-Rese/gameStat.git
+cd GameStat
