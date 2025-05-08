@@ -1,0 +1,148 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15" pages="2">
+  <diagram name="Seite-1" id="5wedi-f2tU2GkN9vgYze">
+    <mxGraphModel dx="1426" dy="849" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--1" target="mCJv4nVaWlNKVJoFqQz--5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="50" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--2" target="mCJv4nVaWlNKVJoFqQz--8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--2" value="Benutzer kann&lt;div&gt;sich anmelden&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--3" value="Benutzer kann&lt;div&gt;sich registrieren&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--4" target="mCJv4nVaWlNKVJoFqQz--19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--4" value="Nutzerdaten&lt;div&gt;werden in Objekt&lt;/div&gt;&lt;div&gt;gespeichert&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--6" value="Ja" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--5" target="mCJv4nVaWlNKVJoFqQz--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--7" value="Nein" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--5" target="mCJv4nVaWlNKVJoFqQz--3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--5" value="Login&lt;div&gt;vorhanden?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="380" y="160" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--9" value="Nein" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--8" target="mCJv4nVaWlNKVJoFqQz--2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="450" />
+              <mxPoint x="510" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--10" value="Ja" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--8" target="mCJv4nVaWlNKVJoFqQz--4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--8" value="Login gültig?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="380" y="400" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--12" value="Nein" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--11" target="mCJv4nVaWlNKVJoFqQz--3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="450" />
+              <mxPoint x="120" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--11" target="mCJv4nVaWlNKVJoFqQz--16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--11" value="Alle Daten&lt;div&gt;eingegeben?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="150" y="400" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--3" target="mCJv4nVaWlNKVJoFqQz--11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mCJv4nVaWlNKVJoFqQz--16" target="mCJv4nVaWlNKVJoFqQz--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--16" value="Nutzer&lt;div&gt;wird angelegt&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mCJv4nVaWlNKVJoFqQz--19" value="Ende&lt;div&gt;(Übergang zu&lt;/div&gt;&lt;div&gt;Hauptprogramm)&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="700" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="SfVhs0-2OZNYmtFW9da8" name="Seite-2">
+    <mxGraphModel dx="1426" dy="849" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-2" value="Objekt (nutzer) wird an SQL-Befehlen&lt;div&gt;übergeben&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Darin befindet sich:&lt;br&gt;nutzer.nutzername (Nutzername)&lt;/div&gt;&lt;div&gt;und&lt;/div&gt;&lt;div&gt;nutzer.passwort (Passwort)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="70" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-3" value="Datenbank prüft auf treffer und&lt;div&gt;gibt Rückmeldung, ob der Nutzer vorhanden&lt;/div&gt;&lt;div&gt;ist oder nicht.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;(falsches Passwort = Benutzer vorhanden, aber Passwort falsch)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="120" y="480" width="590" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-6" value="&lt;div&gt;2. Existiert dieser Benutzer?&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.067;entryY=0.007;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-5" target="per_wuySNKr5jLJ8Gj8N-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="160" y="435" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-5" value="SQL Befehl als Funktionsaufruf, der aus der Datenbank abfragt, ob dieser Nutzer mit diesen Logindaten (Passwort und Nutzername) überhaupt existiert" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="260" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-8" value="SQL Befehl zur Abfrage von Nutzerdaten&lt;div&gt;(E-Mail, Land, Sprache etc.)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="200" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-9" value="3. Ja er existiert, oder Nein, er existiert nicht." style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.819;entryY=1.022;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-3" target="per_wuySNKr5jLJ8Gj8N-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-10" value="6. Gib mir mal die Nutzerdaten von {nutzer.nutzername}" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.742;entryY=-0.008;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-8" target="per_wuySNKr5jLJ8Gj8N-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="435" />
+              <mxPoint x="558" y="435" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-11" value="7. Da hast du deine Nutzerdaten!" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.785;entryY=1.009;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.001;exitY=0.179;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-3" target="per_wuySNKr5jLJ8Gj8N-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="711" y="410" />
+              <mxPoint x="712" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-12" value="1.Übergibt {nutzer} an&lt;br&gt;SQL befehl" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.162;entryY=0.028;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-2" target="per_wuySNKr5jLJ8Gj8N-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="164" y="220" />
+              <mxPoint x="164" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-13" value="4. Gibt Bestätigung oder&lt;div&gt;Fehler zurück&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.714;entryY=1.035;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-5" target="per_wuySNKr5jLJ8Gj8N-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-14" value="5. Übergibt wieder {nutzer}, sofern die vorherige&lt;br&gt;Abfrage erfolgreich war (Nutzer existiert)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.554;entryY=0.003;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-2" target="per_wuySNKr5jLJ8Gj8N-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="per_wuySNKr5jLJ8Gj8N-15" value="8. Gibt die vollständigen Nutzerdaten mit E-Mail&lt;br&gt;etc. an Anmeldeseite zurück" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.014;entryY=0.118;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="per_wuySNKr5jLJ8Gj8N-8" target="per_wuySNKr5jLJ8Gj8N-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="730" y="85" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

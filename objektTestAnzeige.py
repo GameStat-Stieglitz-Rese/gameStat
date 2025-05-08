@@ -3,6 +3,7 @@
 def useranzeigen(user): # Zeigt zu Testzwecken den Inhalt des Objekts an.
     print(user.vorname)
     print(user.nutzername)
+    print(user.passwort)
     print(user.email)
     print(user.land)
     print(user.sprache)
