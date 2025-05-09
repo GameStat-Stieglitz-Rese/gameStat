@@ -75,3 +75,6 @@ lb_land.text = "ABC"
 
 
 print(lb_land.text)
+
+
+#bg="yellow", fg="blue"             Farbe von tkinter Label ändern

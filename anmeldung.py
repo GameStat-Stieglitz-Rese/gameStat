@@ -35,16 +35,16 @@ def home():
 
     bn_anmelden = tk.Button(root, text="Anmelden", command=partial(bn_anmelden_check, nutzer))
     bn_abbrechen = tk.Button(root, text="Abbruch", command=exit)
-    bn_registrieren = tk.Button(root, text="Registrieren", command=registrieren)
-    tf_nutzername = tk.Entry(root, textvariable=nutzer.nutzername)
-    tf_nutzerpasswort = tk.Entry(root, textvariable=nutzer.passwort, show="*")
+    bn_registrieren = tk.Button(root, text="Registrieren", command=partial(registrieren, nutzer))
+    tf_nutzername = tk.Entry(root)
+    tf_nutzerpasswort = tk.Entry(root, show="*")
     lb_nutzername = tk.Label(root, text="Benutzername:")
     lb_nutzerpasswort = tk.Label(root, text="Passwort:")
     lb_rueckmeldung = tk.Label(root, text="")
 
-    a = 100
-    b = 50
-    abstand=20
+    a = 75 # Startwert Objektplatzierung horizontal
+    b = 50 # Startwert Objektplatzierung vertikal
+    abstand = 20 # Standardwert Objektabstände
     # Eingabefelder Benutzername und Passwort Anordnung mit Label:
     lb_nutzername.place(x=a, y=b)
     b += abstand + 2
@@ -67,29 +67,80 @@ def home():
     b += abstand
     lb_rueckmeldung.place(x=a, y=b)
 
-def registrieren(): 
+def registrieren(nutzer):
     def page1(nutzer): # Benutzername und Passwort eingabe
+        def checkp1(nutzer): # Prüfung, ob der Benutzer alle erforderlichen Daten eingegeben hat + Speicherung Daten.
+            print("Prüfung Eingabe Seite 1")
+            uname = tf_feld1.get()
+            p1 = tf_feld2.get()
+            p2 = tf_feld3.get()
+            #print(uname)
+            if uname == "": # Wenn Benutzername leer ist
+                print("Benutzername fehlt")
+                messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie auch den Benutzernamen ein!")
+            elif p1 == "" or p2 == "": # Wenn ein Passwortfeld leer ist
+                print("Passwörter nicht eingegeben")
+                messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Ihr Passwort 2x ein!")
+            elif p1 != p2: # Wenn Passwörter nicht übereinstimmen
+                print("Passwort fehler")
+                messagebox.showwarning("Eingabe Benutzerdaten", "Die Passwörter stimmen nicht überein!")
+            elif p1 == p2 and uname != "": # Wenn Benutzername eingegeben und Passwörter übereinstimmen
+                nutzer.nutzername = uname
+                nutzer.passwort = p1
+                print("Benutzerdaten wurden angelegt.")
+                page2(nutzer)
+            else: # Sonstige Fehler
+                print("Fataler Fehler Benutzerdatenanlegung")
+                messagebox.showwarning("Schwerwiegender Fehler", "Es ist ein Programmfehler aufgetreten.")
+            
         print("Seite 1 ausführung")
-    def page2(nutzer):
-        print("Seite 2 ausführung")
-    def page3(nutzer):
+        # Deklaration Label
+        lb_1 = tk.Label(root, text="Bitte geben Sie Ihre gewünschten Logindaten ein")
+        lb_2 = tk.Label(root, text="Benutzername")
+        lb_3 = tk.Label(root, text="Passwort")
+        lb_4 = tk.Label(root, text="Passwort bestätigen")
+
+        # Deklaration Button
+        bn_zurueck = tk.Button(root, text="Zurück", command=home)
+        bn_weiter = tk.Button(root, text="Weiter", command=partial(checkp1, nutzer))
+
+        # Deklaration Textfelder
+        tf_feld1 = tk.Entry(root)
+        tf_feld2 = tk.Entry(root, show="*")
+        tf_feld3 = tk.Entry(root, show="*")
+        
+        # Definition von Abständen (einheitlich)
+        a = 75
+        b = 50
+        abstand = 20
+
+        # Platzierung der Elemente in dem Fenster
+        lb_1.place(x=a, y=b)
+        b += abstand
+        lb_2.place(x=a, y=b)
+        b += abstand
+        tf_feld1.place(x=a, y=b)
+        b += abstand
+        lb_3.place(x=a, y=b)
+        b += abstand
+        tf_feld2.place(x=a, y=b)
+        b += abstand
+        lb_4.place(x=a, y=b)
+        b += abstand
+        tf_feld3.place(x=a, y=b)
+        b += abstand + 10
+        bn_zurueck.place(x=a, y=b)
+        a += 80
+        bn_weiter.place(x=a, y=b)
+
+    def page2(nutzer): # Eingabe Name, Geschlecht, E-Mail und Geburtsdatum
+        print(f"Seite 2 ausführung")
+    def page3(): # Eingabe Land und Sprache
         print("Seite 3 ausführung")
-    
+
     clearwdw()
-    # Labels
-    lb_1 = tk.Label(root)
-    lb_2 = tk.Label(root)
-    lb_3 = tk.Label(root)
-    lb_4 = tk.Label(root)
-    # Buttons
-    bt_bestaetigen = tk.Button(root, text="Bestätigen", command="")
-    bt_zurueck = tk.Button(root, text="Zurück", command=home)
-    # Textfelder
-    tf_feld1 = tk.Entry(root)
-    tf_feld2 = tk.Entry(root)
-    tf_feld3 = tk.Entry(root)
-    # Sonstige Elemente
-    # Hier noch Radiobutton und Combobox einfügen
+    page1(nutzer)
+
 
 # Deklaration der Variablen
 nutzer = Nutzer()
@@ -98,8 +149,5 @@ nutzer = Nutzer()
 root = tk.Tk()
 root.title("GameStat - Anmeldung")
 root.geometry("400x500")
-home()
+home() # Starten des Anmeldebildschirms (Startwert)
 root.mainloop()
-
-
-# To-Do: Registrierung Fenster designen, Anmeldung gestalten, Begrüßung schreiben, SQL Befehle (Funktionen) einpflegen 
