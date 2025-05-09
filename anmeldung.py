@@ -68,35 +68,28 @@ def home():
     lb_rueckmeldung.place(x=a, y=b)
 
 def registrieren(): 
-    clearwdw()   
-    # Registrieren GUI Elemente (tf = Textfeld)
-    tf_vorname = tk.Entry(root)
-    tf_benutzername = tk.Entry(root)
-    tf_pw = tk.Entry(root)
-    tf_pw_best = tk.Entry(root)
-    tf_email = tk.Entry(root)
-    tf_land = tk.Entry(root)
-    tf_sprache = tk.Entry(root)
-    # Geschlecht in Klärung!
-    tf_geburtsdatum = tk.Entry(root)    
-    lb_reginfo = tk.Label(root, text="Bitte geben Sie hier folgende Daten ein. Beachten Sie, dass jedes Feld ausgefüllt sein muss.")
-    lb_vorname = tk.Label(root, text="Vorname")
-    lb_benutzername = tk.Label(root, text="Benutzername")
-    lb_pw = tk.Label(root, text="Passwort")
-    lb_pw_best = tk.Label(root, text="Passwort bestätigen")
-    lb_email = tk.Label(root, text="E-Mail Adresse")
-    lb_land = tk.Label(root, text="Land")
-    lb_sprache = tk.Label(root, text="Sprache")
-    lb_geschlecht = tk.Label(root, text="Geschlecht")
-    lb_geburtsdatum = tk.Label(root, text="Geburtsdatum")
+    def page1(nutzer): # Benutzername und Passwort eingabe
+        print("Seite 1 ausführung")
+    def page2(nutzer):
+        print("Seite 2 ausführung")
+    def page3(nutzer):
+        print("Seite 3 ausführung")
+    
+    clearwdw()
+    # Labels
+    lb_1 = tk.Label(root)
+    lb_2 = tk.Label(root)
+    lb_3 = tk.Label(root)
+    lb_4 = tk.Label(root)
+    # Buttons
     bt_bestaetigen = tk.Button(root, text="Bestätigen", command="")
     bt_zurueck = tk.Button(root, text="Zurück", command=home)
-
-    # Einfügen von Elementen
-    tf_vorname.place(x=20, y=20)
-    tf_benutzername.place(x=20, y=50)
-    bt_zurueck.place(x=20, y=80)
-
+    # Textfelder
+    tf_feld1 = tk.Entry(root)
+    tf_feld2 = tk.Entry(root)
+    tf_feld3 = tk.Entry(root)
+    # Sonstige Elemente
+    # Hier noch Radiobutton und Combobox einfügen
 
 # Deklaration der Variablen
 nutzer = Nutzer()
