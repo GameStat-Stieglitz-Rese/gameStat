@@ -79,32 +79,29 @@ def home():
 def registrieren(nutzer):
     def page1(nutzer): # Benutzername und Passwort eingabe
         def pw_check(pw): # Prüfung auf Länge, Alpha- und Sonderzeichen, Zahlen und Länge des Passworts
-            def sondzeichen(pw): # Prüfung, ob Sonderzeichen vorhanden sind
+            def sz(pw): # Prüfung, ob Sonderzeichen vorhanden sind
                 for char in pw:
-                    if not char.isalpha():
+                    if not char.isalpha() and not char.isdigit(): # Ausschlussverfahren, kein Buchstabe aus Alphabet und Zahlen
                         return True
                 return False
-            def alphazeichen(pw): # Prüfung, ob Alphazeichen vorhanden sind
+            def al(pw): # Prüfung, ob Alphazeichen vorhanden sind
                 for char in pw:
                     if char.isalpha():
                         return True
                 return False
-            def nummern(pw): # Prüfung, ob Zahlen vorhanden sind
+            def nm(pw): # Prüfung, ob Zahlen vorhanden sind
                 for char in pw:
                     if char.isdigit():
                         return True
                 return False
-            def pwlaenge(pw): # Prüfung, ob Passwort mindestens 8 Zeichen lang ist
+            def pwl(pw): # Prüfung, ob Passwort mindestens 8 Zeichen lang ist
                 laenge = len(pw)
                 if laenge >= 8:
                     return True
-                return False
-            sz = sondzeichen(pw)
-            al = alphazeichen(pw)
-            nm = nummern(pw)
-            pwl = pwlaenge(pw)
+                else:
+                    return False
 
-            if sz == True and al == True and nm == True and pwl == True:
+            if sz(pw) == True and al(pw) == True and nm(pw) == True and pwl(pw) == True: # Prüfung, ob alle Bedingungen (Nummer, Sonderzeichen, 8 Zeichen) erfüllt sind
                 return True
             else:
                 return False
@@ -260,7 +257,9 @@ def registrieren(nutzer):
             if land == "" or sprache == "":
                 print("Eingabe fehlt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Land und Sprache ein!")
-            elif land != "" and sprache != "":
+            elif land != "" and sprache != "": # Wenn alles richtig eingegeben wurde
+                nutzer.land = land
+                nutzer.sprache = sprache
 #  SQL              +++ Hier SQL Befehl (Aufruf), der die erfassten Daten in die Datenbank einbindet und eine Rückmeldung über erfolg gibt.
 #  SQL              Wenn erfolgreich, dann zurück zur Anmeldeseite, wenn nicht erfolgreich, dann zurück zur Seite 1.
                 if 0 != 0: # "0" durch Variable ersetzen, die die Rückmeldung der Datenbank beinhaltet # Prüfung, ob Speicherung erfolgreich
