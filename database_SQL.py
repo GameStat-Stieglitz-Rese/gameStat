@@ -7,7 +7,7 @@ def create_connection():
             host="localhost",  # oder Server-IP
             user="dein_user",
             password="dein_passwort",
-            database="gamestat_db",
+            database="gamestat version2",
             port=3306  # Standard-Port für MariaDB
         )
         return connection
