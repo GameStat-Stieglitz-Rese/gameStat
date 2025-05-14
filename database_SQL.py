@@ -15,10 +15,10 @@ class Testobjekt:
 def create_connection():
     try:
         connection = mariadb.connect(
-            host="172.0.0.1",  # oder Server-IP
-            user="admin",
-            password="MaximMarc1324",
-            database="gamestat version2",
+            host="localhost",  # oder Server-IP
+            user="dein_user",
+            password="dein_passwort",
+            database="gamestat_db",
             port=3306  # Standard-Port für MariaDB
         )
         return connection
