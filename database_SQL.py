@@ -1,13 +1,24 @@
 import mariadb
 from mariadb import Error
 
+class Testobjekt:
+    def __init__(self):
+        self.nutzername = None
+        self.passwort = None
+        self.vorname = None
+        self.email = None
+        self.land = None
+        self.sprache = None
+        self.geschlecht = None
+        self.geburtsdatum = None
+
 def create_connection():
     try:
         connection = mariadb.connect(
-            host="localhost",  # oder Server-IP
-            user="dein_user",
-            password="dein_passwort",
-            database="gamestat_db",
+            host="172.0.0.1",  # oder Server-IP
+            user="admin",
+            password="MaximMarc1324",
+            database="gamestat version2",
             port=3306  # Standard-Port für MariaDB
         )
         return connection
@@ -44,3 +55,7 @@ def registrieren_ausfuehren(nutzer):
         
     finally:
         connection.close()
+
+nutzer = Testobjekt()
+rueckgabe = registrieren_ausfuehren(nutzer)
+print(rueckgabe)
