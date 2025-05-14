@@ -3,22 +3,22 @@ from mariadb import Error
 
 class Testobjekt:
     def __init__(self):
-        self.nutzername = None
-        self.passwort = None
-        self.vorname = None
-        self.email = None
-        self.land = None
-        self.sprache = None
-        self.geschlecht = None
-        self.geburtsdatum = None
+        self.benutzer = "maxim"
+        self.passwort = "1234"
+        self.vorname = "Maxim"
+        self.email = "maxim@gmail.com"
+        self.land = "Deutschland"
+        self.sprache = "deutsch"
+        self.geschlecht = "Männlich"
+        self.geburtsdatum = "1234"
 
 def create_connection():
     try:
         connection = mariadb.connect(
             host="localhost",  # oder Server-IP
-            user="dein_user",
-            password="dein_passwort",
-            database="gamestat_db",
+            user="MaximMarc",
+            password="MaximMarc1312",
+            database="gamestat_version2",
             port=3306  # Standard-Port für MariaDB
         )
         return connection
@@ -34,17 +34,17 @@ def registrieren_ausfuehren(nutzer):
     try:
         cursor = connection.cursor()
         cursor.execute("""
-            INSERT INTO users 
-            (username, password_hash, email, geburtsdatum, geschlecht, land, sprache)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO benutzer 
+        (Benutzername, Passwort, E_Mail, Geburtsdatum, Geschlecht_ID, Land_ID, Sprache)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (
-            nutzer.nutzername,
-            #generate_password_hash(nutzer.passwort),
-            nutzer.email,
-            nutzer.geburtsdatum,
-            nutzer.geschlecht,
-            nutzer.land,
-            nutzer.sprache
+        nutzer.benutzer,
+        nutzer.passwort,
+        nutzer.email,
+        nutzer.geburtsdatum,
+        nutzer.geschlecht,
+        nutzer.land,
+        nutzer.sprache
         ))
         connection.commit()
         return True
@@ -55,6 +55,41 @@ def registrieren_ausfuehren(nutzer):
         
     finally:
         connection.close()
+
+
+#################################
+
+def anmeldung_abrufen(nutzer):
+    connection = create_connection()
+    if not connection:
+        return False
+        
+    try:
+        cursor = connection.cursor()
+        cursor.execute("""
+        INSERT INTO benutzer 
+        (Benutzername, Passwort, E_Mail, Geburtsdatum, Geschlecht_ID, Land_ID, Sprache)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+        nutzer.benutzer,
+        nutzer.passwort,
+        nutzer.email,
+        nutzer.geburtsdatum,
+        nutzer.geschlecht,
+        nutzer.land,
+        nutzer.sprache
+        ))
+        connection.commit()
+        return True
+        
+    except mariadb.Error as e:
+        print(f"Registrierungsfehler: {e}")
+        return False
+        
+    finally:
+        connection.close()
+
+#########################################
 
 nutzer = Testobjekt()
 rueckgabe = registrieren_ausfuehren(nutzer)
