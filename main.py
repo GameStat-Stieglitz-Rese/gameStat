@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
-#import elemente # Hier sind die Elemente im Fenster (Klöpfe und co. gespeichert)
+import elemente # Hier sind die Elemente im Fenster (Klöpfe und co. gespeichert)
+#from elemente import HauptBedienung, HauptLabel
 from functools import partial
-import anmeldung # Testweise
+import anmeldung
 
-class Testobjekt_main:
+class Testobjekt_main: # Klasse fliegt nach Entwicklungsphase raus. Entfernen
     def __init__(self):
         self.benutzer = "maxim"
         self.passwort = "1234"
@@ -15,48 +16,6 @@ class Testobjekt_main:
         self.geschlecht = "Männlich"
         self.geburtsdatum = "1234"
 
-class HauptBedienung:
-    def __init__(self, root, nutzer):
-        # Buttons Hauptmenü
-        self.root = root
-        self.bn_uebersicht = ttk.Button(self.root, text="Übersicht", command=partial(uebersicht, nutzer))
-        self.bn_bewertungen = ttk.Button(self.root, text="Bewertungen", command=partial(bewertungen, nutzer))
-        self.bn_durchgespielt = ttk.Button(self.root, text="Durchgespielt", command=partial(durchgespielt, nutzer))
-        self.bn_empfohlen = ttk.Button(self.root, text="Empfohlene Spiele", command=partial(empfohlen, nutzer))
-        self.bn_spiel_hinzufg = ttk.Button(self.root, text="Spiel Hinzufügen", command=partial(spiel_hinzufg, nutzer))
-        self.bn_nutzer_verwaltung = ttk.Button(self.root, text="Benutzer verwalten", command=partial(nutzer_verwaltung, nutzer))
-        self.bn_abmeldung = tk.Button(self.root, text="<- Abmelden", fg="red", command=partial(abmelden, nutzer))
-        self.bn_return = ttk.Button(self.root, text="Hauptmenü", command=partial(main, nutzer))
-
-    def gen_hauptmenue(self, xwert, ywert, lwert, xadd, yadd): 
-        # Generierung des Hauptmenüs(Übergabe: X-Pos, Y-Pos, Länge, Abstand vertikal, Abstand horizontal)
-        self.bn_uebersicht.place(x=xwert, y=ywert, width=lwert)
-        ywert += yadd
-        self.bn_bewertungen.place(x=xwert, y=ywert, width=lwert)
-        ywert += yadd
-        self.bn_durchgespielt.place(x=xwert, y=ywert, width=lwert)
-        ywert += yadd
-        self.bn_empfohlen.place(x=xwert, y=ywert, width=lwert)
-        ywert += yadd
-        self.bn_spiel_hinzufg.place(x=xwert, y=ywert, width=lwert)
-        ywert += yadd
-        self.bn_nutzer_verwaltung.place(x=xwert, y=ywert, width=lwert)
-
-    def gen_abmelden(self): # Generierung des Abmeldebuttons (Übergabe: X-Pos, Y-Pos, Länge)
-        self.bn_abmeldung.place(x=50, y=750, width=200)
-
-    def gen_return(self):
-        self.bn_return.place(x=50, y=720, width=200)
-
-
-class HauptLabel:
-    def __init__(self, root):
-        self.root = root
-        self.lb_title = tk.Label(self.root, text="Ueberschrift", font=("Arial", 20))
-
-    def gen_title(self, name):
-        self.lb_title.config(text=name) # Ändern des Textes der Überschrift zu den übergebenen String
-        self.lb_title.place(x=50, y=10)
 
 def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
     for widget in root.winfo_children():
@@ -75,6 +34,9 @@ def durchgespielt(nutzer):
 
 def empfohlen(nutzer):
     print("Empfohlen geklickt")
+
+def spiel_bearbeiten(nutzer):
+    print("Spiel Bearbeiten geklickt")
 
 def spiel_hinzufg(nutzer):
     main_clearwdw()
@@ -181,7 +143,7 @@ def nutzer_verwaltung(nutzer):
     print("Nutzer verwalten geklickt")
 
 def abmelden(nutzer):
-    print("Abmelden gedrückt")
+    return
     
 def main(nutzer): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
@@ -189,18 +151,27 @@ def main(nutzer): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
-
+callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach betätigung eines Buttons (Übergabewert "uebersicht" ruft uebersicht auf)
+    "uebersicht": uebersicht,
+    "bewertungen": bewertungen,
+    "durchgespielt": durchgespielt,
+    "empfohlen": empfohlen,
+    "spiel_hinzufg": spiel_hinzufg,
+    "nutzer_verwaltung": nutzer_verwaltung,
+    "abmelden": abmelden,
+    "main": main,
+    "spiel_bearbeiten" : spiel_bearbeiten
+}
 
 nutzer, login_status = anmeldung.start()
 #nutzer = Testobjekt_main()
 
-print(login_status)
 if login_status == True:
     root = tk.Tk()
     root.geometry("1200x800")
     root.title("GameStat - Dein Spielemanager")
 
-    button = HauptBedienung(root, nutzer)
-    label = HauptLabel(root)
+    button = elemente.HauptBedienung(root, nutzer, callbacks) # Buttons werden aus elemente.py generiert.
+    label = elemente.HauptLabel(root) # Labels werden aus elemente.py generiert.
     main(nutzer)
     root.mainloop()

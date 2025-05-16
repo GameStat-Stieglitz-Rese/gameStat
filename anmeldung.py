@@ -26,8 +26,8 @@ def home(nutzer):
         nutzer.nutzername = tf_nutzername.get()
         nutzer.passwort = tf_nutzerpasswort.get()
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
-            if nutzer.nutzername == "test" and nutzer.passwort == "test":                                               # Testzweck, bitte löschen
-                messagebox.showinfo("Anmeldung", "Anmeldung erfolgreich!")                                              # Testzweck, bitte löschen
+            if nutzer.nutzername == "test" and nutzer.passwort == "test":                                               # Testzweck, bitte löschen Entfernen
+                messagebox.showinfo("Anmeldung", "Anmeldung erfolgreich!")                                              # Testzweck, bitte löschen Entfernen
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
                 root_login.destroy()
                 objektTestAnzeige.useranzeigen(nutzer)
