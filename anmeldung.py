@@ -6,26 +6,31 @@ import objektTestAnzeige
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
-        self.nutzername = None
-        self.passwort = None
-        self.vorname = None
-        self.email = None
-        self.land = None
-        self.sprache = None
-        self.geschlecht = None
-        self.geburtsdatum = None
+        self.nutzername = "Lester"#None
+        self.passwort = "1234"#None
+        self.vorname = "Lester"#None
+        self.email = "lester@tester.com"#None
+        self.land = "Lesterwald"#None
+        self.sprache = "Lestisch"#None
+        self.geschlecht = "Lestisch"#None
+        self.geburtsdatum = "ll"#None
 
 def clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
-    for widget in root.winfo_children():
+    for widget in root_login.winfo_children():
         widget.destroy()
 
-def home():
+def home(nutzer):
     clearwdw()
-    def bn_anmelden_check(nutzer):
+    def anmelden_check(nutzer):
+        global loggedin # Globale Variable als Rückmeldung, ob Login erfolgreich war
         nutzer.nutzername = tf_nutzername.get()
         nutzer.passwort = tf_nutzerpasswort.get()
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
-            objektTestAnzeige.useranzeigen(nutzer)
+            if nutzer.nutzername == "test" and nutzer.passwort == "test":                                               # Testzweck, bitte löschen
+                messagebox.showinfo("Anmeldung", "Anmeldung erfolgreich!")                                              # Testzweck, bitte löschen
+                loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
+                root_login.destroy()
+                objektTestAnzeige.useranzeigen(nutzer)
 #  SQL          +++ +++ +++ Hier Aufruf des SQL Befehls und deklaration rueckmeldung! (Prüfung Benutzerdaten) +++ +++ +++
 #            if rueckmeldung == True:
 #  SQL              +++ +++ +++ Hier Aufruf des SQL Befehls! (Abrufen vollständige Benutzerdaten) +++ +++ +++
@@ -34,19 +39,19 @@ def home():
             messagebox.showerror("Eingabefehler", "Bitte geben Sie Benutzernamen und Passwort ein.")
 
     # Deklaration Buttons Anmeldeseite
-    bn_anmelden = tk.Button(root, text="Anmelden", command=partial(bn_anmelden_check, nutzer))
-    bn_abbrechen = tk.Button(root, text="Abbruch", command=exit, width=19)
-    bn_registrieren = tk.Button(root, text="Registrieren", command=partial(registrieren, nutzer))
+    bn_anmelden = tk.Button(root_login, text="Anmelden", command=partial(anmelden_check, nutzer))
+    bn_abbrechen = tk.Button(root_login, text="Abbruch", command=exit, width=19)
+    bn_registrieren = tk.Button(root_login, text="Registrieren", command=partial(registrieren, nutzer))
 
     # Deklaration Textfelder Anmeldeseite
-    tf_nutzername = tk.Entry(root)
-    tf_nutzerpasswort = tk.Entry(root, show="*")
+    tf_nutzername = tk.Entry(root_login)
+    tf_nutzerpasswort = tk.Entry(root_login, show="*")
 
     # Deklaration Labels Anmeldeseite
-    lb_info = tk.Label(root, text="Bitte Benutzerdaten eingeben", bg="yellow")
-    lb_nutzername = tk.Label(root, text="Benutzername:")
-    lb_nutzerpasswort = tk.Label(root, text="Passwort:")
-    lb_rueckmeldung = tk.Label(root, text="")
+    lb_info = tk.Label(root_login, text="Bitte Benutzerdaten eingeben", bg="yellow")
+    lb_nutzername = tk.Label(root_login, text="Benutzername:")
+    lb_nutzerpasswort = tk.Label(root_login, text="Passwort:")
+    lb_rueckmeldung = tk.Label(root_login, text="")
 
     # Startwerte / Standardwerte für die Anordnung von Objekten
     a = 60 # Startwert Objektplatzierung horizontal
@@ -75,6 +80,9 @@ def home():
     bn_abbrechen.place(x=a, y=b)
     b += abstand
     lb_rueckmeldung.place(x=a, y=b)
+
+    if loggedin == True:
+        return True
 
 def registrieren(nutzer):
     def page1(nutzer): # Benutzername und Passwort eingabe
@@ -138,19 +146,19 @@ def registrieren(nutzer):
         clearwdw()
         print("Seite 1 ausführung")
         # Deklaration Labels Seite 1
-        lb_1 = tk.Label(root, text="Bitte füllen Sie alle Felder aus", bg="yellow")
-        lb_2 = tk.Label(root, text="Benutzername")
-        lb_3 = tk.Label(root, text="Passwort")
-        lb_4 = tk.Label(root, text="Passwort bestätigen")
+        lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus", bg="yellow")
+        lb_2 = tk.Label(root_login, text="Benutzername")
+        lb_3 = tk.Label(root_login, text="Passwort")
+        lb_4 = tk.Label(root_login, text="Passwort bestätigen")
 
         # Deklaration Button Seite 1
-        bn_zurueck = tk.Button(root, text="Zurück", command=home)
-        bn_weiter = tk.Button(root, text="Weiter", command=partial(checkp1, nutzer))
+        bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
+        bn_weiter = tk.Button(root_login, text="Weiter", command=partial(checkp1, nutzer))
 
         # Deklaration Textfelder Seite 1
-        tf_feld1 = tk.Entry(root)
-        tf_feld2 = tk.Entry(root, show="*")
-        tf_feld3 = tk.Entry(root, show="*")
+        tf_feld1 = tk.Entry(root_login)
+        tf_feld2 = tk.Entry(root_login, show="*")
+        tf_feld3 = tk.Entry(root_login, show="*")
         
         # Definition von Abständen (einheitlich)
         a = 60
@@ -208,22 +216,22 @@ def registrieren(nutzer):
         print(f"Seite 2 ausführung")
         clearwdw()
         # Deklaration Labels Seite 2
-        lb_1 = tk.Label(root, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
-        lb_2 = tk.Label(root, text="E-Mail Adresse")
-        lb_4 = tk.Label(root, text="Geschlecht")
-        lb_3 = tk.Label(root, text="Geburtsdatum")
+        lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
+        lb_2 = tk.Label(root_login, text="E-Mail Adresse")
+        lb_4 = tk.Label(root_login, text="Geschlecht")
+        lb_3 = tk.Label(root_login, text="Geburtsdatum")
 
         # Deklaration Buttons Seite 2
-        bn_zurueck = tk.Button(root, text="Zurück", command=home)
-        bn_weiter = tk.Button(root, text="Weiter", command=partial(checkp2, nutzer))
+        bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
+        bn_weiter = tk.Button(root_login, text="Weiter", command=partial(checkp2, nutzer))
 
         # Deklaration Textfelder Seite 2
-        tf_feld1 = tk.Entry(root)
-        tf_feld2 = tk.Entry(root)
+        tf_feld1 = tk.Entry(root_login)
+        tf_feld2 = tk.Entry(root_login)
 
         # Deklaration weitere Elemente Seite 2
         geschlecht = ["Männlich", "Weiblich"]
-        cb_box1 = ttk.Combobox(root, values=geschlecht, state="readonly")
+        cb_box1 = ttk.Combobox(root_login, values=geschlecht, state="readonly")
         
         # Definition von Abständen (einheitlich)
         a = 60
@@ -249,6 +257,7 @@ def registrieren(nutzer):
         a += 80
         bn_weiter.place(x=a, y=b)
 
+
     def page3(nutzer): # Eingabe Land und Sprache
         def checkp3(nutzer):
             print("Prüfung Eingabe Seite 3")
@@ -272,19 +281,19 @@ def registrieren(nutzer):
         clearwdw()
 
         # Deklaration Labels Seite 3
-        lb_1 = tk.Label(root, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
-        lb_2 = tk.Label(root, text="Land")
-        lb_3 = tk.Label(root, text="Sprache")
+        lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
+        lb_2 = tk.Label(root_login, text="Land")
+        lb_3 = tk.Label(root_login, text="Sprache")
 
         # Deklaration Buttons Seite 3
-        bn_zurueck = tk.Button(root, text="Zurück", command=home)
-        bn_weiter = tk.Button(root, text="Fertig", command=partial(checkp3, nutzer))
+        bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
+        bn_weiter = tk.Button(root_login, text="Fertig", command=partial(checkp3, nutzer))
 
         # Deklaration weiterer Elemente Seite 3
         land = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
         sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
-        cb_box1 = ttk.Combobox(root, values=land, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
-        cb_box2 = ttk.Combobox(root, value=sprache, state="readonly")
+        cb_box1 = ttk.Combobox(root_login, values=land, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
+        cb_box2 = ttk.Combobox(root_login, value=sprache, state="readonly")
         
         # Definition von Abständen (einheitlich)
         a = 60
@@ -312,12 +321,16 @@ def registrieren(nutzer):
     #page3(nutzer)
 
 
-# Deklaration der Variablen
+root_login = tk.Tk()
+root_login.title("GameStat Launcher")
+root_login.geometry("280x330")
 nutzer = Nutzer()
 
 # Erzeugen des Fensters
-root = tk.Tk()
-root.title("GameStat Launcher")
-root.geometry("280x330")
-home() # Starten des Anmeldebildschirms (Startwert)
-root.mainloop()
+def start():
+    global loggedin
+    loggedin = False # Globale Variable als Rückmeldung, ob Login erfolgreich war
+    nutzer = Nutzer()
+    home(nutzer) # Starten des Anmeldebildschirms (Startwert)
+    root_login.mainloop()
+    return nutzer, loggedin

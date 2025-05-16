@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 #import elemente # Hier sind die Elemente im Fenster (Klöpfe und co. gespeichert)
 from functools import partial
-#import anmeldung # Testweise
+import anmeldung # Testweise
 
 class Testobjekt_main:
     def __init__(self):
@@ -16,16 +16,17 @@ class Testobjekt_main:
         self.geburtsdatum = "1234"
 
 class HauptBedienung:
-    def __init__(self, nutzer):
+    def __init__(self, root, nutzer):
         # Buttons Hauptmenü
-        self.bn_uebersicht = ttk.Button(root, text="Übersicht", command=partial(uebersicht, nutzer))
-        self.bn_bewertungen = ttk.Button(root, text="Bewertungen", command=partial(bewertungen, nutzer))
-        self.bn_durchgespielt = ttk.Button(root, text="Durchgespielt", command=partial(durchgespielt, nutzer))
-        self.bn_empfohlen = ttk.Button(root, text="Empfohlene Spiele", command=partial(empfohlen, nutzer))
-        self.bn_spiel_hinzufg = ttk.Button(root, text="Spiel Hinzufügen", command=partial(spiel_hinzufg, nutzer))
-        self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(nutzer_verwaltung, nutzer))
-        self.bn_abmeldung = tk.Button(root, text="<- Abmelden", fg="red", command=partial(abmelden, nutzer))
-        self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(main, nutzer))
+        self.root = root
+        self.bn_uebersicht = ttk.Button(self.root, text="Übersicht", command=partial(uebersicht, nutzer))
+        self.bn_bewertungen = ttk.Button(self.root, text="Bewertungen", command=partial(bewertungen, nutzer))
+        self.bn_durchgespielt = ttk.Button(self.root, text="Durchgespielt", command=partial(durchgespielt, nutzer))
+        self.bn_empfohlen = ttk.Button(self.root, text="Empfohlene Spiele", command=partial(empfohlen, nutzer))
+        self.bn_spiel_hinzufg = ttk.Button(self.root, text="Spiel Hinzufügen", command=partial(spiel_hinzufg, nutzer))
+        self.bn_nutzer_verwaltung = ttk.Button(self.root, text="Benutzer verwalten", command=partial(nutzer_verwaltung, nutzer))
+        self.bn_abmeldung = tk.Button(self.root, text="<- Abmelden", fg="red", command=partial(abmelden, nutzer))
+        self.bn_return = ttk.Button(self.root, text="Hauptmenü", command=partial(main, nutzer))
 
     def gen_hauptmenue(self, xwert, ywert, lwert, xadd, yadd): 
         # Generierung des Hauptmenüs(Übergabe: X-Pos, Y-Pos, Länge, Abstand vertikal, Abstand horizontal)
@@ -49,8 +50,9 @@ class HauptBedienung:
 
 
 class HauptLabel:
-    def __init__(self):
-        self.lb_title = tk.Label(root, text="Ueberschrift", font=("Arial", 20))
+    def __init__(self, root):
+        self.root = root
+        self.lb_title = tk.Label(self.root, text="Ueberschrift", font=("Arial", 20))
 
     def gen_title(self, name):
         self.lb_title.config(text=name) # Ändern des Textes der Überschrift zu den übergebenen String
@@ -187,13 +189,18 @@ def main(nutzer): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
-root = tk.Tk()
-root.geometry("1200x800")
-root.title("GameStat - Dein Spielemanager")
 
-nutzer = Testobjekt_main() # Testnutzer nur während der Entwicklung
-button = HauptBedienung(nutzer)
-label = HauptLabel()
 
-main(nutzer)
-root.mainloop()
+nutzer, login_status = anmeldung.start()
+#nutzer = Testobjekt_main()
+
+print(login_status)
+if login_status == True:
+    root = tk.Tk()
+    root.geometry("1200x800")
+    root.title("GameStat - Dein Spielemanager")
+
+    button = HauptBedienung(root, nutzer)
+    label = HauptLabel(root)
+    main(nutzer)
+    root.mainloop()
