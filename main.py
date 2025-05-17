@@ -5,6 +5,7 @@ import elemente # Hier sind die Elemente im Fenster (Klöpfe und co. gespeichert
 #from elemente import HauptBedienung, HauptLabel
 from functools import partial
 import anmeldung
+from PIL import Image, ImageTk
 
 class Testobjekt_main: # Klasse fliegt nach Entwicklungsphase raus. Entfernen
     def __init__(self):
@@ -102,7 +103,7 @@ def spiel_bearbeiten(nutzer):
             messagebox.showinfo("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofer nicht vorhanden, bitte anlegen.")
     main_clearwdw()
     button.gen_return()
-    label.gen_title("Spiel Hinzufügen")
+    label.gen_title("Spiel bearbeiten")
     xwert = 500
     ywert = 90
     xadd = 150
@@ -131,7 +132,7 @@ def spiel_hinzufg(nutzer):
     
     main_clearwdw()
     button.gen_return()
-    label.gen_title("Spiel Hinzufügen")
+    label.gen_title("Spiel hinzufügen")
     xwert = 500
     ywert = 90
     xadd = 150
@@ -208,6 +209,7 @@ def abmelden(nutzer):
 def main(nutzer): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
     button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
+    img_logo.place(x=100, y=100, relwidth=1, relheight=1)
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
@@ -231,15 +233,29 @@ nutzer, login_status = anmeldung.bypass()
 #login_status = True
 
 if login_status == True:
+    # Erzeugen des Fensters
     root = tk.Tk()
     root.geometry("1200x800")
     root.title("GameStat - Dein Spielmanager")
-    root.tk.call("source", "themes/forest-light.tcl")
 
+    # Einstellung des Aussehens der Benutzeroberfläche
+    root.tk.call("source", "themes/forest-light.tcl")
     style = ttk.Style()
     style.theme_use("forest-light")
     style.configure("Accent.TButton", foreground="white", background="#007BFF")
     style.map("Accent.TButton", background=[("active", "#0056b3")], foreground=[("disabled", "gray")])
+
+    # Deklaration der Bilder
+    hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
+    hint_bild = ImageTk.PhotoImage(hint_bild)
+    new_logo = Image.open("images/logo.png") # Deklaration des Programmlogos
+    skal_logo = new_logo.resize((500, 500))
+    img1_logo = ImageTk.PhotoImage(skal_logo)
+    img_logo = tk.Label(root, image=img1_logo)
+
+    # hb_canvas = tk.Canvas(root, width=1200, height=800)
+    # hb_canvas.pack(fill="both", expand=True)
+    # hb_canvas.create_image(0, 0, image=hint_bild, anchor="nw")
 
     button = elemente.HauptBedienung(root, nutzer, callbacks) # Buttons werden aus elemente.py generiert.
     label = elemente.HauptLabel(root) # Labels werden aus elemente.py generiert.
