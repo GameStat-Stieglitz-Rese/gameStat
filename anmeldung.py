@@ -334,3 +334,9 @@ def start():
     home(nutzer) # Starten des Anmeldebildschirms (Startwert)
     root_login.mainloop()
     return nutzer, loggedin
+
+def bypass():
+    loggedin = True
+    nutzer = Nutzer()
+    root_login.mainloop()
+    return nutzer, loggedin

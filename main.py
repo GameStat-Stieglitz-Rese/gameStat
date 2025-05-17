@@ -43,11 +43,12 @@ def spiel_hinzufg(nutzer):
     button.gen_return()
     label.gen_title("Spiel Hinzufügen")
     def gen_gui_oberflaeche():
-        xwert = 230
+        xwert = 500
         ywert = 90
         xadd = 150
         yadd = 20
-
+        
+        # Textfelder und Comboboxen
         lb_spielname.place(x=xwert, y=ywert)
         ywert += yadd
         tf_spielname.place(x=xwert, y=ywert)
@@ -83,20 +84,23 @@ def spiel_hinzufg(nutzer):
         tf_startdatum.place(x=xwert, y=ywert)
         ywert += yadd * 2
 
+        # Radiobuttons
+        xwert -= 30
         lb_durchgespielt.place(x=xwert, y=ywert)
         ywert += yadd
         rb_dg_ja.place(x=xwert, y=ywert)
-        ywert += yadd
+        ywert += yadd + 5
         rb_dg_nein.place(x=xwert, y=ywert)
         ywert -= yadd * 2
+        ywert -= 5
         xwert += xadd
 
         lb_empfohlen.place(x=xwert, y=ywert)
         ywert += yadd
         rb_empf_ja.place(x=xwert, y=ywert)
-        ywert += yadd
+        ywert += yadd + 5
         rb_empf_nein.place(x=xwert, y=ywert)
-        ywert += yadd * 2
+        #ywert += yadd * 2 - 5
 
     def check():
         dg = dg_wahl.get() # 1=Ja, 0=Nein
@@ -129,13 +133,15 @@ def spiel_hinzufg(nutzer):
     dg_wahl = tk.IntVar(value=2)
     rb_dg_ja = ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1)
     rb_dg_nein = ttk.Radiobutton(root, text="Nein", variable=dg_wahl, value=0)
+    rb_dg_nicht_angef = ttk.Radiobutton(root, text="Nicht Angefangen", variable=dg_wahl, value=2)
 
     empf_wahl = tk.IntVar(value=2)
     rb_empf_ja = ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1)
     rb_empf_nein = ttk.Radiobutton(root, text="Nein", variable=empf_wahl, value=0)
+    rb_dg_keine_ang = ttk.Radiobutton(root, text="Keine Angabe", variable=dg_wahl, value=2)
 
     # Buttons
-    bn_weiter = ttk.Button(root, text="Weiter", command=check).place(x=500, y=500)
+    bn_weiter = ttk.Button(root, text="Weiter", command=check).place(x=500, y=700, width=200) # Button wird hier sofort platziert.
 
     gen_gui_oberflaeche()
 
@@ -147,7 +153,7 @@ def abmelden(nutzer):
     
 def main(nutzer): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
-    button.gen_hauptmenue(50, 60, 200, 0, 25) # Übergabe x,y,l
+    button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
@@ -163,13 +169,18 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach betätigung eines B
     "spiel_bearbeiten" : spiel_bearbeiten
 }
 
-nutzer, login_status = anmeldung.start()
+#nutzer, login_status = anmeldung.start()
+nutzer, login_status = anmeldung.bypass()
 #nutzer = Testobjekt_main()
+#login_status = True
 
 if login_status == True:
     root = tk.Tk()
+    style = ttk.Style()
+    root.tk.call("source", "themes/forest-light.tcl")
     root.geometry("1200x800")
-    root.title("GameStat - Dein Spielemanager")
+    root.title("GameStat - Dein Spielmanager")
+    style.theme_use("forest-light")
 
     button = elemente.HauptBedienung(root, nutzer, callbacks) # Buttons werden aus elemente.py generiert.
     label = elemente.HauptLabel(root) # Labels werden aus elemente.py generiert.

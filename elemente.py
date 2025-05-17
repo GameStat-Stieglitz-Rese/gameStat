@@ -14,7 +14,7 @@ class HauptBedienung:
         self.bn_empfohlen = ttk.Button(root, text="Empfohlen", command=partial(callbacks["empfohlen"], nutzer))
         self.bn_spiel_hinzufg = ttk.Button(root, text="Spiel hinzufügen", command=partial(callbacks["spiel_hinzufg"], nutzer))
         self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
-        self.bn_abmeldung = tk.Button(root, text="<- Abmelden", fg="red", command=partial(callbacks["abmelden"], nutzer))
+        self.bn_abmeldung = ttk.Button(root, text="<- Abmelden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
         self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"], nutzer))
         self.bn_spiel_bearbeiten = ttk.Button(root, text="Spiel bearbeiten", command=partial(callbacks["spiel_bearbeiten"], nutzer))
 
@@ -35,10 +35,10 @@ class HauptBedienung:
         self.bn_nutzer_verwaltung.place(x=xwert, y=ywert, width=lwert)
 
     def gen_abmelden(self): # Generierung des Abmeldebuttons (Übergabe: X-Pos, Y-Pos, Länge)
-        self.bn_abmeldung.place(x=50, y=750, width=200)
+        self.bn_abmeldung.place(x=50, y=70, width=200)
 
     def gen_return(self):
-        self.bn_return.place(x=50, y=720, width=200)
+        self.bn_return.place(x=50, y=110, width=200)
 
 
 # Diese Klasse generiert ein Obkejt, in dem wichtige Labels gespeichert sind und direkt dank der Funktion generiert werden können
