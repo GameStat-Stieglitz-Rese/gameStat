@@ -49,3 +49,11 @@ class HauptLabel:
     def gen_title(self, name):
         self.lb_title.config(text=name) # Ändern des Textes der Überschrift zu den übergebenen String
         self.lb_title.place(x=50, y=10)
+
+
+class Daten:
+    def __init__(self):
+        self.spiele = ["Testspiel 1", "Testspiel 2", "Testspiel 3"]
+        self.kategorien = ["Testkategorie 1", "Testkategorie 2", "Testkategorie 3"]
+        self.plattform = ["Testplattform 1", "Testplattform 2", "Testplattform 3"]
+        self.user_spiele = [["GTA5", "PC"], ["Minecraft", "PC"]]
