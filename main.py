@@ -5,6 +5,7 @@ import elemente # Hier sind die Elemente im Fenster (Knöpfe und co. gespeichert
 from functools import partial
 import anmeldung
 from PIL import Image, ImageTk
+import z_Datenuebertragung_SQL
 
 class Testobjekt_main: # Klasse fliegt nach Entwicklungsphase raus. Entfernen
     def __init__(self):
@@ -45,7 +46,8 @@ def spiel_bearbeiten(nutzer):
             esp = tf_startdatum.get()
             # dg_wahl und empf_wahl werden direkt abgerufen.
 
-            if checkvalue.intager(lvl, "Level-Fenster") == False:
+            # Prüfung, ob die Angaben aus Spiel bearbeiten gültig sind
+            if checkvalue.intager(lvl, "Level") == False:
                 print("Fehler Benutzereingabe")
             elif checkvalue.intager(spz, "Spielzeit") == False:
                 print("Fehler Benutzereingabe")
@@ -53,14 +55,41 @@ def spiel_bearbeiten(nutzer):
                 print("Fehler Benutzereingabe")
             elif checkvalue.datum(esp, "Startdatum") == False:
                 print("Fehler Benutzereingabe")
+            elif dg_wahl == "PY_VAR2" or empf_wahl == "PY_VAR3":
+                messagebox.showerror("Eingabefehler", "Bitte wählen Sie auch aus, ob Sie bereits angefangen und / oder durchgespielt haben.")
             else:
                 print("Eingaben korrekt.")
 
+                print(dg_wahl, empf_wahl)
+
+                # Konvertierung und speicherung in Objekt
+                spdaten.level = int(lvl)
+                spdaten.spielzeit = int(lvl)
+                spdaten.bewertung = int(bwt)
+                spdaten.startdatum = esp
+                spdaten.durchgespielt = dg_wahl
+                spdaten.empfohlen = empf_wahl
+
+                # Übergabe per SQL Befehl an die Datenbank
+                #rw2 = z_Datenuebertragung_SQL.spiel_bearbeiten_speichern(spdaten)
+                rw2 = True # ENTFERNEN! und Zeite darüber "Einkommentieren"
+                if rw2 == True:
+                    messagebox.showinfo("Speicherung", "Die Speicherung war erfolgreich! Sie gelangen nun in das Hauptmenü.")
+                    main()
+                else:
+                    messagebox.showerror("Speicherung", "Leider gab es ein Problem mit der Speicherung der Spieldaten. Bitte versuchen Sie es erneut.")
+                    check()
+
         game = cb_spielname.get()
-        
         if game != "":
-            print(game)
             main_clearwdw()
+            spid = game[0]
+            #spdaten, rw1 = z_Datenuebertragung_SQL.spieldaten_abrufen(spid)
+            rw1 = True # ENTFERNEN!!
+            if rw1 == False:
+                messagebox.showerror("MariaDB Fehler", "Fehler bei dem Abrufen von Daten. Sie gelangen nun in das Hauptmenü.")
+                main()
+
             button.gen_abmelden()
             button.gen_return()
 
@@ -110,33 +139,40 @@ def spiel_bearbeiten(nutzer):
 
             tk.Label(root, text="Empfehlung?").place(x=xwert, y=ywert)
             ywert += yadd
-            empf_wahl1 = tk.IntVar(value=0)
-            rb_empf_ja = ttk.Radiobutton(root, text="Ja", variable=empf_wahl1, value=1).place(x=xwert, y=ywert)
+            empf_wahl = tk.IntVar(value=0)
+            rb_empf_ja = ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
             ywert += yadd + 5
-            rb_empf_nein = ttk.Radiobutton(root, text="Nein", variable=empf_wahl1, value=2).place(x=xwert, y=ywert)
+            rb_empf_nein = ttk.Radiobutton(root, text="Nein", variable=empf_wahl, value=2).place(x=xwert, y=ywert)
             ywert += yadd + 5
-            rb_dg_keine_ang = ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl1, value=3).place(x=xwert, y=ywert)
+            rb_dg_keine_ang = ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
 
-            bn_weiter = ttk.Button(root, text="Weiter", command=check).place(x=500, y=700, width=200)
+            bn_weiter = ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
 
         else:
-            messagebox.showinfo("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofer nicht vorhanden, bitte anlegen.")
+            messagebox.showinfo("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
 
     main_clearwdw()
-    button.gen_return()
-    label.gen_title("Spiel bearbeiten")
-    xwert = 500
-    ywert = 90
-    xadd = 150
-    yadd = 20
+    #spielliste, rw = z_Datenuebertragung_SQL.spiele_abrufen(spdaten)
+    rw = True # ENTFERNEN
+    spielliste = ["1, GTA5, 12", "2, Minecraft, 55"]
+    if rw == False:
+        messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
+        main()
+    else:
+        button.gen_return()
+        label.gen_title("Spiel bearbeiten")
+        xwert = 500
+        ywert = 90
+        xadd = 150
+        yadd = 20
 
-    tk.Label(root, text="Spielname").place(x=xwert, y=ywert)
-    ywert += yadd
-    cb_spielname = ttk.Combobox(root, values=daten.user_spiele, state="readonly")#.place(x=xwert, y=ywert)
-    cb_spielname.place(x=xwert, y=ywert)
-    ywert += yadd * 2
+        tk.Label(root, text="Spielname").place(x=xwert, y=ywert)
+        ywert += yadd
+        cb_spielname = ttk.Combobox(root, values=spielliste, state="readonly")
+        cb_spielname.place(x=xwert, y=ywert)
+        ywert += yadd * 2
 
-    bn_weiter = ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
+        ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
 
 
 def spiel_hinzufg(nutzer):
@@ -147,9 +183,6 @@ def spiel_hinzufg(nutzer):
 
         print(empf)
         print(dg)
-    
-    def fehler_mitteilung():
-        messagebox.showwarning("Bitte füllen Sie die mit * Markierten Felder vollständig aus.")
     
     main_clearwdw()
     button.gen_return()
@@ -227,7 +260,7 @@ def nutzer_verwaltung(nutzer):
 def abmelden(nutzer):
     return
     
-def main(nutzer): # Das "eigentliche" Programm, bzw. Ablauf des Programms
+def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
     button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
     img_logo.place(x=100, y=100, relwidth=1, relheight=1)
@@ -248,6 +281,8 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach betätigung eines B
 
 daten = elemente.Daten()
 checkvalue = elemente.Check()
+spdaten = elemente.Spieldaten()
+nutzer = anmeldung.Nutzer() # ENTFERNEN!!, ist nur da, weil ich faul bin.
 
 #nutzer, login_status = anmeldung.start()
 nutzer, login_status = anmeldung.bypass()
@@ -282,5 +317,5 @@ if login_status == True:
 
     button = elemente.HauptBedienung(root, nutzer, callbacks) # Buttons werden aus elemente.py generiert.
     label = elemente.HauptLabel(root) # Labels werden aus elemente.py generiert.
-    main(nutzer)
+    main()
     root.mainloop()

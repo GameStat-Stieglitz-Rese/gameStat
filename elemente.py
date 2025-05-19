@@ -5,6 +5,21 @@ from functools import partial
 from datetime import datetime
 
 
+class Spieldaten:
+    def __init__(self):
+        self.eintragid = "" # Wird von der Datenbank vergeben
+        self.spielid = ""
+        self.benutzerid = ""
+        self.plattformid = ""
+        self.kategorieid = ""
+        self.level = ""
+        self.spielzeit = ""
+        self.bewertung = ""
+        self.startdatum = ""
+        self.durchgespielt = "" # 1 = Ja, 2 = Nein, 3 = Keine Angabe
+        self.empfohlen = "" # 1 = Ja, 2 = Nein, 3 = Keine Angabe
+
+
 # Diese Klasse generiert die Hauptbedienelemente samt zugehörigen Funktionen zur Generierung vor Ort.
 class HauptBedienung:
     def __init__(self, root, nutzer, callbacks):
@@ -17,7 +32,7 @@ class HauptBedienung:
         self.bn_spiel_hinzufg = ttk.Button(root, text="Spiel hinzufügen", command=partial(callbacks["spiel_hinzufg"], nutzer))
         self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
         self.bn_abmeldung = ttk.Button(root, text="<- Abmelden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
-        self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"], nutzer))
+        self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"]))
         self.bn_spiel_bearbeiten = ttk.Button(root, text="Spiel bearbeiten", command=partial(callbacks["spiel_bearbeiten"], nutzer))
 
     def gen_hauptmenue(self, xwert, ywert, lwert, xadd, yadd): 
@@ -67,8 +82,8 @@ class Check:
         self.here = None
 
     def intager(self, wert, name): # Prüft ob Eingabe ein Intager ist
-        if isinstance(wert, int) == False:
-            messagebox.showinfo("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Zahlen ein.")
+        if wert.isdigit() == False:
+            messagebox.showerror("Falsche Eingabe", f"Bitte geben sie in dem Feld {name} nur Zahlen ein.")
             return False
         else:
             return True
@@ -76,16 +91,20 @@ class Check:
     def string(self, wert, name): # Prüft ob die Eingabe ein String ist
         for a in wert:
             if a.isalpha() == False:
-                messagebox.showinfo("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Buchstaben ein.")
+                messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Buchstaben ein.")
                 return False
         return True
     
     def rang(self, wert, startrange, lastrange, name): # Prüft, ob der angegebene Zahlenbereich eingehalten wurde
-        wert = int(wert)
-        if wert >= startrange and wert <= lastrange:
-            return True
+        if wert.isdigit():    
+            wert = int(wert)
+            if wert >= startrange and wert <= lastrange:
+                return True
+            else:
+                messagebox.showerror("Ungültiger Bereich", f"Bitte geben Sie in dem Feld {name} einen Wert zwischen {startrange} und {lastrange}")
+                return False
         else:
-            messagebox.showinfo("Falsche eingabe", f"Bitte geben Sie in dem Feld {name} einen Wert zwischen {startrange} und {lastrange}")
+            messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} eine Zahl ein.")
             return False
         
     def datum(self, datum_str, name):
@@ -93,5 +112,5 @@ class Check:
             datetime.strptime(datum_str, "%Y-%m-%d")
             return True
         except ValueError:
-            messagebox.showinfo("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
+            messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
             return False
