@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import elemente # Hier sind die Elemente im Fenster (Klöpfe und co. gespeichert)
-#from elemente import HauptBedienung, HauptLabel
+import elemente # Hier sind die Elemente im Fenster (Knöpfe und co. gespeichert)
 from functools import partial
 import anmeldung
 from PIL import Image, ImageTk
@@ -24,23 +23,38 @@ def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
         widget.place_forget()
     button.gen_abmelden()
 
-def uebersicht(nutzer):
+def uebersicht(nutzer): # Zeigt eine Tabelle mit allen Spielständen / Games an
     print("Übersicht geklickt")
 
-def bewertungen(nutzer):
+def bewertungen(nutzer): # Zeigt eine Tabelle mit allen Spielen mit aufsteigender Bewertung an
     print("Bewertungen geklickt")
     label.gen_title("Bewertungen")
 
-def durchgespielt(nutzer):
+def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spielen an
     print("Durchgespielt geklickt")
 
-def empfohlen(nutzer):
+def empfohlen(nutzer): # Zeigt eine Tabelle mit allen empfohlenen Games an
     print("Empfohlen geklickt")
 
 def spiel_bearbeiten(nutzer):
-    def check():
-        def aenderung_game(): # Speicherung neuer Eingaben
-            print("123")
+    def aendern(): # Zeigt nach der Eingabe eines Spiels die Oberfläche zur änderung der Daten an
+        def check(): # Speicherung neuer Eingaben (Weiter Button)
+            lvl = tf_level.get()
+            spz = tf_spielzeit.get()
+            bwt = tf_bewertung.get()
+            esp = tf_startdatum.get()
+            # dg_wahl und empf_wahl werden direkt abgerufen.
+
+            if checkvalue.intager(lvl, "Level-Fenster") == False:
+                print("Fehler Benutzereingabe")
+            elif checkvalue.intager(spz, "Spielzeit") == False:
+                print("Fehler Benutzereingabe")
+            elif checkvalue.rang(bwt, 1, 10, "Bewertung") == False:
+                print("Fehler Benutzereingabe")
+            elif checkvalue.datum(esp, "Startdatum") == False:
+                print("Fehler Benutzereingabe")
+            else:
+                print("Eingaben korrekt.")
 
         game = cb_spielname.get()
         
@@ -55,24 +69,30 @@ def spiel_bearbeiten(nutzer):
             xadd = 150
             yadd = 20
 
+            label.gen_title(f"Bearbeiten von {game}")
+
             tk.Label(root, text="Level").place(x=xwert, y=ywert)
             ywert += yadd
-            tf_level = ttk.Entry(root).place(x=xwert, y=ywert)
+            tf_level = ttk.Entry(root)
+            tf_level.place(x=xwert, y=ywert)
             ywert += yadd * 2
 
             tk.Label(root, text="Spielzeit (in Std.)").place(x=xwert, y=ywert)
             ywert += yadd
-            tf_spielzeit = ttk.Entry(root).place(x=xwert, y=ywert)
+            tf_spielzeit = ttk.Entry(root)
+            tf_spielzeit.place(x=xwert, y=ywert)
             ywert += yadd * 2
             
             tk.Label(root, text="Eigenbewertung (1-10)").place(x=xwert, y=ywert)
             ywert += yadd
-            ttk.Entry(root).place(x=xwert, y=ywert)
+            tf_bewertung = ttk.Entry(root)
+            tf_bewertung.place(x=xwert, y=ywert)
             ywert += yadd * 2
             
             tk.Label(root, text="Erster Spieltag").place(x=xwert, y=ywert)
             ywert += yadd
-            tf_startdatum = ttk.Entry(root).place(x=xwert, y=ywert)
+            tf_startdatum = ttk.Entry(root)
+            tf_startdatum.place(x=xwert, y=ywert)
             ywert += yadd * 3
 
             xwert -= 30
@@ -101,6 +121,7 @@ def spiel_bearbeiten(nutzer):
 
         else:
             messagebox.showinfo("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofer nicht vorhanden, bitte anlegen.")
+
     main_clearwdw()
     button.gen_return()
     label.gen_title("Spiel bearbeiten")
@@ -115,7 +136,7 @@ def spiel_bearbeiten(nutzer):
     cb_spielname.place(x=xwert, y=ywert)
     ywert += yadd * 2
 
-    bn_weiter = ttk.Button(root, text="Weiter", command=check).place(x=500, y=700, width=200)
+    bn_weiter = ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
 
 
 def spiel_hinzufg(nutzer):
@@ -226,6 +247,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach betätigung eines B
 }
 
 daten = elemente.Daten()
+checkvalue = elemente.Check()
 
 #nutzer, login_status = anmeldung.start()
 nutzer, login_status = anmeldung.bypass()
@@ -239,9 +261,10 @@ if login_status == True:
     root.title("GameStat - Dein Spielmanager")
 
     # Einstellung des Aussehens der Benutzeroberfläche
-    root.tk.call("source", "themes/forest-light.tcl")
+    root.tk.call("source", "themes/azure/azure.tcl")
+    root.tk.call("set_theme", "light")
     style = ttk.Style()
-    style.theme_use("forest-light")
+    style.theme_use("azure-light")
     style.configure("Accent.TButton", foreground="white", background="#007BFF")
     style.map("Accent.TButton", background=[("active", "#0056b3")], foreground=[("disabled", "gray")])
 

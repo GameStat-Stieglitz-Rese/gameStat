@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from functools import partial
+from datetime import datetime
 
 
 # Diese Klasse generiert die Hauptbedienelemente samt zugehörigen Funktionen zur Generierung vor Ort.
@@ -51,9 +53,45 @@ class HauptLabel:
         self.lb_title.place(x=50, y=10)
 
 
+# Klasse Generiert das Objekt, worin grundsätzlich alle Spieldaten des Nutzers Abrufbar sind. Es wird gespeichert, welche Spiele und co. vorhanden sind.
 class Daten:
     def __init__(self):
         self.spiele = ["Testspiel 1", "Testspiel 2", "Testspiel 3"]
         self.kategorien = ["Testkategorie 1", "Testkategorie 2", "Testkategorie 3"]
         self.plattform = ["Testplattform 1", "Testplattform 2", "Testplattform 3"]
         self.user_spiele = [["GTA5", "PC"], ["Minecraft", "PC"]]
+
+
+class Check:
+    def __init__(self):
+        self.here = None
+
+    def intager(self, wert, name): # Prüft ob Eingabe ein Intager ist
+        if isinstance(wert, int) == False:
+            messagebox.showinfo("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Zahlen ein.")
+            return False
+        else:
+            return True
+    
+    def string(self, wert, name): # Prüft ob die Eingabe ein String ist
+        for a in wert:
+            if a.isalpha() == False:
+                messagebox.showinfo("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Buchstaben ein.")
+                return False
+        return True
+    
+    def rang(self, wert, startrange, lastrange, name): # Prüft, ob der angegebene Zahlenbereich eingehalten wurde
+        wert = int(wert)
+        if wert >= startrange and wert <= lastrange:
+            return True
+        else:
+            messagebox.showinfo("Falsche eingabe", f"Bitte geben Sie in dem Feld {name} einen Wert zwischen {startrange} und {lastrange}")
+            return False
+        
+    def datum(self, datum_str, name):
+        try:
+            datetime.strptime(datum_str, "%Y-%m-%d")
+            return True
+        except ValueError:
+            messagebox.showinfo("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
+            return False
