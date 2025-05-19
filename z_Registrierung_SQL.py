@@ -1,17 +1,24 @@
 import mariadb
 from mariadb import Error
 
+
+
+#WILLKOMMEN BEI DER REGISTRIERUNG - SQL ;)
+
+
 # Beispiel-Nutzerobjekt (schon eingeben zum testen) wenn die übertragung gepasst hat auf die datenbank, kann man löschen
 class Testobjekt:
     def __init__(self):
-        self.vorname = "Maxim"
-        self.benutzer = "maxim"
+        self.vorname = "ZZZZZZ"
+        self.benutzer = "Lulatsch Mueller"
         self.passwort = "1234"
         self.email = "maxim@gmail.com"
         self.land = "Deutschland"
-        self.sprache = "deutsch"
+        self.sprache = "1"
         self.geschlecht = "Männlich"
         self.geburtsdatum = "2000-01-01"  # Wichtig: gültiges Datum
+
+
 
 # Verbindung zur Datenbank aufbauen
 def create_connection():
