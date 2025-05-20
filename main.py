@@ -37,14 +37,15 @@ def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spiele
 def empfohlen(nutzer): # Zeigt eine Tabelle mit allen empfohlenen Games an
     print("Empfohlen geklickt")
 
-def spiel_bearbeiten(nutzer):
+def spiel_bearbeiten():
     def aendern(): # Zeigt nach der Eingabe eines Spiels die Oberfläche zur änderung der Daten an
         def check(): # Speicherung neuer Eingaben (Weiter Button)
             lvl = tf_level.get()
             spz = tf_spielzeit.get()
             bwt = tf_bewertung.get()
             esp = tf_startdatum.get()
-            # dg_wahl und empf_wahl werden direkt abgerufen.
+            dgw = dg_wahl.get()
+            emw = empf_wahl.get()
 
             # Prüfung, ob die Angaben aus Spiel bearbeiten gültig sind
             if checkvalue.intager(lvl, "Level") == False:
@@ -55,20 +56,20 @@ def spiel_bearbeiten(nutzer):
                 print("Fehler Benutzereingabe")
             elif checkvalue.datum(esp, "Startdatum") == False:
                 print("Fehler Benutzereingabe")
-            elif dg_wahl == "PY_VAR2" or empf_wahl == "PY_VAR3":
+            elif dgw == 0 or emw == 0:
                 messagebox.showerror("Eingabefehler", "Bitte wählen Sie auch aus, ob Sie bereits angefangen und / oder durchgespielt haben.")
             else:
                 print("Eingaben korrekt.")
 
-                print(dg_wahl, empf_wahl)
+                print(dgw, emw)
 
                 # Konvertierung und speicherung in Objekt
                 spdaten.level = int(lvl)
                 spdaten.spielzeit = int(lvl)
                 spdaten.bewertung = int(bwt)
                 spdaten.startdatum = esp
-                spdaten.durchgespielt = dg_wahl
-                spdaten.empfohlen = empf_wahl
+                spdaten.durchgespielt = dgw
+                spdaten.empfohlen = emw
 
                 # Übergabe per SQL Befehl an die Datenbank
                 #rw2 = z_Datenuebertragung_SQL.spiel_bearbeiten_speichern(spdaten)
@@ -128,11 +129,11 @@ def spiel_bearbeiten(nutzer):
             tk.Label(root, text="Durchgespielt?").place(x=xwert, y=ywert)
             ywert += yadd
             dg_wahl = tk.IntVar(value=0)
-            rb_dg_ja = ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1).place(x=xwert, y=ywert)
+            ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1).place(x=xwert, y=ywert)
             ywert += yadd + 5
-            rb_dg_nein = ttk.Radiobutton(root, text="Nein", variable=dg_wahl, value=2).place(x=xwert, y=ywert)
+            ttk.Radiobutton(root, text="Nein", variable=dg_wahl, value=2).place(x=xwert, y=ywert)
             ywert += yadd + 5
-            rb_dg_nicht_angef = ttk.Radiobutton(root, text="Nicht Angefangen", variable=dg_wahl, value=3).place(x=xwert, y=ywert)
+            ttk.Radiobutton(root, text="Nicht Angefangen", variable=dg_wahl, value=3).place(x=xwert, y=ywert)
             ywert -= yadd * 3
             ywert -= 10
             xwert += xadd
@@ -140,13 +141,13 @@ def spiel_bearbeiten(nutzer):
             tk.Label(root, text="Empfehlung?").place(x=xwert, y=ywert)
             ywert += yadd
             empf_wahl = tk.IntVar(value=0)
-            rb_empf_ja = ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
+            ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
             ywert += yadd + 5
-            rb_empf_nein = ttk.Radiobutton(root, text="Nein", variable=empf_wahl, value=2).place(x=xwert, y=ywert)
+            ttk.Radiobutton(root, text="Nein", variable=empf_wahl, value=2).place(x=xwert, y=ywert)
             ywert += yadd + 5
-            rb_dg_keine_ang = ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
+            ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
 
-            bn_weiter = ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
+            ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
 
         else:
             messagebox.showinfo("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
@@ -175,7 +176,7 @@ def spiel_bearbeiten(nutzer):
         ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
 
 
-def spiel_hinzufg(nutzer):
+def spiel_hinzufg():
     def check():
         dg = dg_wahl.get()
         empf = empf_wahl.get()
@@ -212,12 +213,12 @@ def spiel_hinzufg(nutzer):
     
     tk.Label(root, text="Level").place(x=xwert, y=ywert)
     ywert += yadd
-    tf_level = ttk.Entry(root).place(x=xwert, y=ywert)
+    ttk.Entry(root).place(x=xwert, y=ywert)
     ywert += yadd * 2
 
     tk.Label(root, text="Spielzeit (in Std.)").place(x=xwert, y=ywert)
     ywert += yadd
-    tf_spielzeit = ttk.Entry(root).place(x=xwert, y=ywert)
+    ttk.Entry(root).place(x=xwert, y=ywert)
     ywert += yadd * 2
     
     tk.Label(root, text="Eigenbewertung (1-10)").place(x=xwert, y=ywert)
@@ -227,18 +228,18 @@ def spiel_hinzufg(nutzer):
     
     tk.Label(root, text="Erster Spieltag").place(x=xwert, y=ywert)
     ywert += yadd
-    tf_startdatum = ttk.Entry(root).place(x=xwert, y=ywert)
+    ttk.Entry(root).place(x=xwert, y=ywert)
     ywert += yadd * 3
 
     xwert -= 30
     tk.Label(root, text="Durchgespielt?").place(x=xwert, y=ywert)
     ywert += yadd
     dg_wahl = tk.IntVar(value=0)
-    rb_dg_ja = ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1).place(x=xwert, y=ywert)
+    ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1).place(x=xwert, y=ywert)
     ywert += yadd + 5
-    rb_dg_nein = ttk.Radiobutton(root, text="Nein", variable=dg_wahl, value=2).place(x=xwert, y=ywert)
+    ttk.Radiobutton(root, text="Nein", variable=dg_wahl, value=2).place(x=xwert, y=ywert)
     ywert += yadd + 5
-    rb_dg_nicht_angef = ttk.Radiobutton(root, text="Nicht Angefangen", variable=dg_wahl, value=3).place(x=xwert, y=ywert)
+    ttk.Radiobutton(root, text="Nicht Angefangen", variable=dg_wahl, value=3).place(x=xwert, y=ywert)
     ywert -= yadd * 3
     ywert -= 10
     xwert += xadd
@@ -246,13 +247,13 @@ def spiel_hinzufg(nutzer):
     tk.Label(root, text="Empfehlung?").place(x=xwert, y=ywert)
     ywert += yadd
     empf_wahl = tk.IntVar(value=0)
-    rb_empf_ja = ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
+    ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
     ywert += yadd + 5
-    rb_empf_nein = ttk.Radiobutton(root, text="Nein", variable=empf_wahl, value=2).place(x=xwert, y=ywert)
+    ttk.Radiobutton(root, text="Nein", variable=empf_wahl, value=2).place(x=xwert, y=ywert)
     ywert += yadd + 5
-    rb_dg_keine_ang = ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
+    ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
 
-    bn_weiter = ttk.Button(root, text="Weiter", command=check).place(x=500, y=700, width=200)
+    ttk.Button(root, text="Weiter", command=check).place(x=500, y=700, width=200)
 
 def nutzer_verwaltung(nutzer):
     print("Nutzer verwalten geklickt")
@@ -286,11 +287,8 @@ nutzer = anmeldung.Nutzer() # ENTFERNEN!!, ist nur da, weil ich faul bin.
 
 #nutzer, login_status = anmeldung.start()
 nutzer, login_status = anmeldung.bypass()
-#nutzer = Testobjekt_main()
-#login_status = True
 
 if login_status == True:
-    # Erzeugen des Fensters
     root = tk.Tk()
     root.geometry("1200x800")
     root.title("GameStat - Dein Spielmanager")
