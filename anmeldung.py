@@ -5,6 +5,7 @@ from functools import partial # Zum ausführen von Commands in einem Tkinter Ele
 import objektTestAnzeige
 import z_Anmeldung_SQL
 import z_Registrierung_SQL
+import elemente
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
@@ -209,7 +210,7 @@ def registrieren(nutzer):
             elif eml != "" and gbd != "" and ges != "": # Alles wurde eingegeben
                 nutzer.email = eml
                 nutzer.geburtsdatum = gbd
-                nutzer.geschlecht = ges
+                nutzer.geschlecht = idlist.dict_geschlecht(ges)
                 print("Benutzerdaten erfolgreich erweitert")
                 page3(nutzer)
             else:
@@ -233,8 +234,7 @@ def registrieren(nutzer):
         tf_feld2 = tk.Entry(root_login)
 
         # Deklaration weitere Elemente Seite 2
-        geschlecht = ["Männlich", "Weiblich"]
-        cb_box1 = ttk.Combobox(root_login, values=geschlecht, state="readonly")
+        cb_box1 = ttk.Combobox(root_login, values=idlist.geschlecht, state="readonly")
         
         # Definition von Abständen (einheitlich)
         a = 60
@@ -270,8 +270,8 @@ def registrieren(nutzer):
                 print("Eingabe fehlt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Land und Sprache ein!")
             elif land != "" and sprache != "": # Wenn alles richtig eingegeben wurde
-                nutzer.land = land
-                nutzer.sprache = sprache
+                nutzer.land = idlist.dict_laender(land)
+                nutzer.sprache = idlist.dict_sprache(land)
                 rm_registrierung = z_Registrierung_SQL.registrieren_ausfuehren(nutzer)
                 if rm_registrierung:
                     print("Registrierung erfolgreich.")
@@ -294,10 +294,10 @@ def registrieren(nutzer):
         bn_weiter = tk.Button(root_login, text="Fertig", command=partial(checkp3, nutzer))
 
         # Deklaration weiterer Elemente Seite 3
-        land = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
-        sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
-        cb_box1 = ttk.Combobox(root_login, values=land, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
-        cb_box2 = ttk.Combobox(root_login, value=sprache, state="readonly")
+        # land = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
+        # sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
+        cb_box1 = ttk.Combobox(root_login, values=idlist.laender, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
+        cb_box2 = ttk.Combobox(root_login, value=idlist.sprache, state="readonly")
         
         # Definition von Abständen (einheitlich)
         a = 60
@@ -327,6 +327,7 @@ root_login = tk.Tk()
 root_login.title("GameStat Launcher")
 root_login.geometry("280x330")
 nutzer = Nutzer()
+idlist = elemente.Idlist()
 
 # Erzeugen des Fensters
 def start():

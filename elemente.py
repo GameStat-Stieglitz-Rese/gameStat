@@ -114,3 +114,33 @@ class Check:
         except ValueError:
             messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
             return False
+        
+
+# Listen der IDs für die Datenbank
+class Idlist:
+    def __init__(self):
+        self.laender = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
+        self.sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
+        self.geschlecht = ["Männlich", "Weiblich"]
+        self.herausgeber = ["Rockstar Games", "EA Games", "Ubisoft", "Valve Games", "Microsoft", "Sony", "Activision Blizzard", "Epic Games", "CD Projekt", "SEGA", "BANDAI Namco", "Sonstige"]
+ 
+    # Änderung der Eingaben zu dem jeweiligen Zahlenwert in der Datenbank
+    def dict_laender(self, land):
+        if land in self.laender:
+            return self.laender.index(land) + 1
+        return None
+ 
+    def dict_sprache(self, sprache):
+        if sprache in self.sprache:
+            return self.sprache.index(sprache) + 1
+        return None
+ 
+    def dict_geschlecht(self, geschlecht):
+        if geschlecht in self.geschlecht:
+            return self.geschlecht.index(geschlecht) + 1
+        return None
+ 
+    def dict_herausgeber(self, herausgeber):
+        if herausgeber in self.herausgeber:
+            return self.herausgeber.index(herausgeber) + 1
+        return None
