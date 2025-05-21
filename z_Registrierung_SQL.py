@@ -10,7 +10,7 @@ from mariadb import Error
 class Testobjekt:
     def __init__(self):
         self.vorname = "ZZZZZZ"
-        self.benutzer = "Lulatsch Mueller"
+        self.nutzername = "Lulatsch Mueller"
         self.passwort = "1234"
         self.email = "maxim@gmail.com"
         self.land = "Deutschland"
@@ -90,6 +90,6 @@ def registrieren_ausfuehren(nutzer):
         connection.close()
 
 # Nutzer anlegen und Funktion aufrufen
-nutzer = Testobjekt()
-rueckgabe = registrieren_ausfuehren(nutzer)
-print("Rückgabe:", rueckgabe)
+# nutzer = Testobjekt()
+# rueckgabe = registrieren_ausfuehren(nutzer)
+# print("Rückgabe:", rueckgabe)
