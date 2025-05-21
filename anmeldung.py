@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 from functools import partial # Zum ausführen von Commands in einem Tkinter Element. Syntax: partial({Funktion}, {Argument})
 import objektTestAnzeige
+import z_Anmeldung_SQL
+import z_Registrierung_SQL
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
@@ -26,14 +28,15 @@ def home(nutzer):
         nutzer.nutzername = tf_nutzername.get()
         nutzer.passwort = tf_nutzerpasswort.get()
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
-            if nutzer.nutzername == "test" and nutzer.passwort == "test":                                               # Testzweck, bitte löschen Entfernen
-                messagebox.showinfo("Anmeldung", "Anmeldung erfolgreich!")                                              # Testzweck, bitte löschen Entfernen
+            rm_anmeldung = z_Anmeldung_SQL.nutzer_anmelden(nutzer.nutzername, nutzer.passwort)
+            if rm_anmeldung:
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
                 root_login.destroy()
                 objektTestAnzeige.useranzeigen(nutzer)
-#  SQL          +++ +++ +++ Hier Aufruf des SQL Befehls und deklaration rueckmeldung! (Prüfung Benutzerdaten) +++ +++ +++
-#            if rueckmeldung == True:
-#  SQL              +++ +++ +++ Hier Aufruf des SQL Befehls! (Abrufen vollständige Benutzerdaten) +++ +++ +++
+            else:
+                print("Login nicht ok / MariaDB Fehler")
+                messagebox.showwarning("Anmeldung", "Die Anmeldung war nicht erfolgreich. Bitte wiederholen.")
+                home()
         else:
             print("Fehler: Benutzer hat nicht alle erforderlichen Daten eingegeben.")
             messagebox.showerror("Eingabefehler", "Bitte geben Sie Benutzernamen und Passwort ein.")
@@ -269,10 +272,11 @@ def registrieren(nutzer):
             elif land != "" and sprache != "": # Wenn alles richtig eingegeben wurde
                 nutzer.land = land
                 nutzer.sprache = sprache
-#  SQL              +++ Hier SQL Befehl (Aufruf), der die erfassten Daten in die Datenbank einbindet und eine Rückmeldung über erfolg gibt.
-#  SQL              Wenn erfolgreich, dann zurück zur Anmeldeseite, wenn nicht erfolgreich, dann zurück zur Seite 1.
-                if 0 != 0: # "0" durch Variable ersetzen, die die Rückmeldung der Datenbank beinhaltet # Prüfung, ob Speicherung erfolgreich
+                rm_registrierung = z_Registrierung_SQL.registrieren_ausfuehren
+                if rm_registrierung:
                     print("Land und Sprache gespeichert.")
+                    messagebox.showinfo("Registrierung", "Die Registrierung war erfolgreich. Sie gelangen nun zur Anmeldung.")
+                    home()
                 else:
                     messagebox.showerror("Fehler Datenspeicherung", "Es gab einen Fehler bei der Speicherung Iher Daten. Bitte wiederholen Sie den Vorgang!")
                     page1(nutzer)
