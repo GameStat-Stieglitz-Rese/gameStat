@@ -4,7 +4,7 @@ from tkinter import messagebox
 import elemente # Hier sind die Elemente im Fenster (Knöpfe und co. gespeichert)
 from functools import partial
 import anmeldung
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 import z_Datenuebertragung_SQL
 
 class Testobjekt_main: # Klasse fliegt nach Entwicklungsphase raus. Entfernen
@@ -264,7 +264,7 @@ def abmelden(nutzer):
 def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
     button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
-    img_logo.place(x=100, y=100, relwidth=1, relheight=1)
+#    img_logo.place(x=100, y=100, relwidth=1, relheight=1)
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
@@ -302,12 +302,12 @@ if login_status == True:
     style.map("Accent.TButton", background=[("active", "#0056b3")], foreground=[("disabled", "gray")])
 
     # Deklaration der Bilder
-    hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
-    hint_bild = ImageTk.PhotoImage(hint_bild)
-    new_logo = Image.open("images/logo.png") # Deklaration des Programmlogos
-    skal_logo = new_logo.resize((500, 500))
-    img1_logo = ImageTk.PhotoImage(skal_logo)
-    img_logo = tk.Label(root, image=img1_logo)
+    # hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
+    # hint_bild = ImageTk.PhotoImage(hint_bild)
+    # new_logo = Image.open("images/logo.png") # Deklaration des Programmlogos
+    # skal_logo = new_logo.resize((500, 500))
+    # img1_logo = ImageTk.PhotoImage(skal_logo)
+    # img_logo = tk.Label(root, image=img1_logo)
 
     # hb_canvas = tk.Canvas(root, width=1200, height=800)
     # hb_canvas.pack(fill="both", expand=True)
