@@ -272,9 +272,9 @@ def registrieren(nutzer):
             elif land != "" and sprache != "": # Wenn alles richtig eingegeben wurde
                 nutzer.land = land
                 nutzer.sprache = sprache
-                rm_registrierung = z_Registrierung_SQL.registrieren_ausfuehren
+                rm_registrierung = z_Registrierung_SQL.registrieren_ausfuehren(nutzer)
                 if rm_registrierung:
-                    print("Land und Sprache gespeichert.")
+                    print("Registrierung erfolgreich.")
                     messagebox.showinfo("Registrierung", "Die Registrierung war erfolgreich. Sie gelangen nun zur Anmeldung.")
                     home()
                 else:
@@ -321,8 +321,6 @@ def registrieren(nutzer):
 
     #clearwdw()
     page1(nutzer) # Start unmittelbar nach Aufruf der "registrieren" Funktion mit der ersten Seite.
-    #page2(nutzer)
-    #page3(nutzer)
 
 
 root_login = tk.Tk()
