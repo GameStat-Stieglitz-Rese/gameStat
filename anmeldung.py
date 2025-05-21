@@ -21,7 +21,7 @@ def clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
     for widget in root_login.winfo_children():
         widget.destroy()
 
-def home(nutzer):
+def home():
     clearwdw()
     def anmelden_check(nutzer):
         global loggedin # Globale Variable als Rückmeldung, ob Login erfolgreich war
@@ -335,7 +335,7 @@ def start():
     global loggedin
     loggedin = False # Globale Variable als Rückmeldung, ob Login erfolgreich war
     nutzer = Nutzer()
-    home(nutzer) # Starten des Anmeldebildschirms (Startwert)
+    home() # Starten des Anmeldebildschirms (Startwert)
     root_login.mainloop()
     return nutzer, loggedin
 

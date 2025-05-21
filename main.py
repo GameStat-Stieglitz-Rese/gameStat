@@ -285,8 +285,8 @@ checkvalue = elemente.Check()
 spdaten = elemente.Spieldaten()
 nutzer = anmeldung.Nutzer() # ENTFERNEN!!, ist nur da, weil ich faul bin.
 
-#nutzer, login_status = anmeldung.start()
-nutzer, login_status = anmeldung.bypass()
+nutzer, login_status = anmeldung.start()
+#nutzer, login_status = anmeldung.bypass()
 
 if login_status == True:
     root = tk.Tk()
