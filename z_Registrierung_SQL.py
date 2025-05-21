@@ -68,7 +68,7 @@ def registrieren_ausfuehren(nutzer):
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             nutzer.vorname,
-            nutzer.benutzer,
+            nutzer.nutzername,
             nutzer.passwort,
             nutzer.email,
             nutzer.geburtsdatum,

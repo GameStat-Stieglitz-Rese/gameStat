@@ -9,7 +9,7 @@ import z_Datenuebertragung_SQL
 
 class Testobjekt_main: # Klasse fliegt nach Entwicklungsphase raus. Entfernen
     def __init__(self):
-        self.benutzer = "maxim"
+        self.benutzer = "MaximalBaum34"
         self.passwort = "1234"
         self.vorname = "Maxim"
         self.email = "maxim@gmail.com"

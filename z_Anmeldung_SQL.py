@@ -50,7 +50,7 @@ if __name__ == "__main__":
     passwort = input("Passwort: ")
 
     benutzer_id = nutzer_anmelden(benutzername, passwort)
-    print("Erfolgreich angemeldet:", benutzer_id)
+    #print("Erfolgreich angemeldet:", benutzer_id) #REIN TECHNISCH UM ZU SEHEN OB ERFOLGREICH ANGEMELDET WURDE
 
     if benutzer_id:
         zeige_spieldaten(benutzer_id)

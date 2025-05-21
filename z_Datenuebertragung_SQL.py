@@ -10,12 +10,17 @@ def create_connection():
         port=3306
     )
 
-# Spieldaten anhand der Benutzer-ID anzeigen
 def zeige_spieldaten(benutzer_id):
     try:
         connection = create_connection()
         cursor = connection.cursor()
 
+        # 🧠 Vorname des Benutzers abfragen
+        cursor.execute("SELECT Vorname FROM benutzer WHERE ID = ?", (benutzer_id,))
+        benutzer = cursor.fetchone()
+        vorname = benutzer[0] if benutzer else "Unbekannt"
+
+        # 🎮 Spieldaten abfragen
         cursor.execute("""
             SELECT spiele.Spielname, platform.Name, spieldaten.Level, spieldaten.Spielzeit, spieldaten.Eigenbewertung
             FROM spieldaten
@@ -26,8 +31,8 @@ def zeige_spieldaten(benutzer_id):
 
         daten = cursor.fetchall()
 
-        print("\n🎮 Spieldaten für Benutzer-ID", benutzer_id)
-        print("Rohdaten:", daten)  # Nur zum Test
+        print(f"\n🎮 Spieldaten für {vorname}")  # ← zeigt den Namen statt ID
+        #print("Rohdaten:", daten)  # ← kannst du später entfernen
 
         if daten:
             for eintrag in daten:
