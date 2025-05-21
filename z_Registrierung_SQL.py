@@ -55,8 +55,8 @@ def registrieren_ausfuehren(nutzer):
     try:
         cursor = connection.cursor()
 
-        geschlecht_id = get_id_by_name(connection, "geschlecht", nutzer.geschlecht)
-        land_id = get_id_by_name(connection, "land", nutzer.land)
+        geschlecht_id = nutzer.geschlecht#get_id_by_name(connection, "geschlecht", nutzer.geschlecht)
+        land_id = nutzer.land#get_id_by_name(connection, "land", nutzer.land)
 
         if geschlecht_id is None or land_id is None:
             print("Fehler: Land oder Geschlecht nicht gefunden.")
