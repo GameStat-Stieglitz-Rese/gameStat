@@ -4,7 +4,6 @@ from tkinter import messagebox
 from functools import partial
 from datetime import datetime
 
-
 class Spieldaten:
     def __init__(self):
         self.eintragid = "" # Wird von der Datenbank vergeben
@@ -33,7 +32,7 @@ class HauptBedienung:
         self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
         self.bn_abmeldung = ttk.Button(root, text="<- Abmelden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
         self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"]))
-        self.bn_spiel_bearbeiten = ttk.Button(root, text="Spiel bearbeiten", command=partial(callbacks["spiel_bearbeiten"], nutzer))
+        self.bn_spiel_bearbeiten = ttk.Button(root, text="Spiel bearbeiten", command=partial(callbacks["spiel_bearbeiten"]))
 
     def gen_hauptmenue(self, xwert, ywert, lwert, xadd, yadd): 
         # Generierung des Hauptmenüs(Übergabe: X-Pos, Y-Pos, Länge, Abstand vertikal, Abstand horizontal)
@@ -122,7 +121,8 @@ class Idlist:
         self.laender = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
         self.sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
         self.geschlecht = ["Männlich", "Weiblich"]
-        self.herausgeber = ["Rockstar Games", "EA Games", "Ubisoft", "Valve Games", "Microsoft", "Sony", "Activision Blizzard", "Epic Games", "CD Projekt", "SEGA", "BANDAI Namco", "Sonstige"]
+        self.herausgeber = ["Rockstar Games", "EA Games", "Ubisoft", "Valve Games", "Microsoft", "Sony",
+                            "Activision Blizzard", "Epic Games", "CD Projekt", "SEGA", "BANDAI Namco", "Sonstige"]
  
     # Änderung der Eingaben zu dem jeweiligen Zahlenwert in der Datenbank
     def dict_laender(self, land):
@@ -144,3 +144,40 @@ class Idlist:
         if herausgeber in self.herausgeber:
             return self.herausgeber.index(herausgeber) + 1
         return None
+    
+
+
+# Prüfung, ob der Übergebene Wert mit der Anforderung übereinstimmt. Falls nicht, wird direkt auch eine Fehlermeldung ausgegeben.
+def check_int(wert, name): # Prüft ob Eingabe ein Intager ist
+        if wert.isdigit() == False:
+            messagebox.showerror("Falsche Eingabe", f"Bitte geben sie in dem Feld {name} nur Zahlen ein.")
+            return False
+        else:
+            return True
+    
+def check_str(wert, name): # Prüft ob die Eingabe ein String ist
+    for a in wert:
+        if a.isalpha() == False:
+            messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Buchstaben ein.")
+            return False
+    return True
+
+def check_range(wert, startrange, lastrange, name): # Prüft, ob der angegebene Zahlenbereich eingehalten wurde
+    if wert.isdigit():    
+        wert = int(wert)
+        if wert >= startrange and wert <= lastrange:
+            return True
+        else:
+            messagebox.showerror("Ungültiger Bereich", f"Bitte geben Sie in dem Feld {name} einen Wert zwischen {startrange} und {lastrange}")
+            return False
+    else:
+        messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} eine Zahl ein.")
+        return False
+    
+def check_datum(datum_str, name):
+    try:
+        datetime.strptime(datum_str, "%Y-%m-%d")
+        return True
+    except ValueError:
+        messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
+        return False

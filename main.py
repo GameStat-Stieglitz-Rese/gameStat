@@ -48,13 +48,13 @@ def spiel_bearbeiten():
             emw = empf_wahl.get()
 
             # Prüfung, ob die Angaben aus Spiel bearbeiten gültig sind
-            if checkvalue.intager(lvl, "Level") == False:
+            if elemente.check_int(lvl, "Level") == False:
                 print("Fehler Benutzereingabe")
-            elif checkvalue.intager(spz, "Spielzeit") == False:
+            elif elemente.check_int(spz, "Spielzeit") == False:
                 print("Fehler Benutzereingabe")
-            elif checkvalue.rang(bwt, 1, 10, "Bewertung") == False:
+            elif elemente.check_range(bwt, 1, 10, "Bewertung") == False:
                 print("Fehler Benutzereingabe")
-            elif checkvalue.datum(esp, "Startdatum") == False:
+            elif elemente.check_datum(esp, "Startdatum") == False:
                 print("Fehler Benutzereingabe")
             elif dgw == 0 or emw == 0:
                 messagebox.showerror("Eingabefehler", "Bitte wählen Sie auch aus, ob Sie bereits angefangen und / oder durchgespielt haben.")
@@ -268,7 +268,7 @@ def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
-callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach betätigung eines Buttons (Übergabewert "uebersicht" ruft uebersicht auf)
+callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines Buttons (Übergabewert "uebersicht" ruft uebersicht auf)
     "uebersicht": uebersicht,
     "bewertungen": bewertungen,
     "durchgespielt": durchgespielt,
@@ -281,9 +281,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach betätigung eines B
 }
 
 daten = elemente.Daten()
-checkvalue = elemente.Check()
 spdaten = elemente.Spieldaten()
-nutzer = anmeldung.Nutzer() # ENTFERNEN!!, ist nur da, weil ich faul bin.
 
 nutzer, login_status = anmeldung.start()
 #nutzer, login_status = anmeldung.bypass()

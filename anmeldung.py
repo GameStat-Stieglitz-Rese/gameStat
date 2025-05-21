@@ -6,6 +6,7 @@ import objektTestAnzeige
 import z_Anmeldung_SQL
 import z_Registrierung_SQL
 import elemente
+import hashlib
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
@@ -27,11 +28,12 @@ def home():
     def anmelden_check(nutzer):
         global loggedin # Globale Variable als Rückmeldung, ob Login erfolgreich war
         nutzer.nutzername = tf_nutzername.get()
-        nutzer.passwort = tf_nutzerpasswort.get()
+        nutzer.passwort = hashlib.sha256(tf_nutzerpasswort.get().encode()).hexdigest()
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
             rm_anmeldung = z_Anmeldung_SQL.nutzer_anmelden(nutzer.nutzername, nutzer.passwort)
             if rm_anmeldung:
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
+                aaa Hier SQL Abfrage, die alle Kontodaten nach der anmeldung abruft.
                 root_login.destroy()
                 objektTestAnzeige.useranzeigen(nutzer)
             else:
@@ -139,7 +141,7 @@ def registrieren(nutzer):
                 messagebox.showwarning("Eingabe Benutzerdaten", "Für das Passwort sind Sonderzeichen und Zahlen erforderlich. Das Passwort muss 8 Zeichen lang sein!")
             elif p1 == p2 and uname != "": # Wenn Benutzername eingegeben und Passwörter übereinstimmen
                 nutzer.nutzername = uname
-                nutzer.passwort = p1
+                nutzer.passwort = hashlib.sha256(p1.encode()).hexdigest()
                 print("Benutzerdaten wurden angelegt.")
                 page2(nutzer)
                 #return
@@ -208,11 +210,14 @@ def registrieren(nutzer):
                 print("Geschlecht nicht ausgewählt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Ihr Geschlecht ein!")
             elif eml != "" and gbd != "" and ges != "": # Alles wurde eingegeben
-                nutzer.email = eml
-                nutzer.geburtsdatum = gbd
-                nutzer.geschlecht = idlist.dict_geschlecht(ges)
-                print("Benutzerdaten erfolgreich erweitert")
-                page3(nutzer)
+                rm_gbd = elemente.check_datum(gbd, "Geburtsdatum")
+                if rm_gbd:
+                    nutzer.email = eml
+                    nutzer.geburtsdatum = gbd
+                    nutzer.geschlecht = idlist.dict_geschlecht(ges)
+                    print("Benutzerdaten erfolgreich erweitert")
+                    page3(nutzer)
+
             else:
                 print("Fataler Fehler Benutzeranlegung")
                 messagebox.showerror("Schwerwiegender Fehler", "Es ist ein Programmfehler aufgetreten.")
@@ -223,7 +228,7 @@ def registrieren(nutzer):
         lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
         lb_2 = tk.Label(root_login, text="E-Mail Adresse")
         lb_4 = tk.Label(root_login, text="Geschlecht")
-        lb_3 = tk.Label(root_login, text="Geburtsdatum")
+        lb_3 = tk.Label(root_login, text="Geburtsdatum (JJJJ-MM-TT)")
 
         # Deklaration Buttons Seite 2
         bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
@@ -266,12 +271,14 @@ def registrieren(nutzer):
             print("Prüfung Eingabe Seite 3")
             land = cb_box1.get()
             sprache = cb_box2.get()
-            if land == "" or sprache == "":
+            vname = tf_1.get()
+            if land == "" or sprache == "" or vname == "":
                 print("Eingabe fehlt")
-                messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Land und Sprache ein!")
-            elif land != "" and sprache != "": # Wenn alles richtig eingegeben wurde
+                messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Vorname, Land und Sprache ein!")
+            elif land != "" and sprache != "" and vname != "": # Wenn alles richtig eingegeben wurde
+                nutzer.vorname = vname
                 nutzer.land = idlist.dict_laender(land)
-                nutzer.sprache = idlist.dict_sprache(land)
+                nutzer.sprache = idlist.dict_sprache(sprache)
                 rm_registrierung = z_Registrierung_SQL.registrieren_ausfuehren(nutzer)
                 if rm_registrierung:
                     print("Registrierung erfolgreich.")
@@ -288,6 +295,7 @@ def registrieren(nutzer):
         lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
         lb_2 = tk.Label(root_login, text="Land")
         lb_3 = tk.Label(root_login, text="Sprache")
+        lb_4 = tk.Label(root_login, text="Vorname")
 
         # Deklaration Buttons Seite 3
         bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
@@ -296,6 +304,7 @@ def registrieren(nutzer):
         # Deklaration weiterer Elemente Seite 3
         # land = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
         # sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
+        tf_1 = ttk.Entry(root_login)
         cb_box1 = ttk.Combobox(root_login, values=idlist.laender, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
         cb_box2 = ttk.Combobox(root_login, value=idlist.sprache, state="readonly")
         
@@ -307,6 +316,10 @@ def registrieren(nutzer):
         # Platzierung der Elemente in dem Fenster
         lb_1.place(x=a, y=b)
         b += abstand + 3
+        lb_4.place(x=a, y=b)
+        b += abstand
+        tf_1.place(x=a, y=b)
+        b += abstand
         lb_2.place(x=a, y=b)
         b += abstand
         cb_box1.place(x=a, y=b)
