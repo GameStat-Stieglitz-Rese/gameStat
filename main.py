@@ -181,10 +181,15 @@ def spiel_hinzufg():
         dg = dg_wahl.get()
         empf = empf_wahl.get()
         spname = cb_spielname.get()
-        
+        pltfrm = cb_plattform.get()
+        spkat = cb_kategorie.get()
+        lvl = tf_level.get()
+        spz = tf_spielzeit.get()
+        ebw = tf_bewertung.get()
+        esp = tf_erstSpieltag.get()
 
-        print(empf)
-        print(dg)
+        if spname == "" or pltfrm == "" or spkat == "":
+            messagebox.showinfo("") aaaa
     
     main_clearwdw()
     button.gen_return()
@@ -214,22 +219,26 @@ def spiel_hinzufg():
     
     tk.Label(root, text="Level").place(x=xwert, y=ywert)
     ywert += yadd
-    ttk.Entry(root).place(x=xwert, y=ywert)
+    tf_level = ttk.Entry(root)
+    tf_level.place(x=xwert, y=ywert)
     ywert += yadd * 2
 
     tk.Label(root, text="Spielzeit (in Std.)").place(x=xwert, y=ywert)
     ywert += yadd
-    ttk.Entry(root).place(x=xwert, y=ywert)
+    tf_spielzeit = ttk.Entry(root)
+    tf_spielzeit.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
     tk.Label(root, text="Eigenbewertung (1-10)").place(x=xwert, y=ywert)
     ywert += yadd
-    ttk.Entry(root).place(x=xwert, y=ywert)
+    tf_bewertung = ttk.Entry(root)
+    tf_bewertung.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
     tk.Label(root, text="Erster Spieltag").place(x=xwert, y=ywert)
     ywert += yadd
-    ttk.Entry(root).place(x=xwert, y=ywert)
+    tf_erstSpieltag = ttk.Entry(root)
+    tf_erstSpieltag.place(x=xwert, y=ywert)
     ywert += yadd * 3
 
     xwert -= 30

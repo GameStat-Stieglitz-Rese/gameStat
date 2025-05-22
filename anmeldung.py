@@ -10,6 +10,7 @@ import hashlib
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
+        self.id = ""
         self.nutzername = "Lester"#None
         self.passwort = "1234"#None
         self.vorname = "Lester"#None
