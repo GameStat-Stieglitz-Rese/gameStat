@@ -1,7 +1,20 @@
 import mariadb
 from z_Datenuebertragung_SQL import zeige_spieldaten
 
-# Verbindung zur Datenbank
+# 💾 Benutzerobjekt-Klasse zur Datenübernahme
+class BenutzerObjekt:
+    def __init__(self, id, vorname, benutzername, email, sprache, land, geschlecht, geburtsdatum, bildnummer):
+        self.id = id
+        self.vorname = vorname
+        self.benutzername = benutzername
+        self.email = email
+        self.sprache = sprache
+        self.land = land
+        self.geschlecht = geschlecht
+        self.geburtsdatum = geburtsdatum
+        self.bildnummer = bildnummer
+
+# 🔌 Verbindung zur Datenbank
 def create_connection():
     try:
         connection = mariadb.connect(
@@ -16,7 +29,7 @@ def create_connection():
         print(f"Verbindungsfehler: {e}")
         return None
 
-# Anmeldefunktion → gibt Benutzer-ID zurück!
+# 🔐 Anmeldung mit Rückgabe eines BenutzerObjekts
 def nutzer_anmelden(benutzername, passwort):
     connection = create_connection()
     if not connection:
@@ -25,14 +38,20 @@ def nutzer_anmelden(benutzername, passwort):
     try:
         cursor = connection.cursor()
         cursor.execute("""
-            SELECT ID, Vorname FROM benutzer
-            WHERE Benutzername = ? AND Passwort = ?
+            SELECT 
+                b.ID, b.Vorname, b.Benutzername, b.E_Mail, s.Name AS Sprache,
+                l.Name AS Land, g.Name AS Geschlecht, b.Geburtsdatum, b.Bildnummer
+            FROM benutzer b
+            JOIN sprache s ON b.Sprache = s.ID
+            JOIN land l ON b.Land_ID = l.ID
+            JOIN geschlecht g ON b.Geschlecht_ID = g.ID
+            WHERE b.Benutzername = ? AND b.Passwort = ?
         """, (benutzername, passwort))
 
         result = cursor.fetchone()
         if result:
             print(f"✅ Anmeldung erfolgreich. Willkommen, {result[1]}!")
-            return result[0]  # Benutzer-ID zurückgeben
+            return BenutzerObjekt(*result)
         else:
             print("❌ Benutzername oder Passwort ist falsch.")
             return None
@@ -44,13 +63,24 @@ def nutzer_anmelden(benutzername, passwort):
     finally:
         connection.close()
 
-# Eingabe & Aufruf
+# ▶️ Hauptprogramm
 if __name__ == "__main__":
     benutzername = input("Benutzername: ")
     passwort = input("Passwort: ")
 
-    benutzer_id = nutzer_anmelden(benutzername, passwort)
-    #print("Erfolgreich angemeldet:", benutzer_id) #REIN TECHNISCH UM ZU SEHEN OB ERFOLGREICH ANGEMELDET WURDE
+    nutzer = nutzer_anmelden(benutzername, passwort)
 
-    if benutzer_id:
-        zeige_spieldaten(benutzer_id)
+    if nutzer:
+        # 🧾 Profil anzeigen
+        print("\n📋 Benutzerprofil:")
+        print("Vorname:", nutzer.vorname)
+        print("Benutzername:", nutzer.benutzername)
+        print("E-Mail:", nutzer.email)
+        print("Sprache:", nutzer.sprache)
+        print("Land:", nutzer.land)
+        print("Geschlecht:", nutzer.geschlecht)
+        print("Geburtsdatum:", nutzer.geburtsdatum)
+        print("Bildnummer:", nutzer.bildnummer)
+
+        # 🎮 Spieldaten anzeigen
+        zeige_spieldaten(nutzer.id)
