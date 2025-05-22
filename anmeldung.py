@@ -30,10 +30,10 @@ def home():
         nutzer.nutzername = tf_nutzername.get()
         nutzer.passwort = hashlib.sha256(tf_nutzerpasswort.get().encode()).hexdigest()
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
-            rm_anmeldung = z_Anmeldung_SQL.nutzer_anmelden(nutzer.nutzername, nutzer.passwort)
+            rm_anmeldung = z_Anmeldung_SQL.nutzer_anmelden(nutzer)
             if rm_anmeldung:
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
-                aaa Hier SQL Abfrage, die alle Kontodaten nach der anmeldung abruft.
+###########################                aaa Hier SQL Abfrage, die alle Kontodaten nach der anmeldung abruft.
                 root_login.destroy()
                 objektTestAnzeige.useranzeigen(nutzer)
             else:

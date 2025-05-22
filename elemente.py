@@ -28,7 +28,7 @@ class HauptBedienung:
         self.bn_bewertungen = ttk.Button(root, text="Bewertungen", command=partial(callbacks["bewertungen"], nutzer))
         self.bn_durchgespielt = ttk.Button(root, text="Durchgespielt", command=partial(callbacks["durchgespielt"], nutzer))
         self.bn_empfohlen = ttk.Button(root, text="Empfohlen", command=partial(callbacks["empfohlen"], nutzer))
-        self.bn_spiel_hinzufg = ttk.Button(root, text="Spiel hinzufügen", command=partial(callbacks["spiel_hinzufg"], nutzer))
+        self.bn_spiel_hinzufg = ttk.Button(root, text="Spiel hinzufügen", command=partial(callbacks["spiel_hinzufg"]))
         self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
         self.bn_abmeldung = ttk.Button(root, text="<- Abmelden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
         self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"]))
@@ -123,6 +123,11 @@ class Idlist:
         self.geschlecht = ["Männlich", "Weiblich"]
         self.herausgeber = ["Rockstar Games", "EA Games", "Ubisoft", "Valve Games", "Microsoft", "Sony",
                             "Activision Blizzard", "Epic Games", "CD Projekt", "SEGA", "BANDAI Namco", "Sonstige"]
+        self.plattformen = ["Playstation 3", "Xbox 360", "PC", "Playstation 4", "Playstation 5", "Xbox One", "Xbox Serie S", "Xbox Serie X"]
+        self.spiele = ["Counter Strike 2", "Call of Duty: Black Ops 6", "Need for Speed: Heat", "GTA IV", "Red Dead Redemption 2", "Bully",
+                       "GTA V", "Cyberpunk 2077", "Gran Turismo 7", "Gran Turismo Sport", "Gran Turismo 6", "Forza Horizon 5", "TETRIS", "Portal 2", "Minecraft"]
+        self.kategorien = ["Action", "Adventure", "Rollenspiel (RPG)", "Strategie", "Simulation", "Rennspiel", "Sport", "Denkspiel", "Open-World", "Shooter"]
+
  
     # Änderung der Eingaben zu dem jeweiligen Zahlenwert in der Datenbank
     def dict_laender(self, land):
@@ -143,6 +148,21 @@ class Idlist:
     def dict_herausgeber(self, herausgeber):
         if herausgeber in self.herausgeber:
             return self.herausgeber.index(herausgeber) + 1
+        return None
+    
+    def dict_plattformen(self, plattformen):
+        if plattformen in self.plattformen:
+            return self.plattformen.index(plattformen) + 1
+        return None
+    
+    def dict_herausgeber(self, spiele):
+        if spiele in self.spiele:
+            return self.spiele.index(spiele) + 1
+        return None
+    
+    def dict_herausgeber(self, kategorien):
+        if kategorien in self.kategorien:
+            return self.kategorien.index(kategorien) + 1
         return None
     
 
