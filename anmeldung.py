@@ -7,6 +7,7 @@ import z_Anmeldung_SQL
 import z_Registrierung_SQL
 import elemente
 import hashlib
+import check_var
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
@@ -34,7 +35,6 @@ def home():
             rm_anmeldung = z_Anmeldung_SQL.nutzer_anmelden(nutzer)
             if rm_anmeldung:
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
-###########################                aaa Hier SQL Abfrage, die alle Kontodaten nach der anmeldung abruft.
                 root_login.destroy()
                 objektTestAnzeige.useranzeigen(nutzer)
             else:
@@ -211,7 +211,7 @@ def registrieren(nutzer):
                 print("Geschlecht nicht ausgewählt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Ihr Geschlecht ein!")
             elif eml != "" and gbd != "" and ges != "": # Alles wurde eingegeben
-                rm_gbd = elemente.check_datum(gbd, "Geburtsdatum")
+                rm_gbd = check_var.check_datum(gbd, "Geburtsdatum")
                 if rm_gbd:
                     nutzer.email = eml
                     nutzer.geburtsdatum = gbd
@@ -342,6 +342,7 @@ root_login.title("GameStat Launcher")
 root_login.geometry("280x330")
 nutzer = Nutzer()
 idlist = elemente.Idlist()
+#check_var = elemente.Check()
 
 # Erzeugen des Fensters
 def start():

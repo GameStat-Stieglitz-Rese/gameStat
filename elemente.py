@@ -74,45 +74,6 @@ class Daten:
         self.kategorien = ["Testkategorie 1", "Testkategorie 2", "Testkategorie 3"]
         self.plattform = ["Testplattform 1", "Testplattform 2", "Testplattform 3"]
         self.user_spiele = [["GTA5", "PC"], ["Minecraft", "PC"]]
-
-
-class Check:
-    def __init__(self):
-        self.here = None
-
-    def intager(self, wert, name): # Prüft ob Eingabe ein Intager ist
-        if wert.isdigit() == False:
-            messagebox.showerror("Falsche Eingabe", f"Bitte geben sie in dem Feld {name} nur Zahlen ein.")
-            return False
-        else:
-            return True
-    
-    def string(self, wert, name): # Prüft ob die Eingabe ein String ist
-        for a in wert:
-            if a.isalpha() == False:
-                messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Buchstaben ein.")
-                return False
-        return True
-    
-    def rang(self, wert, startrange, lastrange, name): # Prüft, ob der angegebene Zahlenbereich eingehalten wurde
-        if wert.isdigit():    
-            wert = int(wert)
-            if wert >= startrange and wert <= lastrange:
-                return True
-            else:
-                messagebox.showerror("Ungültiger Bereich", f"Bitte geben Sie in dem Feld {name} einen Wert zwischen {startrange} und {lastrange}")
-                return False
-        else:
-            messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} eine Zahl ein.")
-            return False
-        
-    def datum(self, datum_str, name):
-        try:
-            datetime.strptime(datum_str, "%Y-%m-%d")
-            return True
-        except ValueError:
-            messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
-            return False
         
 
 # Listen der IDs für die Datenbank
@@ -155,49 +116,13 @@ class Idlist:
             return self.plattformen.index(plattformen) + 1
         return None
     
-    def dict_herausgeber(self, spiele):
+    def dict_spiele(self, spiele):
         if spiele in self.spiele:
             return self.spiele.index(spiele) + 1
         return None
     
-    def dict_herausgeber(self, kategorien):
+    def dict_kategorien(self, kategorien):
         if kategorien in self.kategorien:
             return self.kategorien.index(kategorien) + 1
         return None
     
-
-
-# Prüfung, ob der Übergebene Wert mit der Anforderung übereinstimmt. Falls nicht, wird direkt auch eine Fehlermeldung ausgegeben.
-def check_int(wert, name): # Prüft ob Eingabe ein Intager ist
-        if wert.isdigit() == False:
-            messagebox.showerror("Falsche Eingabe", f"Bitte geben sie in dem Feld {name} nur Zahlen ein.")
-            return False
-        else:
-            return True
-    
-def check_str(wert, name): # Prüft ob die Eingabe ein String ist
-    for a in wert:
-        if a.isalpha() == False:
-            messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} nur Buchstaben ein.")
-            return False
-    return True
-
-def check_range(wert, startrange, lastrange, name): # Prüft, ob der angegebene Zahlenbereich eingehalten wurde
-    if wert.isdigit():    
-        wert = int(wert)
-        if wert >= startrange and wert <= lastrange:
-            return True
-        else:
-            messagebox.showerror("Ungültiger Bereich", f"Bitte geben Sie in dem Feld {name} einen Wert zwischen {startrange} und {lastrange}")
-            return False
-    else:
-        messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} eine Zahl ein.")
-        return False
-    
-def check_datum(datum_str, name):
-    try:
-        datetime.strptime(datum_str, "%Y-%m-%d")
-        return True
-    except ValueError:
-        messagebox.showerror("Falsche Eingabe", f"Bitte geben Sie in dem Feld {name} ein Datum im Format JJJJ-MM-DD ein.")
-        return False

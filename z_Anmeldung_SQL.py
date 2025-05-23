@@ -30,7 +30,9 @@ def create_connection():
         return None
 
 # 🔐 Anmeldung mit Rückgabe eines BenutzerObjekts
-def nutzer_anmelden(benutzername, passwort):
+def nutzer_anmelden(nutzer):
+    benutzername = nutzer.nutzername
+    passwort = nutzer.passwort
     connection = create_connection()
     if not connection:
         return None

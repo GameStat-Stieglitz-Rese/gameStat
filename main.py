@@ -6,17 +6,8 @@ from functools import partial
 import anmeldung
 from PIL import Image, ImageTk
 import z_Datenuebertragung_SQL
-
-class Testobjekt_main: # Klasse fliegt nach Entwicklungsphase raus. Entfernen
-    def __init__(self):
-        self.benutzer = "MaximalBaum34"
-        self.passwort = "1234"
-        self.vorname = "Maxim"
-        self.email = "maxim@gmail.com"
-        self.land = "Deutschland"
-        self.sprache = "deutsch"
-        self.geschlecht = "Männlich"
-        self.geburtsdatum = "1234"
+import z_Spieldaten
+import check_var
 
 
 def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
@@ -48,14 +39,14 @@ def spiel_bearbeiten():
             emw = empf_wahl.get()
 
             # Prüfung, ob die Angaben aus Spiel bearbeiten gültig sind
-            if elemente.check_int(lvl, "Level") == False:
-                print("Fehler Benutzereingabe")
-            elif elemente.check_int(spz, "Spielzeit") == False:
-                print("Fehler Benutzereingabe")
-            elif elemente.check_range(bwt, 1, 10, "Bewertung") == False:
-                print("Fehler Benutzereingabe")
-            elif elemente.check_datum(esp, "Startdatum") == False:
-                print("Fehler Benutzereingabe")
+            if check_var.check_int(lvl, "Level", False) == False:
+                print("Fehler Benutzereingabe lvl")
+            elif check_var.check_int(spz, "Spielzeit", True) == False:
+                print("Fehler Benutzereingabe spz")
+            elif check_var.check_range(bwt, 1, 10, "Bewertung", True) == False:
+                print("Fehler Benutzereingabe bwt")
+            elif check_var.check_datum(esp, "Startdatum", False) == False:
+                print("Fehler Benutzereingabe esp")
             elif dgw == 0 or emw == 0:
                 messagebox.showerror("Eingabefehler", "Bitte wählen Sie auch aus, ob Sie bereits angefangen und / oder durchgespielt haben.")
             else:
@@ -64,15 +55,15 @@ def spiel_bearbeiten():
                 print(dgw, emw)
 
                 # Konvertierung und speicherung in Objekt
-                spdaten.level = int(lvl)
-                spdaten.spielzeit = int(lvl)
+                spdaten.level = int(lvl) if lvl != "" else None
+                spdaten.spielzeit = int(spz)
                 spdaten.bewertung = int(bwt)
-                spdaten.startdatum = esp
+                spdaten.startdatum = esp if esp != "" else None
                 spdaten.durchgespielt = dgw
                 spdaten.empfohlen = emw
 
                 # Übergabe per SQL Befehl an die Datenbank
-                #rw2 = z_Datenuebertragung_SQL.spiel_bearbeiten_speichern(spdaten)
+                #rw2 = z_Spieldaten.spiel_bearbeiten_speichern(spdaten)
                 rw2 = True # ENTFERNEN! und Zeite darüber "Einkommentieren"
                 if rw2 == True:
                     messagebox.showinfo("Speicherung", "Die Speicherung war erfolgreich! Sie gelangen nun in das Hauptmenü.")
@@ -84,8 +75,8 @@ def spiel_bearbeiten():
         game = cb_spielname.get()
         if game != "":
             main_clearwdw()
-            spid = game[0]
-            #spdaten, rw1 = z_Datenuebertragung_SQL.spieldaten_abrufen(spid)
+            eintragid = game[0] # Eintrag ID ist immer am Anfang des jeweiligen Eintrags und wird hier abgerufen
+            #spdaten, rw1 = Spieldaten.spieldaten_abrufen(eintragid)
             rw1 = True # ENTFERNEN!!
             if rw1 == False:
                 messagebox.showerror("MariaDB Fehler", "Fehler bei dem Abrufen von Daten. Sie gelangen nun in das Hauptmenü.")
@@ -107,26 +98,26 @@ def spiel_bearbeiten():
             tf_level.place(x=xwert, y=ywert)
             ywert += yadd * 2
 
-            tk.Label(root, text="Spielzeit (in Std.)").place(x=xwert, y=ywert)
+            tk.Label(root, text="Spielzeit (in Std.) *").place(x=xwert, y=ywert)
             ywert += yadd
             tf_spielzeit = ttk.Entry(root)
             tf_spielzeit.place(x=xwert, y=ywert)
             ywert += yadd * 2
             
-            tk.Label(root, text="Eigenbewertung (1-10)").place(x=xwert, y=ywert)
+            tk.Label(root, text="Eigenbewertung (1-10) *").place(x=xwert, y=ywert)
             ywert += yadd
             tf_bewertung = ttk.Entry(root)
             tf_bewertung.place(x=xwert, y=ywert)
             ywert += yadd * 2
             
-            tk.Label(root, text="Erster Spieltag").place(x=xwert, y=ywert)
+            tk.Label(root, text="Erster Spieltag (JJJJ-MM-TT)").place(x=xwert, y=ywert)
             ywert += yadd
             tf_startdatum = ttk.Entry(root)
             tf_startdatum.place(x=xwert, y=ywert)
             ywert += yadd * 3
 
             xwert -= 30
-            tk.Label(root, text="Durchgespielt?").place(x=xwert, y=ywert)
+            tk.Label(root, text="Durchgespielt? *").place(x=xwert, y=ywert)
             ywert += yadd
             dg_wahl = tk.IntVar(value=0)
             ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1).place(x=xwert, y=ywert)
@@ -138,7 +129,7 @@ def spiel_bearbeiten():
             ywert -= 10
             xwert += xadd
 
-            tk.Label(root, text="Empfehlung?").place(x=xwert, y=ywert)
+            tk.Label(root, text="Empfehlung? *").place(x=xwert, y=ywert)
             ywert += yadd
             empf_wahl = tk.IntVar(value=0)
             ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
@@ -150,12 +141,12 @@ def spiel_bearbeiten():
             ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
 
         else:
-            messagebox.showinfo("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
+            messagebox.showwarning("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
 
     main_clearwdw()
-    #spielliste, rw = z_Datenuebertragung_SQL.spiele_abrufen(spdaten)
+    #spielliste, rw = z_Datenuebertragung_SQL.spiele_abrufen(spdaten) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
     rw = True # ENTFERNEN
-    spielliste = ["1, GTA5, 12", "2, Minecraft, 55"]
+    spielliste = ["1, GTA5, PC", "2, Minecraft, Xbox 360"] # ENTFERNEN, wird durch Spielliste 2 Zeilen darüber ersetzt
     if rw == False:
         messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
         main()
@@ -175,7 +166,6 @@ def spiel_bearbeiten():
 
         ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
 
-
 def spiel_hinzufg():
     def check():
         dg = dg_wahl.get()
@@ -188,9 +178,50 @@ def spiel_hinzufg():
         ebw = tf_bewertung.get()
         esp = tf_erstSpieltag.get()
 
+        # Prüfung, ob die nötigen Felder ausgefüllt und die Datentypen eingehalten wurden
         if spname == "" or pltfrm == "" or spkat == "":
-            messagebox.showinfo("") aaaa
-    
+            messagebox.showinfo("Fehlende Eingabe", "Bitte geben Sie Spielnamen, Plattform und Spielkategorie ein.")
+        elif dg == 0 or empf == 0:
+            messagebox.showinfo("Fehlende Eingabe", "Bitte wählen Sie auch aus, ob Sie bereits angefangen und / oder durchgespielt haben.")
+        elif check_var.check_int(lvl, "Level", False) == False:
+            print("Fehler Benutzereingabe lvl")
+        elif check_var.check_int(spz, "Spielzeit", True) == False:
+            print("Fehler Benutzereingabe spz")
+        elif check_var.check_range(ebw, 1, 10, "Bewertung", True) == False:
+            print("Fehler Benutzereingabe bwt")
+        elif check_var.check_datum(esp, "Erster Spieltag", False) == False:
+            print("Fehler Benutzereingabe esp")
+        else:
+            spdaten = elemente.Spieldaten() # Liste leeren bzw. mit leerer Liste überschreiben
+
+            # Ablegung der Daten in das Objekt (nur geprüft)
+            spdaten.benutzerid = nutzer.id
+            spdaten.spielid = idlist.dict_spiele(spname)
+            spdaten.plattformid = idlist.dict_plattformen(pltfrm)
+            spdaten.kategorieid = idlist.dict_kategorien(spkat)
+            spdaten.level = int(lvl) if lvl != "" else None
+            spdaten.spielzeit = int(spz)
+            spdaten.bewertung = int(ebw)
+            spdaten.startdatum = esp if esp != "" else None
+            spdaten.durchgespielt = dg
+            spdaten.empfohlen = empf
+
+#            spBear_rm = z_Spieldaten.hinzufuegen(spdaten) # Speicherung der Daten auf der Datenbank
+            spBear_rm = 0 # Testweise, kommt bei Funktion des SQL Befehls darüber weg
+            if spBear_rm == 1: # Wenn allgemeine Probleme bei der Speicherung der Daten
+                messagebox.showerror("Störung MariaDB", "Es gab bei der speicherung der Daten ein Problem. Sie gelangen nun in das Hauptmenü.")
+                main() # Springt bei kritischem Fehler in das Hauptmenü
+            elif spBear_rm == 2: # Gleicher Datensatz bereits vorhanden (Spielid, Plattformid, Kategorieid sind auf der DB ein gemeinsames Unique)
+                messagebox.showerror("Störung MariaDB", "Es existiert bereits ein gleicher Eintrag.")
+            elif spBear_rm == 0: # Wenn erfolgreich
+                messagebox.showinfo("Speicherung erfolgreich", "Die Spieldaten wurden erfolgreich gespeichert. Sie gelangen nun zum Homescreen")
+                print(spdaten.spielid, spdaten.benutzerid, spdaten.kategorieid, spdaten.plattformid, spdaten.level)
+                main() # Springt zurück in das Hauptmenü
+            else:
+                messagebox.showerror("Störung MariaDB", "Fataler Fehler.")
+                print("Irgendwas stimmt mit dem SQL Befehl nicht :c Sie gelangen nun in das Hauptmenü.")
+                main() # Springt bei kritischem Fehler in das Hauptmenü
+
     main_clearwdw()
     button.gen_return()
     label.gen_title("Spiel hinzufügen")
@@ -199,21 +230,21 @@ def spiel_hinzufg():
     xadd = 150
     yadd = 20
 
-    tk.Label(root, text="Spielname").place(x=xwert, y=ywert)
+    tk.Label(root, text="Spielname *").place(x=xwert, y=ywert)
     ywert += yadd
-    cb_spielname = ttk.Combobox(root, values=daten.spiele, state="readonly")#.place(x=xwert, y=ywert)
+    cb_spielname = ttk.Combobox(root, values=idlist.spiele, state="readonly")#.place(x=xwert, y=ywert)
     cb_spielname.place(x=xwert, y=ywert)
     ywert += yadd * 2
 
-    tk.Label(root, text="Plattform").place(x=xwert, y=ywert)
+    tk.Label(root, text="Plattform *").place(x=xwert, y=ywert)
     ywert += yadd
-    cb_plattform = ttk.Combobox(root, values=daten.plattform, state="readonly")#.place(x=xwert, y=ywert)
+    cb_plattform = ttk.Combobox(root, values=idlist.plattformen, state="readonly")#.place(x=xwert, y=ywert)
     cb_plattform.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
-    tk.Label(root, text="Spielgategorie").place(x=xwert, y=ywert)
+    tk.Label(root, text="Spielgategorie *").place(x=xwert, y=ywert)
     ywert += yadd
-    cb_kategorie = ttk.Combobox(root, values=daten.kategorien, state="readonly")#.place(x=xwert, y=ywert) # Noch schauen wegen Mehrfachauswahl!! (ggf Combobox!)
+    cb_kategorie = ttk.Combobox(root, values=idlist.kategorien, state="readonly")#.place(x=xwert, y=ywert) # Noch schauen wegen Mehrfachauswahl!! (ggf Combobox!)
     cb_kategorie.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
@@ -223,26 +254,26 @@ def spiel_hinzufg():
     tf_level.place(x=xwert, y=ywert)
     ywert += yadd * 2
 
-    tk.Label(root, text="Spielzeit (in Std.)").place(x=xwert, y=ywert)
+    tk.Label(root, text="Spielzeit (in Std.) *").place(x=xwert, y=ywert)
     ywert += yadd
     tf_spielzeit = ttk.Entry(root)
     tf_spielzeit.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
-    tk.Label(root, text="Eigenbewertung (1-10)").place(x=xwert, y=ywert)
+    tk.Label(root, text="Eigenbewertung (1-10) *").place(x=xwert, y=ywert)
     ywert += yadd
     tf_bewertung = ttk.Entry(root)
     tf_bewertung.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
-    tk.Label(root, text="Erster Spieltag").place(x=xwert, y=ywert)
+    tk.Label(root, text="Erster Spieltag (JJJJ-MM-TT)").place(x=xwert, y=ywert)
     ywert += yadd
     tf_erstSpieltag = ttk.Entry(root)
     tf_erstSpieltag.place(x=xwert, y=ywert)
     ywert += yadd * 3
 
     xwert -= 30
-    tk.Label(root, text="Durchgespielt?").place(x=xwert, y=ywert)
+    tk.Label(root, text="Durchgespielt? *").place(x=xwert, y=ywert)
     ywert += yadd
     dg_wahl = tk.IntVar(value=0)
     ttk.Radiobutton(root, text="Ja", variable=dg_wahl, value=1).place(x=xwert, y=ywert)
@@ -254,7 +285,7 @@ def spiel_hinzufg():
     ywert -= 10
     xwert += xadd
 
-    tk.Label(root, text="Empfehlung?").place(x=xwert, y=ywert)
+    tk.Label(root, text="Empfehlung? *").place(x=xwert, y=ywert)
     ywert += yadd
     empf_wahl = tk.IntVar(value=0)
     ttk.Radiobutton(root, text="Ja", variable=empf_wahl, value=1).place(x=xwert, y=ywert)
@@ -263,7 +294,7 @@ def spiel_hinzufg():
     ywert += yadd + 5
     ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
 
-    ttk.Button(root, text="Weiter", command=check).place(x=500, y=700, width=200)
+    ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
 
 def nutzer_verwaltung(nutzer):
     print("Nutzer verwalten geklickt")
@@ -292,6 +323,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
 
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()
+idlist = elemente.Idlist()
 
 nutzer, login_status = anmeldung.start()
 #nutzer, login_status = anmeldung.bypass()
