@@ -67,6 +67,12 @@ class HauptLabel:
         self.lb_title.place(x=50, y=10)
 
 
+# Diese Klasse generiert ein Objekt, in welchem das Layout der Tabelle vorgegeben wird.
+class Tabelle:
+    def __init__(self, root):
+        self.tabelle = ttk.Treeview(root, )
+
+
 # Klasse Generiert das Objekt, worin grundsätzlich alle Spieldaten des Nutzers Abrufbar sind. Es wird gespeichert, welche Spiele und co. vorhanden sind.
 class Daten:
     def __init__(self):

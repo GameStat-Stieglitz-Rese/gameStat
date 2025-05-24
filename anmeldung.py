@@ -303,8 +303,6 @@ def registrieren(nutzer):
         bn_weiter = tk.Button(root_login, text="Fertig", command=partial(checkp3, nutzer))
 
         # Deklaration weiterer Elemente Seite 3
-        # land = ["Deutschland", "England", "USA", "Russland", "Frankreich", "Spanien", "Polen", "Niederlande"]
-        # sprache = ["deutsch", "englisch", "russisch", "französisch", "spanisch", "polnisch", "niederländisch"]
         tf_1 = ttk.Entry(root_login)
         cb_box1 = ttk.Combobox(root_login, values=idlist.laender, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
         cb_box2 = ttk.Combobox(root_login, value=idlist.sprache, state="readonly")
