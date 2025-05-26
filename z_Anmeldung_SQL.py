@@ -3,16 +3,16 @@ from z_Datenuebertragung_SQL import zeige_spieldaten
 
 # 💾 Benutzerobjekt-Klasse zur Datenübernahme
 class BenutzerObjekt:
-    def __init__(self, id, vorname, benutzername, email, sprache, land, geschlecht, geburtsdatum, bildnummer):
-        self.id = id
-        self.vorname = vorname
-        self.benutzername = benutzername
-        self.email = email
-        self.sprache = sprache
-        self.land = land
-        self.geschlecht = geschlecht
-        self.geburtsdatum = geburtsdatum
-        self.bildnummer = bildnummer
+    def __init__(self):
+        self.id = None
+        self.vorname = None
+        self.nutzername = None
+        self.email = None
+        self.sprache = None
+        self.land = None
+        self.geschlecht = None
+        self.geburtsdatum = None
+        self.bildnummer = None
 
 # 🔌 Verbindung zur Datenbank
 def create_connection():
@@ -29,7 +29,7 @@ def create_connection():
         print(f"Verbindungsfehler: {e}")
         return None
 
-# 🔐 Anmeldung mit Rückgabe eines BenutzerObjekts
+# 🔐 Anmeldung mit Datenübertragung in `nutzer`
 def nutzer_anmelden(nutzer):
     benutzername = nutzer.nutzername
     passwort = nutzer.passwort
@@ -41,7 +41,7 @@ def nutzer_anmelden(nutzer):
         cursor = connection.cursor()
         cursor.execute("""
             SELECT 
-                b.ID, b.Vorname, b.Benutzername, b.E_Mail, s.Name AS Sprache,
+                b.ID, b.Vorname, b.nutzername, b.E_Mail, s.Name AS Sprache,
                 l.Name AS Land, g.Name AS Geschlecht, b.Geburtsdatum, b.Bildnummer
             FROM benutzer b
             JOIN sprache s ON b.Sprache = s.ID
@@ -53,7 +53,18 @@ def nutzer_anmelden(nutzer):
         result = cursor.fetchone()
         if result:
             print(f"✅ Anmeldung erfolgreich. Willkommen, {result[1]}!")
-            return BenutzerObjekt(*result)
+
+            nutzer.id = result[0]
+            nutzer.vorname = result[1]
+            nutzer.nutzername = result[2]
+            nutzer.email = result[3]
+            nutzer.sprache = result[4]
+            nutzer.land = result[5]
+            nutzer.geschlecht = result[6]
+            nutzer.geburtsdatum = result[7]
+            nutzer.bildnummer = result[8]
+
+            return nutzer
         else:
             print("❌ Benutzername oder Passwort ist falsch.")
             return None
@@ -65,18 +76,21 @@ def nutzer_anmelden(nutzer):
     finally:
         connection.close()
 
-# ▶️ Hauptprogramm
+# ▶️ Hauptprogramm (Test)
 if __name__ == "__main__":
-    benutzername = input("Benutzername: ")
-    passwort = input("Passwort: ")
+    class DummyNutzer(BenutzerObjekt):
+        def __init__(self):
+            super().__init__()
+            self.nutzername = input("Benutzername: ")
+            self.passwort = input("Passwort: ")
 
-    nutzer = nutzer_anmelden(benutzername, passwort)
+    nutzer = DummyNutzer()
+    nutzer = nutzer_anmelden(nutzer)
 
     if nutzer:
-        # 🧾 Profil anzeigen
         print("\n📋 Benutzerprofil:")
         print("Vorname:", nutzer.vorname)
-        print("Benutzername:", nutzer.benutzername)
+        print("Benutzername:", nutzer.nutzername)
         print("E-Mail:", nutzer.email)
         print("Sprache:", nutzer.sprache)
         print("Land:", nutzer.land)
