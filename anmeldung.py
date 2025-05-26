@@ -211,7 +211,7 @@ def registrieren(nutzer):
                 print("Geschlecht nicht ausgewählt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Ihr Geschlecht ein!")
             elif eml != "" and gbd != "" and ges != "": # Alles wurde eingegeben
-                rm_gbd = check_var.check_datum(gbd, "Geburtsdatum")
+                rm_gbd = check_var.check_datum(gbd, "Geburtsdatum", True)
                 if rm_gbd:
                     nutzer.email = eml
                     nutzer.geburtsdatum = gbd
