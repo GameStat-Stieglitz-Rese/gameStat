@@ -8,7 +8,7 @@ from tkinter import messagebox
 def verbinden():
     try:
         connection = mariadb.connect(
-            host="10.80.0.206",
+            host="localhost",
             user="team03",
             password="V6W92",
             database="team03",
@@ -29,28 +29,31 @@ def hinzufuegen(spieldaten):
             return 1  # Verbindungsfehler
 
         cursor = verbindung.cursor()
-        
+
+        #print(spieldaten.benutzerid)
+
         sql_check = """
             SELECT COUNT(*) FROM spieldaten
-            WHERE benutzerid = ? AND spielid = ? AND plattformid = ? AND kategorieid = ?
+            WHERE Benutzer_ID = ? AND Spiel_ID = ? AND Platform_ID = ?
         """
-        daten = (spieldaten.benutzerid, spieldaten.spielid, spieldaten.plattformid, spieldaten.kategorieid)
+        daten = (spieldaten.benutzerid, spieldaten.spielid, spieldaten.plattformid)
         cursor.execute(sql_check, daten)
         vorhanden = cursor.fetchone()[0]
+
+        #print(spieldaten.benutzerid)
 
         if vorhanden > 0:
             return 2  # Eintrag bereits vorhanden
 
         sql_insert = """
             INSERT INTO spieldaten
-            (benutzerid, spielid, plattformid, kategorieid, level, spielzeit, bewertung, startdatum, durchgespielt, empfohlen)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (Benutzer_ID, Spiel_ID, Platform_ID, Level, Spielzeit, Eigenbewertung, Startdatum, Durchgespielt, Empfohlen)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
         werte = (
             spieldaten.benutzerid,
             spieldaten.spielid,
             spieldaten.plattformid,
-            spieldaten.kategorieid,
             spieldaten.level,
             spieldaten.spielzeit,
             spieldaten.bewertung,
@@ -58,6 +61,7 @@ def hinzufuegen(spieldaten):
             spieldaten.durchgespielt,
             spieldaten.empfohlen
         )
+        #rint(spieldaten.benutzerid)
 
         cursor.execute(sql_insert, werte)
         verbindung.commit()

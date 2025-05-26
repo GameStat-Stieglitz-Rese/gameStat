@@ -28,11 +28,11 @@ class HauptBedienung:
         self.bn_bewertungen = ttk.Button(root, text="Bewertungen", command=partial(callbacks["bewertungen"], nutzer))
         self.bn_durchgespielt = ttk.Button(root, text="Durchgespielt", command=partial(callbacks["durchgespielt"], nutzer))
         self.bn_empfohlen = ttk.Button(root, text="Empfohlen", command=partial(callbacks["empfohlen"], nutzer))
-        self.bn_spiel_hinzufg = ttk.Button(root, text="Spiel hinzufügen", command=partial(callbacks["spiel_hinzufg"]))
+        self.bn_spiel_hinzufg = ttk.Button(root, text="Spielstand hinzufügen", command=partial(callbacks["spiel_hinzufg"]))
         self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
         self.bn_abmeldung = ttk.Button(root, text="<- Abmelden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
         self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"]))
-        self.bn_spiel_bearbeiten = ttk.Button(root, text="Spiel bearbeiten", command=partial(callbacks["spiel_bearbeiten"]))
+        self.bn_spiel_bearbeiten = ttk.Button(root, text="Spielstand bearbeiten", command=partial(callbacks["spiel_bearbeiten"]))
 
     def gen_hauptmenue(self, xwert, ywert, lwert, xadd, yadd): 
         # Generierung des Hauptmenüs(Übergabe: X-Pos, Y-Pos, Länge, Abstand vertikal, Abstand horizontal)

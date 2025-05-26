@@ -18,7 +18,7 @@ class BenutzerObjekt:
 def create_connection():
     try:
         connection = mariadb.connect(
-            host="10.80.0.206",
+            host="localhost",#"10.80.0.206",
             user="team03",
             password="V6W92",
             database="team03",
@@ -35,7 +35,7 @@ def nutzer_anmelden(nutzer):
     passwort = nutzer.passwort
     connection = create_connection()
     if not connection:
-        return None
+        return False, nutzer  # Rückmeldung: keine DB-Verbindung
 
     try:
         cursor = connection.cursor()
@@ -64,17 +64,18 @@ def nutzer_anmelden(nutzer):
             nutzer.geburtsdatum = result[7]
             nutzer.bildnummer = result[8]
 
-            return nutzer
+            return 0, nutzer  # ✅ Erfolg
         else:
             print("❌ Benutzername oder Passwort ist falsch.")
-            return None
+            return 1, nutzer  # ❌ Login fehlgeschlagen
 
     except mariadb.Error as e:
         print(f"Fehler bei der Anmeldung: {e}")
-        return None
+        return 2, nutzer  # ❌ DB-Fehler
 
     finally:
         connection.close()
+
 
 # ▶️ Hauptprogramm (Test)
 if __name__ == "__main__":

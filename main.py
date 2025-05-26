@@ -8,6 +8,7 @@ from PIL import Image, ImageTk
 import z_Datenuebertragung_SQL
 import z_Spieldaten
 import check_var
+import objektTestAnzeige
 
 
 def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
@@ -193,6 +194,7 @@ def spiel_hinzufg():
             spdaten = elemente.Spieldaten() # Liste leeren bzw. mit leerer Liste überschreiben
 
             # Ablegung der Daten in das Objekt (nur geprüft)
+            print(f"Benutzer ID = {nutzer.id}")
             spdaten.benutzerid = nutzer.id
             spdaten.spielid = idlist.dict_spiele(spname)
             spdaten.plattformid = idlist.dict_plattformen(pltfrm)
@@ -324,6 +326,7 @@ idlist = elemente.Idlist()
 
 nutzer, login_status = anmeldung.start()
 #nutzer, login_status = anmeldung.bypass()
+objektTestAnzeige.useranzeigen(nutzer)
 
 if login_status == True:
     root = tk.Tk()

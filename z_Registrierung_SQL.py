@@ -24,7 +24,7 @@ class Testobjekt:
 def create_connection():
     try:
         connection = mariadb.connect(
-            host="10.80.0.206",
+            host="localhost",
             user="team03",
             password="V6W92",
             database="team03",

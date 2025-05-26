@@ -32,14 +32,18 @@ def home():
         nutzer.nutzername = tf_nutzername.get()
         nutzer.passwort = hashlib.sha256(tf_nutzerpasswort.get().encode()).hexdigest()
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
-            rm_anmeldung = z_Anmeldung_SQL.nutzer_anmelden(nutzer)
-            if rm_anmeldung:
+            rm_anmeldung, nutzer = z_Anmeldung_SQL.nutzer_anmelden(nutzer)
+            if rm_anmeldung == 0:
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
                 root_login.destroy()
-                objektTestAnzeige.useranzeigen(nutzer)
+                objektTestAnzeige.useranzeigen(nutzer) # ENTFERNEN
+            elif rm_anmeldung == 1:
+                print("Login nicht ok")
+                messagebox.showwarning("Anmeldung", "Die Logindaten waren ungültig. Bitte wiederholen.")
+                home()
             else:
-                print("Login nicht ok / MariaDB Fehler")
-                messagebox.showwarning("Anmeldung", "Die Anmeldung war nicht erfolgreich. Bitte wiederholen.")
+                print("MariaDB Fehler")
+                messagebox.showerror("Störung MariaDB", "Es besteht ein Problem mit der Datenbank.")
                 home()
         else:
             print("Fehler: Benutzer hat nicht alle erforderlichen Daten eingegeben.")
@@ -344,7 +348,7 @@ idlist = elemente.Idlist()
 
 # Erzeugen des Fensters
 def start():
-    global loggedin
+    global loggedin, nutzer
     loggedin = False # Globale Variable als Rückmeldung, ob Login erfolgreich war
     nutzer = Nutzer()
     home() # Starten des Anmeldebildschirms (Startwert)
