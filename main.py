@@ -63,8 +63,7 @@ def spiel_bearbeiten():
                 spdaten.empfohlen = emw
 
                 # Übergabe per SQL Befehl an die Datenbank
-                #rw2 = z_Spieldaten.spiel_bearbeiten_speichern(spdaten)
-                rw2 = True # ENTFERNEN! und Zeite darüber "Einkommentieren"
+                rw2 = z_Spieldaten.spiel_bearbeiten_speichern(spdaten)
                 if rw2 == True:
                     messagebox.showinfo("Speicherung", "Die Speicherung war erfolgreich! Sie gelangen nun in das Hauptmenü.")
                     main()
@@ -76,8 +75,7 @@ def spiel_bearbeiten():
         if game != "":
             main_clearwdw()
             eintragid = game[0] # Eintrag ID ist immer am Anfang des jeweiligen Eintrags und wird hier abgerufen
-            #spdaten, rw1 = Spieldaten.spieldaten_abrufen(eintragid)
-            rw1 = True # ENTFERNEN!!
+            spdaten, rw1 = z_Spieldaten.spieldaten_abrufen(eintragid)
             if rw1 == False:
                 messagebox.showerror("MariaDB Fehler", "Fehler bei dem Abrufen von Daten. Sie gelangen nun in das Hauptmenü.")
                 main()
@@ -144,8 +142,8 @@ def spiel_bearbeiten():
             messagebox.showwarning("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
 
     main_clearwdw()
-    #spielliste, rw = z_Datenuebertragung_SQL.spiele_abrufen(spdaten) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
-    rw = True # ENTFERNEN
+    #spielliste, rw = z_Spieldaten.spiele_abrufen(spdaten) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen (Fehlt noch)
+    rw = True
     spielliste = ["1, GTA5, PC", "2, Minecraft, Xbox 360"] # ENTFERNEN, wird durch Spielliste 2 Zeilen darüber ersetzt
     if rw == False:
         messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
