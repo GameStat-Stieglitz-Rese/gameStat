@@ -41,7 +41,7 @@ def nutzer_anmelden(nutzer):
         cursor = connection.cursor()
         cursor.execute("""
             SELECT 
-                b.ID, b.Vorname, b.nutzername, b.E_Mail, s.Name AS Sprache,
+                b.ID, b.Vorname, b.Benutzername, b.E_Mail, s.Name AS Sprache,
                 l.Name AS Land, g.Name AS Geschlecht, b.Geburtsdatum, b.Bildnummer
             FROM benutzer b
             JOIN sprache s ON b.Sprache = s.ID

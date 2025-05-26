@@ -204,8 +204,7 @@ def spiel_hinzufg():
             spdaten.durchgespielt = dg
             spdaten.empfohlen = empf
 
-#            spBear_rm = z_Spieldaten.hinzufuegen(spdaten) # Speicherung der Daten auf der Datenbank
-            spBear_rm = 0 # Testweise, kommt bei Funktion des SQL Befehls darüber weg
+            spBear_rm = z_Spieldaten.hinzufuegen(spdaten) # Speicherung der Daten auf der Datenbank
             if spBear_rm == 1: # Wenn allgemeine Probleme bei der Speicherung der Daten
                 messagebox.showerror("Störung MariaDB", "Es gab bei der speicherung der Daten ein Problem. Sie gelangen nun in das Hauptmenü.")
                 main() # Springt bei kritischem Fehler in das Hauptmenü
