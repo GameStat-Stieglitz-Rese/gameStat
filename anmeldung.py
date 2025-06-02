@@ -29,8 +29,18 @@ def home():
     clearwdw()
     def anmelden_check(nutzer):
         global loggedin # Globale Variable als Rückmeldung, ob Login erfolgreich war
-        nutzer.nutzername = tf_nutzername.get()
-        nutzer.passwort = hashlib.sha256(tf_nutzerpasswort.get().encode()).hexdigest()
+        nutzername = tf_nutzername.get()
+        passwort = tf_nutzerpasswort.get()
+
+        # IF anweisungen, um Sicherzustellen, dass der Nutzer keine Leerzeichen eingibt und über 25 Zeichen ist
+        if check_var.check_space(nutzername, "Nutzername") == False or check_var.check_str_maxlaenge(nutzername, "Nutzername", 25) == False:
+            return
+        if check_var.check_space(passwort, "Passwort") == False or check_var.check_str_maxlaenge(passwort, "Passwort", 25) == False:
+            return
+        
+        nutzer.nutzername = nutzername
+        nutzer.passwort = hashlib.sha256(passwort.encode()).hexdigest()
+
         if nutzer.nutzername != "" and nutzer.passwort != "": # Prüfung, ob Benutzer etwas eingegeben hat
             rm_anmeldung, nutzer = z_Anmeldung_SQL.nutzer_anmelden(nutzer)
             if rm_anmeldung == 0:

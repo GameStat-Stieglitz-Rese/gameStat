@@ -29,7 +29,7 @@ def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spiele
 def empfohlen(nutzer): # Zeigt eine Tabelle mit allen empfohlenen Games an
     print("Empfohlen geklickt")
 
-def spiel_bearbeiten():
+def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
     def aendern(): # Zeigt nach der Eingabe eines Spiels die Oberfläche zur änderung der Daten an
         def check(): # Speicherung neuer Eingaben (Weiter Button)
             lvl = tf_level.get()
@@ -165,7 +165,7 @@ def spiel_bearbeiten():
 
         ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
 
-def spiel_hinzufg():
+def spiel_hinzufg(): # Hinzufügen neuer Spielstände
     def check():
         dg = dg_wahl.get()
         empf = empf_wahl.get()
@@ -299,7 +299,7 @@ def nutzer_verwaltung(nutzer):
     print("Nutzer verwalten geklickt")
 
 def abmelden(nutzer):
-    return
+    exit()
     
 def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
@@ -319,6 +319,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
     "main": main,
     "spiel_bearbeiten" : spiel_bearbeiten
 }
+
 
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()

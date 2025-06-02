@@ -61,3 +61,27 @@ def check_datum(datum_str, name, erforderlich): # Prüft, ob die Eingaabe dem am
             return False
     else:
         return True
+
+def check_space(wert, name): # Prüft, ob im übergebenen String ein Leerzeichen vorhanden ist. Wenn ja, dann Rückgabe False.
+    for c in wert:
+       #print(c)
+        if c == " ":
+            messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} darf kein Leerzeichen vorkommen.")
+            return False
+    return True
+
+
+def check_str_maxlaenge(wert, name, max_laenge): # Prüft, ob übergebener String die Maximalzahl an Zeichen überschreitet.
+    i = 0
+    for c in wert:
+        #print(c)
+        i+= 1
+    if i > max_laenge:
+        messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} dürfen maximal {max_laenge} Zeichen vorkommen.")
+        return False
+    else:
+        return True
+    
+
+
+# "", #, '', ;, - Verbieten
