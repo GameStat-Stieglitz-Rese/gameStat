@@ -18,7 +18,7 @@ class BenutzerObjekt:
 def create_connection():
     try:
         connection = mariadb.connect(
-            host="localhost",#"10.80.0.206",
+            host="10.80.0.206",
             user="team03",
             password="V6W92",
             database="team03",
