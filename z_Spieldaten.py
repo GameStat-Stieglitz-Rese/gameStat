@@ -8,7 +8,7 @@ from tkinter import messagebox
 def verbinden():
     try:
         connection = mariadb.connect(
-            host="10.80.0.206",
+            host="localhost",#10.80.0.206",
             user="team03",
             password="V6W92",
             database="team03",
@@ -88,13 +88,13 @@ def spiel_bearbeiten_speichern(spieldaten):
 
         sql_update = """
             UPDATE spieldaten
-            SET level = ?,
-                spielzeit = ?,
-                bewertung = ?,
-                startdatum = ?,
-                durchgespielt = ?,
-                empfohlen = ?
-            WHERE id = ?
+            SET Level = ?,
+                Spielzeit = ?,
+                Eigenbewertung = ?,
+                Startdatum = ?,
+                Durchgespielt = ?,
+                Empfohlen = ?
+            WHERE ID = ?
         """
         werte = (
             spieldaten.level,

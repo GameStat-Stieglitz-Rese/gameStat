@@ -67,12 +67,6 @@ class HauptLabel:
         self.lb_title.place(x=50, y=10)
 
 
-# Diese Klasse generiert ein Objekt, in welchem das Layout der Tabelle vorgegeben wird.
-class Tabelle:
-    def __init__(self, root):
-        self.tabelle = ttk.Treeview(root, )
-
-
 # Klasse Generiert das Objekt, worin grundsätzlich alle Spieldaten des Nutzers Abrufbar sind. Es wird gespeichert, welche Spiele und co. vorhanden sind.
 class Daten:
     def __init__(self):
@@ -132,3 +126,46 @@ class Idlist:
             return self.kategorien.index(kategorien) + 1
         return None
     
+
+# Funktion, die eine Tabelle generiert
+def tbl_spdaten(root, liste):
+    liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]]
+
+    # Treeview-Widget erstellen
+    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
+
+    # Spaltenüberschriften definieren
+    tree.heading("ID", text="ID")
+    tree.heading("Spiel", text="Spiel")
+    tree.heading("Plattform", text="Plattform")
+    tree.heading("Level", text="Level")
+    tree.heading("Spielzeit", text="Spielzeit")
+    tree.heading("Eigenbewertung", text="Eigenbewertung")
+    tree.heading("Startdatum", text="Startdatum")
+    tree.heading("Durchgespielt", text="Durchgespielt")
+    tree.heading("Empfehlung", text="Empfehlung")
+
+    # Spaltenbreiten
+    tree.column("ID", width=7)
+    tree.column("Spiel", width=100)
+    tree.column("Plattform", width=100)
+    tree.column("Level", width=50)
+    tree.column("Spielzeit", width=55)
+    tree.column("Eigenbewertung", width=100)
+    tree.column("Startdatum", width=100)
+    tree.column("Durchgespielt", width=100)
+    tree.column("Empfehlung", width=100)
+
+    # Daten einfügen
+    for eintrag in liste:
+        tree.insert("", "end", values=eintrag)
+
+    tree.place(x=350, y=70)
+
+
+# liste = 0
+# root = tk.Tk()
+# root.title("Test")
+# root.geometry("1000x1000")
+# tbl_spdaten(root, liste)
+# root.mainloop()

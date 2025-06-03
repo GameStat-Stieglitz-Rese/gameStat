@@ -70,23 +70,23 @@ def home():
 
     # Deklaration Labels Anmeldeseite
     lb_info = tk.Label(root_login, text="Bitte Benutzerdaten eingeben", bg="yellow")
-    lb_nutzername = tk.Label(root_login, text="Benutzername:")
-    lb_nutzerpasswort = tk.Label(root_login, text="Passwort:")
+    lb_nutzername = tk.Label(root_login, text="Benutzername")
+    lb_nutzerpasswort = tk.Label(root_login, text="Passwort")
     lb_rueckmeldung = tk.Label(root_login, text="")
 
     # Startwerte / Standardwerte für die Anordnung von Objekten
     a = 60 # Startwert Objektplatzierung horizontal
     b = 100 # Startwert Objektplatzierung vertikal
-    abstand = 20 # Standardwert Objektabstände
+    abstand = 21 # Standardwert Objektabstände
     # Eingabefelder Benutzername und Passwort Anordnung mit Label:
     lb_info.place(x=a, y=b)
     b+= abstand + 3
     lb_nutzername.place(x=a, y=b)
-    b += abstand + 2
+    b += abstand
     tf_nutzername.place(x=a, y=b)
     b += abstand
     lb_nutzerpasswort.place(x=a, y=b)
-    b += abstand + 2
+    b += abstand
     tf_nutzerpasswort.place(x=a, y=b)
     b = b + abstand + 20 # Abschluss mit zusätzlichem Abstand
     
@@ -190,7 +190,7 @@ def registrieren(nutzer):
         # Definition von Abständen (einheitlich)
         a = 60
         b = 100
-        abstand = 20
+        abstand = 21
 
         # Platzierung der Elemente in dem Fenster
         lb_1.place(x=a, y=b)
@@ -271,7 +271,7 @@ def registrieren(nutzer):
         # Definition von Abständen (einheitlich)
         a = 60
         b = 100
-        abstand = 20
+        abstand = 21
 
         # Platzierung der Elemente in dem Fenster
         lb_1.place(x=a, y=b)
@@ -334,14 +334,14 @@ def registrieren(nutzer):
         bn_weiter = tk.Button(root_login, text="Fertig", command=partial(checkp3, nutzer))
 
         # Deklaration weiterer Elemente Seite 3
-        tf_1 = ttk.Entry(root_login)
+        tf_1 = tk.Entry(root_login)
         cb_box1 = ttk.Combobox(root_login, values=idlist.laender, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
         cb_box2 = ttk.Combobox(root_login, value=idlist.sprache, state="readonly")
         
         # Definition von Abständen (einheitlich)
         a = 60
         b = 100
-        abstand = 20
+        abstand = 21
 
         # Platzierung der Elemente in dem Fenster
         lb_1.place(x=a, y=b)

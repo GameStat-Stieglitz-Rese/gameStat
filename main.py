@@ -17,17 +17,28 @@ def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
     button.gen_abmelden()
 
 def uebersicht(nutzer): # Zeigt eine Tabelle mit allen Spielständen / Games an
-    print("Übersicht geklickt")
+    label.gen_title("Alle Spielstände")
+    #liste = z_Abfragen.gesamtuebersicht_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
+    liste = 0 # Testweise, ENTFERNEN
+    elemente.tbl_spdaten(root, liste)
 
 def bewertungen(nutzer): # Zeigt eine Tabelle mit allen Spielen mit aufsteigender Bewertung an
-    print("Bewertungen geklickt")
-    label.gen_title("Bewertungen")
+    label.gen_title("Spielstände sortiert nach Bewertung")
+    #liste = z_Abfragen.sort_bewertung_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
+    liste = 0 # Testweise, ENTFERNEN
+    elemente.tbl_spdaten(root, liste)
 
 def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spielen an
-    print("Durchgespielt geklickt")
+    label.gen_title("Durchgespielte Spiele")
+    #liste = z_Abfragen.durchgespielt_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
+    liste = 0 # Testweise, ENTFERNEN
+    elemente.tbl_spdaten(root, liste)
 
 def empfohlen(nutzer): # Zeigt eine Tabelle mit allen empfohlenen Games an
-    print("Empfohlen geklickt")
+    label.gen_title("Von dir empfohlene Spiele")
+    #liste = z_Abfragen.empfohlen_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
+    liste = 0 # Testweise, ENTFERNEN
+    elemente.tbl_spdaten(root, liste)
 
 def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
     def aendern(): # Zeigt nach der Eingabe eines Spiels die Oberfläche zur änderung der Daten an
@@ -70,13 +81,16 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
                     main()
                 else:
                     messagebox.showerror("Speicherung", "Leider gab es ein Problem mit der Speicherung der Spieldaten. Bitte versuchen Sie es erneut.")
-                    check()
+                    aendern()
 
-        game = cb_spielname.get()
-        if game != "":
+        wahl = cb_spielname.get()
+        #print(game)
+        if wahl != "":
             main_clearwdw()
-            eintragid = game[0] # Eintrag ID ist immer am Anfang des jeweiligen Eintrags und wird hier abgerufen
-            spdaten, rw1 = z_Spieldaten.spieldaten_abrufen(eintragid)
+            spdaten.eintragid = int(wahl[0]) # Eintrag ID ist immer am Anfang des jeweiligen Eintrags und wird hier abgerufen und zu INT umgewandelt
+            #print(eintragid)
+            #spdaten, rw1 = z_Spieldaten.spieldaten_abrufen(eintragid)
+            rw1 = True
             if rw1 == False:
                 messagebox.showerror("MariaDB Fehler", "Fehler bei dem Abrufen von Daten. Sie gelangen nun in das Hauptmenü.")
                 main()
@@ -89,11 +103,11 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             xadd = 150
             yadd = 20
 
-            label.gen_title(f"Bearbeiten von {game}")
+            label.gen_title(f"Bearbeiten von {wahl}")
 
             tk.Label(root, text="Level").place(x=xwert, y=ywert)
             ywert += yadd
-            tf_level = ttk.Entry(root)
+            tf_level = ttk.Entry(root, text=123)
             tf_level.place(x=xwert, y=ywert)
             ywert += yadd * 2
 
@@ -144,8 +158,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
 
     main_clearwdw()
     spielliste, rw = z_Spieldaten.spiele_liste_fuer_bearbeitung(nutzer.id) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
-    #rw = True
-    #spielliste = ["1, GTA5, PC", "2, Minecraft, Xbox 360"] # ENTFERNEN, wird durch Spielliste 2 Zeilen darüber ersetzt
+
     if rw == False:
         messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
         main()
