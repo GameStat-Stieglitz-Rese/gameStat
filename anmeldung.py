@@ -32,10 +32,10 @@ def home():
         nutzername = tf_nutzername.get()
         passwort = tf_nutzerpasswort.get()
 
-        # IF anweisungen, um Sicherzustellen, dass der Nutzer keine Leerzeichen eingibt und über 25 Zeichen ist
-        if check_var.check_space(nutzername, "Nutzername") == False or check_var.check_str_maxlaenge(nutzername, "Nutzername", 25) == False:
+        # Prüfung, ob der Nutzer einen SQL Befehl eingegeben hat.
+        if check_var.check_sqlblock(nutzername, "Nutzername") == False:
             return
-        if check_var.check_space(passwort, "Passwort") == False or check_var.check_str_maxlaenge(passwort, "Passwort", 25) == False:
+        if check_var.check_sqlblock(passwort, "Passwort") == False:
             return
         
         nutzer.nutzername = nutzername
@@ -141,7 +141,13 @@ def registrieren(nutzer):
             p1 = tf_feld2.get()
             p2 = tf_feld3.get()
             p_anforderung = pw_check(p1)
-            #print(uname)
+
+            # Prüfung, ob Nutzer einen SQL Befehl eingegeben hat
+            if check_var.check_sqlblock(uname, "Benutzername") == False:
+                return
+            if check_var.check_sqlblock(p1, "Passwort") == False: # P2 test unnötig, da p1 = p2 sein muss und fehler ausgelöst wird.
+                return
+
             if uname == "": # Wenn Benutzername leer ist
                 print("Benutzername fehlt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie auch den Benutzernamen ein!")
@@ -211,7 +217,13 @@ def registrieren(nutzer):
             eml = tf_feld1.get()
             gbd = tf_feld2.get()
             ges = cb_box1.get()
-            #print(ges)
+
+            # Prüft, ob Nutzer einen SQL Befehl eingegeben hat
+            if check_var.check_sqlblock(eml, "E-Mail") == False:
+                return
+            if check_var.check_sqlblock(gbd, "Geburtsdatum") == False:
+                return
+
             if eml == "":
                 print("Email Feld leer")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie eine E-Mail Adresse ein!")
@@ -287,6 +299,11 @@ def registrieren(nutzer):
             land = cb_box1.get()
             sprache = cb_box2.get()
             vname = tf_1.get()
+
+            # Prüfung, ob Nutzer einen SQL Befehl eingegeben hat
+            if check_var.check_sqlblock(vname, "Vorname") == False:
+                return
+
             if land == "" or sprache == "" or vname == "":
                 print("Eingabe fehlt")
                 messagebox.showwarning("Eingabe Benutzerdaten", "Bitte geben Sie Vorname, Land und Sprache ein!")

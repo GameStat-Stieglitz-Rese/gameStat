@@ -16,7 +16,7 @@ def check_int(wert, name, erforderlich): # Prüft ob Eingabe ein Intager ist
             return True
     else:
         return True
-    
+
 def check_str(wert, name, erforderlich): # Prüft ob die Eingabe ein String ist
     if erforderlich == True and wert == "":
         messagebox.showerror("Fehlende Eingabe", f"Das Feld {name} ist ein Pflichtfeld!")
@@ -62,26 +62,19 @@ def check_datum(datum_str, name, erforderlich): # Prüft, ob die Eingaabe dem am
     else:
         return True
 
-def check_space(wert, name): # Prüft, ob im übergebenen String ein Leerzeichen vorhanden ist. Wenn ja, dann Rückgabe False.
+def check_sqlblock(wert, name): # Prüft Leerzeichen, Zeichenanzahl (max 25), Sonderzeichen wie #, ; und `.
+    i = 0
     for c in wert:
-       #print(c)
+        i += 1
         if c == " ":
             messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} darf kein Leerzeichen vorkommen.")
             return False
-    return True
-
-
-def check_str_maxlaenge(wert, name, max_laenge): # Prüft, ob übergebener String die Maximalzahl an Zeichen überschreitet.
-    i = 0
-    for c in wert:
-        #print(c)
-        i+= 1
+        if c == "#" or c == ";" or c == "`":
+            messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} darf kein #, ; und ´ vorkommen.")
+            return False
+    max_laenge = 25
     if i > max_laenge:
         messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} dürfen maximal {max_laenge} Zeichen vorkommen.")
         return False
     else:
         return True
-    
-
-
-# "", #, '', ;, - Verbieten

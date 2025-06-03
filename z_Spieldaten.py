@@ -122,6 +122,7 @@ def spiel_bearbeiten_speichern(spieldaten):
 #   Spiele anzeigen     #
 # ===================== #
 def spiele_liste_fuer_bearbeitung(nutzer_id):
+    #int(nutzer_id)
     try:
         verbindung = verbinden()
         if verbindung is None:
@@ -131,9 +132,9 @@ def spiele_liste_fuer_bearbeitung(nutzer_id):
         cursor.execute("""
             SELECT spieldaten.ID, spiele.Spielname, platform.Name
             FROM spieldaten
-            JOIN spiele ON spieldaten.spielid = spiele.ID
-            JOIN platform ON spieldaten.plattformid = platform.ID
-            WHERE spieldaten.benutzerid = ?
+            JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
+            JOIN platform ON spieldaten.Platform_ID = platform.ID
+            WHERE spieldaten.Benutzer_ID = ?
         """, (nutzer_id,))
 
         daten = cursor.fetchall()

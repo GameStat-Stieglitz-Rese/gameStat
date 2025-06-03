@@ -143,9 +143,9 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             messagebox.showwarning("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
 
     main_clearwdw()
-    #spielliste, rw = z_Spieldaten.spiele_abrufen(spdaten) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen (Fehlt noch)
-    rw = True
-    spielliste = ["1, GTA5, PC", "2, Minecraft, Xbox 360"] # ENTFERNEN, wird durch Spielliste 2 Zeilen darüber ersetzt
+    spielliste, rw = z_Spieldaten.spiele_liste_fuer_bearbeitung(nutzer.id) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
+    #rw = True
+    #spielliste = ["1, GTA5, PC", "2, Minecraft, Xbox 360"] # ENTFERNEN, wird durch Spielliste 2 Zeilen darüber ersetzt
     if rw == False:
         messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
         main()
