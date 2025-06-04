@@ -1,8 +1,33 @@
-
 import mariadb
 
+# 🔁 Hilfsfunktion zum Umwandeln von 1/2/3 in Text
+def konvertiere_booleans(eintraege):
+    def ja_nein(wert):
+        if wert == 1:
+            return "Ja"
+        elif wert == 2:
+            return "Nein"
+        else:
+            return "Keine Angabe"
 
-#GESAMTÜBERSICHT ABRUFEN
+    return [
+        (
+            eintrag[0],  # ID
+            eintrag[1],  # Spielname
+            eintrag[2],  # Plattform
+            eintrag[3],  # Kategorie
+            eintrag[4],  # Level
+            eintrag[5],  # Spielzeit
+            eintrag[6],  # Eigenbewertung
+            eintrag[7],  # Startdatum
+            ja_nein(eintrag[8]),  # Durchgespielt
+            ja_nein(eintrag[9])   # Empfohlen
+        )
+        for eintrag in eintraege
+    ]
+
+
+# 🔎 Gesamtliste aller Spiele des Nutzers
 def gesamtuebersicht_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -16,6 +41,7 @@ def gesamtuebersicht_abrufen(nutzer):
 
         cursor.execute("""
             SELECT 
+                spieldaten.ID,
                 spiele.Spielname,
                 platform.Name,
                 spielkategorie.Name,
@@ -43,6 +69,7 @@ def gesamtuebersicht_abrufen(nutzer):
             connection.close()
 
 
+# 🔎 Nach Bewertung sortiert
 def sort_bewertung_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -56,6 +83,7 @@ def sort_bewertung_abrufen(nutzer):
 
         cursor.execute("""
             SELECT 
+                spieldaten.ID,
                 spiele.Spielname,
                 platform.Name,
                 spielkategorie.Name,
@@ -84,6 +112,7 @@ def sort_bewertung_abrufen(nutzer):
             connection.close()
 
 
+# 🔎 Nur durchgespielte
 def durchgespielt_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -97,6 +126,7 @@ def durchgespielt_abrufen(nutzer):
 
         cursor.execute("""
             SELECT 
+                spieldaten.ID,
                 spiele.Spielname,
                 platform.Name,
                 spielkategorie.Name,
@@ -124,6 +154,7 @@ def durchgespielt_abrufen(nutzer):
             connection.close()
 
 
+# 🔎 Nur empfohlene
 def empfohlen_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -137,6 +168,7 @@ def empfohlen_abrufen(nutzer):
 
         cursor.execute("""
             SELECT 
+                spieldaten.ID,
                 spiele.Spielname,
                 platform.Name,
                 spielkategorie.Name,
