@@ -1,6 +1,23 @@
 import mariadb
 
 
+def umwandeln(liste):
+    if liste.durchgespielt == 0:
+        liste.durchgespielt = "K.A."
+    elif liste.durchgespielt == 1:
+        liste.durchgespielt = "Nein"
+    elif liste.durchgespielt == 2:
+        liste.durchgespielt = "Ja"
+    else:
+        liste.durchgespielt = "E1"
+
+    if liste.empfohlen == 0:
+        liste.empfohlen = "K.A."
+    elif liste.empfohlen == 1:
+        liste.empfohlen = "Nein"
+    elif liste.empfohlen == 2:
+        liste.empfohlen = "Ja"
+        
 #GESAMTÜBERSICHT ABRUFEN
 def gesamtuebersicht_abrufen(nutzer):
     try:

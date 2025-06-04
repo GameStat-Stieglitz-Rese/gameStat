@@ -345,7 +345,7 @@ objektTestAnzeige.useranzeigen(nutzer)
 
 if login_status == True:
     root = tk.Tk()
-    root.geometry("1200x800")
+    root.geometry("1400x800")
     root.title("GameStat - Dein Spielmanager")
 
     # Einstellung des Aussehens der Benutzeroberfläche
