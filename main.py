@@ -331,7 +331,9 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
     "spiel_bearbeiten" : spiel_bearbeiten
 }
 
+# Deklaration der Pfade
 azure = os.path.join(os.path.dirname(__file__), "themes", "azure", "azure.tcl")
+pic_logo = os.path.join(os.path.dirname(__file__), "images", "logo.png")
 
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()
@@ -358,7 +360,7 @@ if login_status == True:
     # Deklaration der Bilder
     #hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
     #hint_bild = ImageTk.PhotoImage(hint_bild)
-    new_logo = Image.open("images/logo.png") # Deklaration des Programmlogos
+    new_logo = Image.open(pic_logo) # Deklaration des Programmlogos
     skal_logo = new_logo.resize((500, 500))
     img1_logo = ImageTk.PhotoImage(skal_logo)
     img_logo = tk.Label(root, image=img1_logo)
