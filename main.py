@@ -10,6 +10,7 @@ import z_Spieldaten
 import check_var
 import objektTestAnzeige
 import z_Abfragen
+import os
 
 
 def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
@@ -330,7 +331,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
     "spiel_bearbeiten" : spiel_bearbeiten
 }
 
-
+azure = os.path.join(os.path.dirname(__file__), "themes", "azure", "azure.tcl")
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()
 idlist = elemente.Idlist()
@@ -345,7 +346,8 @@ if login_status == True:
     root.title("GameStat - Dein Spielmanager")
 
     # Einstellung des Aussehens der Benutzeroberfläche
-    root.tk.call("source", "themes/azure/azure.tcl")
+    #root.tk.call("source", "themes/azure/azure.tcl")
+    root.tk.call("source", azure)
     root.tk.call("set_theme", "light")
     style = ttk.Style()
     style.theme_use("azure-light")
