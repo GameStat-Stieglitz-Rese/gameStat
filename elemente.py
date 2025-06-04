@@ -129,7 +129,7 @@ class Idlist:
 
 # Funktion, die eine Tabelle generiert
 def tbl_spdaten(root, liste):
-    liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]]
+    #liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]] # Nur für Testzwecke
 
     # Treeview-Widget erstellen
     tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
