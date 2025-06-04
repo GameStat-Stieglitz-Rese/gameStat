@@ -1,30 +1,8 @@
 
 import mariadb
 
-def konvertiere_booleans(eintraege):
-    def ja_nein(wert):
-        if wert == 1:
-            return "Ja"
-        elif wert == 2:
-            return "Nein"
-        else:
-            return "Keine Angabe"
 
-    return [
-        (
-            eintrag[0],  # Spielname
-            eintrag[1],  # Plattform
-            eintrag[2],  # Kategorie
-            eintrag[3],  # Level
-            eintrag[4],  # Spielzeit
-            eintrag[5],  # Bewertung
-            eintrag[6],  # Startdatum
-            ja_nein(eintrag[7]),  # Durchgespielt
-            ja_nein(eintrag[8])   # Empfohlen
-        )
-        for eintrag in eintraege
-    ]
-
+#GESAMTÜBERSICHT ABRUFEN
 def gesamtuebersicht_abrufen(nutzer):
     try:
         connection = mariadb.connect(

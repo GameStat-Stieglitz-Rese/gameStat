@@ -132,12 +132,13 @@ def tbl_spdaten(root, liste):
     #liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]] # Nur für Testzwecke
 
     # Treeview-Widget erstellen
-    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
+    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
 
     # Spaltenüberschriften definieren
     tree.heading("ID", text="ID")
     tree.heading("Spiel", text="Spiel")
     tree.heading("Plattform", text="Plattform")
+    tree.heading("Kategorie", text="Kategorie")
     tree.heading("Level", text="Level")
     tree.heading("Spielzeit", text="Spielzeit")
     tree.heading("Eigenbewertung", text="Eigenbewertung")
@@ -146,9 +147,10 @@ def tbl_spdaten(root, liste):
     tree.heading("Empfehlung", text="Empfehlung")
 
     # Spaltenbreiten
-    tree.column("ID", width=7)
-    tree.column("Spiel", width=100)
-    tree.column("Plattform", width=100)
+    tree.column("ID", width=7) # ID soll unbedingt als Ganzzahl ausgegeben werden
+    tree.column("Spiel", width=100) # Spielname (bezeichnung, nicht ID)
+    tree.column("Plattform", width=100) # Plattformname
+    tree.column("Kategorie", width=100) # Kategoriename
     tree.column("Level", width=50)
     tree.column("Spielzeit", width=55)
     tree.column("Eigenbewertung", width=100)
@@ -160,7 +162,7 @@ def tbl_spdaten(root, liste):
     for eintrag in liste:
         tree.insert("", "end", values=eintrag)
 
-    tree.place(x=350, y=70)
+    tree.place(x=350, y=70)     
 
 
 # liste = 0
