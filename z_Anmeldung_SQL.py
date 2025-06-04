@@ -74,7 +74,8 @@ def nutzer_anmelden(nutzer):
         return 2, nutzer  # ❌ DB-Fehler
 
     finally:
-        connection.close()
+        #connection.close()
+        print("q")
 
 
 # ▶️ Hauptprogramm (Test)
