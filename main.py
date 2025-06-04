@@ -332,6 +332,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
 }
 
 azure = os.path.join(os.path.dirname(__file__), "themes", "azure", "azure.tcl")
+
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()
 idlist = elemente.Idlist()
@@ -355,8 +356,8 @@ if login_status == True:
     style.map("Accent.TButton", background=[("active", "#0056b3")], foreground=[("disabled", "gray")])
 
     # Deklaration der Bilder
-    hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
-    hint_bild = ImageTk.PhotoImage(hint_bild)
+    #hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
+    #hint_bild = ImageTk.PhotoImage(hint_bild)
     new_logo = Image.open("images/logo.png") # Deklaration des Programmlogos
     skal_logo = new_logo.resize((500, 500))
     img1_logo = ImageTk.PhotoImage(skal_logo)
