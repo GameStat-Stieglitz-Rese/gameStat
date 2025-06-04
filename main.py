@@ -9,6 +9,7 @@ import z_Datenuebertragung_SQL
 import z_Spieldaten
 import check_var
 import objektTestAnzeige
+import z_Abfragen
 
 
 def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
@@ -18,26 +19,22 @@ def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
 
 def uebersicht(nutzer): # Zeigt eine Tabelle mit allen Spielständen / Games an
     label.gen_title("Alle Spielstände")
-    #liste = z_Abfragen.gesamtuebersicht_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
-    liste = 0 # Testweise, ENTFERNEN
+    liste = z_Abfragen.gesamtuebersicht_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft 
     elemente.tbl_spdaten(root, liste)
 
 def bewertungen(nutzer): # Zeigt eine Tabelle mit allen Spielen mit aufsteigender Bewertung an
     label.gen_title("Spielstände sortiert nach Bewertung")
-    #liste = z_Abfragen.sort_bewertung_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
-    liste = 0 # Testweise, ENTFERNEN
+    liste = z_Abfragen.sort_bewertung_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft 
     elemente.tbl_spdaten(root, liste)
 
 def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spielen an
     label.gen_title("Durchgespielte Spiele")
-    #liste = z_Abfragen.durchgespielt_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
-    liste = 0 # Testweise, ENTFERNEN
+    liste = z_Abfragen.durchgespielt_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft 
     elemente.tbl_spdaten(root, liste)
 
 def empfohlen(nutzer): # Zeigt eine Tabelle mit allen empfohlenen Games an
     label.gen_title("Von dir empfohlene Spiele")
-    #liste = z_Abfragen.empfohlen_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft (fehlt noch)
-    liste = 0 # Testweise, ENTFERNEN
+    liste = z_Abfragen.empfohlen_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft 
     elemente.tbl_spdaten(root, liste)
 
 def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
