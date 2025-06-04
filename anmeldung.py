@@ -5,9 +5,11 @@ from functools import partial # Zum ausführen von Commands in einem Tkinter Ele
 import objektTestAnzeige
 import z_Anmeldung_SQL
 import z_Registrierung_SQL
+from PIL import Image, ImageTk
 import elemente
 import hashlib
 import check_var
+import os
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
@@ -21,9 +23,12 @@ class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten B
         self.geschlecht = "Lestisch"#None
         self.geburtsdatum = "ll"#None
 
+def logo_place():
+    lb_logo.place(x=27, y=-55)
+
 def clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
-    for widget in root_login.winfo_children():
-        widget.destroy()
+        for widget in root_login.winfo_children():
+            widget.place_forget()
 
 def home():
     clearwdw()
@@ -79,6 +84,9 @@ def home():
     b = 100 # Startwert Objektplatzierung vertikal
     abstand = 21 # Standardwert Objektabstände
     # Eingabefelder Benutzername und Passwort Anordnung mit Label:
+    
+    # Startseite generieren / Elemente platzieren
+    logo_place()
     lb_info.place(x=a, y=b)
     b+= abstand + 3
     lb_nutzername.place(x=a, y=b)
@@ -193,6 +201,7 @@ def registrieren(nutzer):
         abstand = 21
 
         # Platzierung der Elemente in dem Fenster
+        logo_place()
         lb_1.place(x=a, y=b)
         b += abstand + 3
         lb_2.place(x=a, y=b)
@@ -274,6 +283,7 @@ def registrieren(nutzer):
         abstand = 21
 
         # Platzierung der Elemente in dem Fenster
+        logo_place()
         lb_1.place(x=a, y=b)
         b += abstand + 3
         lb_2.place(x=a, y=b)
@@ -344,6 +354,7 @@ def registrieren(nutzer):
         abstand = 21
 
         # Platzierung der Elemente in dem Fenster
+        logo_place()
         lb_1.place(x=a, y=b)
         b += abstand + 3
         lb_4.place(x=a, y=b)
@@ -365,6 +376,8 @@ def registrieren(nutzer):
     #clearwdw()
     page1(nutzer) # Start unmittelbar nach Aufruf der "registrieren" Funktion mit der ersten Seite.
 
+# Deklaration Pfad für Medien
+pic_logo = os.path.join(os.path.dirname(__file__), "images", "logo.png")
 
 root_login = tk.Tk()
 root_login.title("GameStat Launcher")
@@ -375,9 +388,13 @@ idlist = elemente.Idlist()
 
 # Erzeugen des Fensters
 def start():
-    global loggedin, nutzer
+    global loggedin, nutzer, lb_logo # Macht folgende Variablen auf gesamtem Skript nutzbar.
     loggedin = False # Globale Variable als Rückmeldung, ob Login erfolgreich war
     nutzer = Nutzer()
+    new_logo = Image.open(pic_logo) # Deklaration des Programmlogos
+    skal_logo = new_logo.resize((200, 200))
+    img1_logo = ImageTk.PhotoImage(skal_logo)
+    lb_logo = tk.Label(root_login, image=img1_logo)
     home() # Starten des Anmeldebildschirms (Startwert)
     root_login.mainloop()
     return nutzer, loggedin

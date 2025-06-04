@@ -96,7 +96,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             button.gen_abmelden()
             button.gen_return()
 
-            xwert = 500
+            xwert = 750
             ywert = 90
             xadd = 150
             yadd = 20
@@ -149,7 +149,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             ywert += yadd + 5
             ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
 
-            ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
+            ttk.Button(root, text="Speichern", command=check).place(x=730, y=700, width=200)
 
         else:
             messagebox.showwarning("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
@@ -163,7 +163,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
     else:
         button.gen_return()
         label.gen_title("Spiel bearbeiten")
-        xwert = 500
+        xwert = 750
         ywert = 90
         xadd = 150
         yadd = 20
@@ -174,7 +174,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
         cb_spielname.place(x=xwert, y=ywert)
         ywert += yadd * 2
 
-        ttk.Button(root, text="Weiter", command=aendern).place(x=500, y=700, width=200)
+        ttk.Button(root, text="Weiter", command=aendern).place(x=730, y=700, width=200)
 
 def spiel_hinzufg(): # Hinzufügen neuer Spielstände
     def check():
@@ -235,7 +235,7 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
     main_clearwdw()
     button.gen_return()
     label.gen_title("Spiel hinzufügen")
-    xwert = 500
+    xwert = 750
     ywert = 90
     xadd = 150
     yadd = 20
@@ -304,7 +304,7 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
     ywert += yadd + 5
     ttk.Radiobutton(root, text="Keine Angabe", variable=empf_wahl, value=3).place(x=xwert, y=ywert)
 
-    ttk.Button(root, text="Speichern", command=check).place(x=500, y=700, width=200)
+    ttk.Button(root, text="Speichern", command=check).place(x=730, y=700, width=200)
 
 def nutzer_verwaltung(nutzer):
     print("Nutzer verwalten geklickt")
@@ -315,7 +315,7 @@ def abmelden(nutzer):
 def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
     button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
-    img_logo.place(x=100, y=100, relwidth=1, relheight=1)
+    pic_background.place(x=0, y=150, relwidth=1, relheight=1)
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
@@ -334,6 +334,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
 # Deklaration der Pfade
 azure = os.path.join(os.path.dirname(__file__), "themes", "azure", "azure.tcl")
 pic_logo = os.path.join(os.path.dirname(__file__), "images", "logo.png")
+pic_background = os.path.join(os.path.dirname(__file__), "images", "GameStatWin7Style.png")
 
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()
@@ -345,12 +346,13 @@ objektTestAnzeige.useranzeigen(nutzer)
 
 if login_status == True:
     root = tk.Tk()
-    root.geometry("1400x800")
+    #root.geometry("1400x800")
+    root.attributes("-fullscreen", True) # Vollbildansicht
     root.title("GameStat - Dein Spielmanager")
 
     # Einstellung des Aussehens der Benutzeroberfläche
     #root.tk.call("source", "themes/azure/azure.tcl")
-    root.tk.call("source", azure)
+    root.tk.call("source", azure) # Direkter Pfad hat nicht richtig funktioniert
     root.tk.call("set_theme", "light")
     style = ttk.Style()
     style.theme_use("azure-light")
@@ -360,10 +362,10 @@ if login_status == True:
     # Deklaration der Bilder
     #hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
     #hint_bild = ImageTk.PhotoImage(hint_bild)
-    new_logo = Image.open(pic_logo) # Deklaration des Programmlogos
-    skal_logo = new_logo.resize((500, 500))
-    img1_logo = ImageTk.PhotoImage(skal_logo)
-    img_logo = tk.Label(root, image=img1_logo)
+    background = Image.open(pic_background) # Deklaration des Programmlogos
+    background = background.resize((2000, 800)) # Einstellung der größe
+    background = ImageTk.PhotoImage(background) # Macht es zu einem TKinter Bild
+    pic_background = tk.Label(root, image=background) # Speichert das Bild in ein Label
 
     # hb_canvas = tk.Canvas(root, width=1200, height=800)
     # hb_canvas.pack(fill="both", expand=True)
