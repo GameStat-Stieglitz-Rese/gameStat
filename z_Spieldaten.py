@@ -126,7 +126,7 @@ def spiele_liste_fuer_bearbeitung(nutzer_id):
     try:
         verbindung = verbinden()
         if verbindung is None:
-            return [], False
+            return [], 1
 
         cursor = verbindung.cursor()
         cursor.execute("""
@@ -139,14 +139,14 @@ def spiele_liste_fuer_bearbeitung(nutzer_id):
 
         daten = cursor.fetchall()
         if not daten:
-            return [], False
+            return [], 2
 
         spielliste = [f"{row[0]} - {row[1]} ({row[2]})" for row in daten]
-        return spielliste, True
+        return spielliste, 0
 
     except mariadb.Error as e:
         print(f"Fehler beim Laden der Spieleliste: {e}")
-        return [], False
+        return [], 1
     finally:
         if verbindung:
             cursor.close()

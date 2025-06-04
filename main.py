@@ -102,6 +102,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             yadd = 20
 
             label.gen_title(f"Bearbeiten von {wahl}")
+            pic_background2.place(x=0, y=80, relwidth=1, relheight=1)
 
             tk.Label(root, text="Level").place(x=xwert, y=ywert)
             ywert += yadd
@@ -157,8 +158,11 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
     main_clearwdw()
     spielliste, rw = z_Spieldaten.spiele_liste_fuer_bearbeitung(nutzer.id) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
 
-    if rw == False:
+    if rw == 1:
         messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
+        main()
+    elif rw == 2:
+        messagebox.showerror("Kein Spielstand", "Sie haben noch keine Spielstände angelegt. Bitte legen Sie sich zuvor einen an. Sie gelangen zurück zum Hauptmenü.")
         main()
     else:
         button.gen_return()
@@ -168,6 +172,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
         xadd = 150
         yadd = 20
 
+        pic_background2.place(x=0, y=80, relwidth=1, relheight=1)
         tk.Label(root, text="Spielname").place(x=xwert, y=ywert)
         ywert += yadd
         cb_spielname = ttk.Combobox(root, values=spielliste, state="readonly")
@@ -240,6 +245,7 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
     xadd = 150
     yadd = 20
 
+    pic_background2.place(x=0, y=80, relwidth=1, relheight=1)
     tk.Label(root, text="Spielname *").place(x=xwert, y=ywert)
     ywert += yadd
     cb_spielname = ttk.Combobox(root, values=idlist.spiele, state="readonly")#.place(x=xwert, y=ywert)
@@ -335,6 +341,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
 azure = os.path.join(os.path.dirname(__file__), "themes", "azure", "azure.tcl")
 pic_logo = os.path.join(os.path.dirname(__file__), "images", "logo.png")
 pic_background = os.path.join(os.path.dirname(__file__), "images", "GameStatWin7Style.png")
+pic_background2 = os.path.join(os.path.dirname(__file__), "images", "hintergrundAllgemein.png")
 
 daten = elemente.Daten()
 spdaten = elemente.Spieldaten()
@@ -366,6 +373,12 @@ if login_status == True:
     background = background.resize((2000, 800)) # Einstellung der größe
     background = ImageTk.PhotoImage(background) # Macht es zu einem TKinter Bild
     pic_background = tk.Label(root, image=background) # Speichert das Bild in ein Label
+
+    print(pic_background2)
+    background2 = Image.open(pic_background2)
+    background2 = background2.resize((2000, 800))
+    background2 = ImageTk.PhotoImage(background2)
+    pic_background2 = tk.Label(root, image=background2)
 
     # hb_canvas = tk.Canvas(root, width=1200, height=800)
     # hb_canvas.pack(fill="both", expand=True)

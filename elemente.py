@@ -29,8 +29,8 @@ class HauptBedienung:
         self.bn_durchgespielt = ttk.Button(root, text="Durchgespielt", command=partial(callbacks["durchgespielt"], nutzer))
         self.bn_empfohlen = ttk.Button(root, text="Empfohlen", command=partial(callbacks["empfohlen"], nutzer))
         self.bn_spiel_hinzufg = ttk.Button(root, text="Spielstand hinzufügen", command=partial(callbacks["spiel_hinzufg"]))
-        self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
-        self.bn_abmeldung = ttk.Button(root, text="<- Abmelden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
+        #self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
+        self.bn_abmeldung = ttk.Button(root, text="Abmelden / Beenden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
         self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"]))
         self.bn_spiel_bearbeiten = ttk.Button(root, text="Spielstand bearbeiten", command=partial(callbacks["spiel_bearbeiten"]))
 
@@ -47,8 +47,8 @@ class HauptBedienung:
         self.bn_spiel_bearbeiten.place(x=xwert, y=ywert, width=lwert)
         ywert += yadd
         self.bn_spiel_hinzufg.place(x=xwert, y=ywert, width=lwert)
-        ywert += yadd
-        self.bn_nutzer_verwaltung.place(x=xwert, y=ywert, width=lwert)
+        #ywert += yadd
+        #self.bn_nutzer_verwaltung.place(x=xwert, y=ywert, width=lwert)
 
     def gen_abmelden(self): # Generierung des Abmeldebuttons (Übergabe: X-Pos, Y-Pos, Länge)
         self.bn_abmeldung.place(x=50, y=70, width=200)
@@ -148,9 +148,9 @@ def tbl_spdaten(root, liste):
 
     # Spaltenbreiten
     tree.column("ID", width=7) # ID soll unbedingt als Ganzzahl ausgegeben werden
-    tree.column("Spiel", width=100) # Spielname (bezeichnung, nicht ID)
+    tree.column("Spiel", width=200) # Spielname (bezeichnung, nicht ID)
     tree.column("Plattform", width=100) # Plattformname
-    tree.column("Kategorie", width=100) # Kategoriename
+    tree.column("Kategorie", width=150) # Kategoriename
     tree.column("Level", width=50)
     tree.column("Spielzeit", width=55)
     tree.column("Eigenbewertung", width=100)
