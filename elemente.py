@@ -24,15 +24,15 @@ class HauptBedienung:
     def __init__(self, root, nutzer, callbacks):
         # Buttons Hauptmenü
         #self.callbacks = callbacks # Verzeichnis der Funktionen  (Unnötig?)
-        self.bn_uebersicht = ttk.Button(root, text="Übersicht", command=partial(callbacks["uebersicht"], nutzer))
-        self.bn_bewertungen = ttk.Button(root, text="Bewertungen", command=partial(callbacks["bewertungen"], nutzer))
-        self.bn_durchgespielt = ttk.Button(root, text="Durchgespielt", command=partial(callbacks["durchgespielt"], nutzer))
-        self.bn_empfohlen = ttk.Button(root, text="Empfohlen", command=partial(callbacks["empfohlen"], nutzer))
-        self.bn_spiel_hinzufg = ttk.Button(root, text="Spielstand hinzufügen", command=partial(callbacks["spiel_hinzufg"]))
+        self.bn_uebersicht = ttk.Button(root, text="📋 Übersicht", command=partial(callbacks["uebersicht"], nutzer))
+        self.bn_bewertungen = ttk.Button(root, text="⭐ Bewertungen", command=partial(callbacks["bewertungen"], nutzer))
+        self.bn_durchgespielt = ttk.Button(root, text="🎮 Durchgespielt", command=partial(callbacks["durchgespielt"], nutzer))
+        self.bn_empfohlen = ttk.Button(root, text="👍 Empfohlen", command=partial(callbacks["empfohlen"], nutzer))
+        self.bn_spiel_hinzufg = ttk.Button(root, text="➕ Spielstand hinzufügen", command=partial(callbacks["spiel_hinzufg"]))
         #self.bn_nutzer_verwaltung = ttk.Button(root, text="Benutzer verwalten", command=partial(callbacks["nutzer_verwaltung"], nutzer))
         self.bn_abmeldung = ttk.Button(root, text="Abmelden / Beenden", style="Accent.TButton", command=partial(callbacks["abmelden"], nutzer))
-        self.bn_return = ttk.Button(root, text="Hauptmenü", command=partial(callbacks["main"]))
-        self.bn_spiel_bearbeiten = ttk.Button(root, text="Spielstand bearbeiten", command=partial(callbacks["spiel_bearbeiten"]))
+        self.bn_return = ttk.Button(root, text="🏠 Hauptmenü", command=partial(callbacks["main"]))
+        self.bn_spiel_bearbeiten = ttk.Button(root, text="✏️ Spielstand bearbeiten", command=partial(callbacks["spiel_bearbeiten"]))
 
     def gen_hauptmenue(self, xwert, ywert, lwert, xadd, yadd): 
         # Generierung des Hauptmenüs(Übergabe: X-Pos, Y-Pos, Länge, Abstand vertikal, Abstand horizontal)
@@ -60,11 +60,12 @@ class HauptBedienung:
 # Diese Klasse generiert ein Obkejt, in dem wichtige Labels gespeichert sind und direkt dank der Funktion generiert werden können
 class HauptLabel:
     def __init__(self, root):
-        self.lb_title = tk.Label(root, text="Ueberschrift", font=("Arial", 20))
-
+        self.lb_title = tk.Label(root, text="Ueberschrift", font=("Arial", 26))
+        
     def gen_title(self, name):
         self.lb_title.config(text=name) # Ändern des Textes der Überschrift zu den übergebenen String
-        self.lb_title.place(x=50, y=10)
+        #self.lb_title.place(x=750, y=15)
+        self.lb_title.pack()
 
 
 # Klasse Generiert das Objekt, worin grundsätzlich alle Spieldaten des Nutzers Abrufbar sind. Es wird gespeichert, welche Spiele und co. vorhanden sind.
@@ -147,7 +148,7 @@ def tbl_spdaten(root, liste):
     tree.heading("Empfehlung", text="Empfehlung")
 
     # Spaltenbreiten
-    tree.column("ID", width=7) # ID soll unbedingt als Ganzzahl ausgegeben werden
+    tree.column("ID", width=15) # ID soll unbedingt als Ganzzahl ausgegeben werden
     tree.column("Spiel", width=200) # Spielname (bezeichnung, nicht ID)
     tree.column("Plattform", width=100) # Plattformname
     tree.column("Kategorie", width=150) # Kategoriename

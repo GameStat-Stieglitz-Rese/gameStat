@@ -321,7 +321,7 @@ def abmelden(nutzer):
 def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
     button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
-    pic_background.place(x=0, y=150, relwidth=1, relheight=1)
+    pic_background.place(x=0, y=80, relwidth=1, relheight=1)
     button.gen_abmelden()
     label.gen_title("Hauptmenü")
 
@@ -340,7 +340,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
 # Deklaration der Pfade
 azure = os.path.join(os.path.dirname(__file__), "themes", "azure", "azure.tcl")
 pic_logo = os.path.join(os.path.dirname(__file__), "images", "logo.png")
-pic_background = os.path.join(os.path.dirname(__file__), "images", "GameStatWin7Style.png")
+pic_background = os.path.join(os.path.dirname(__file__), "images", "gameStatLogoMain2.png")
 pic_background2 = os.path.join(os.path.dirname(__file__), "images", "hintergrundAllgemein.png")
 
 daten = elemente.Daten()
@@ -370,7 +370,7 @@ if login_status == True:
     #hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
     #hint_bild = ImageTk.PhotoImage(hint_bild)
     background = Image.open(pic_background) # Deklaration des Programmlogos
-    background = background.resize((2000, 800)) # Einstellung der größe
+    background = background.resize((1750, 900)) # Einstellung der größe
     background = ImageTk.PhotoImage(background) # Macht es zu einem TKinter Bild
     pic_background = tk.Label(root, image=background) # Speichert das Bild in ein Label
 
