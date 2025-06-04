@@ -1,7 +1,30 @@
+
 import mariadb
 
+def konvertiere_booleans(eintraege):
+    def ja_nein(wert):
+        if wert == 1:
+            return "Ja"
+        elif wert == 2:
+            return "Nein"
+        else:
+            return "Keine Angabe"
 
-#GESAMTÜBERSICHT ABRUFEN
+    return [
+        (
+            eintrag[0],  # Spielname
+            eintrag[1],  # Plattform
+            eintrag[2],  # Kategorie
+            eintrag[3],  # Level
+            eintrag[4],  # Spielzeit
+            eintrag[5],  # Bewertung
+            eintrag[6],  # Startdatum
+            ja_nein(eintrag[7]),  # Durchgespielt
+            ja_nein(eintrag[8])   # Empfohlen
+        )
+        for eintrag in eintraege
+    ]
+
 def gesamtuebersicht_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -31,18 +54,16 @@ def gesamtuebersicht_abrufen(nutzer):
             WHERE spieldaten.Benutzer_ID = ?
         """, (nutzer.id,))
 
-        return cursor.fetchall()
+        return konvertiere_booleans(cursor.fetchall())
 
     except mariadb.Error as e:
         print(f"Fehler bei der Datenabfrage: {e}")
         return []
 
     finally:
-        if connection:
+        if 'connection' in locals():
             connection.close()
 
-
-#SORT-BEWERTUNG-ABRUFEN
 
 def sort_bewertung_abrufen(nutzer):
     try:
@@ -74,18 +95,17 @@ def sort_bewertung_abrufen(nutzer):
             ORDER BY spieldaten.Eigenbewertung ASC
         """, (nutzer.id,))
 
-        return cursor.fetchall()
+        return konvertiere_booleans(cursor.fetchall())
 
     except mariadb.Error as e:
         print(f"Fehler beim Abrufen der Bewertungen: {e}")
         return []
 
     finally:
-        if connection:
+        if 'connection' in locals():
             connection.close()
 
 
-#DURCHGESPIELT ABRUFEN
 def durchgespielt_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -115,18 +135,17 @@ def durchgespielt_abrufen(nutzer):
             WHERE spieldaten.Benutzer_ID = ? AND spieldaten.Durchgespielt = 1
         """, (nutzer.id,))
 
-        return cursor.fetchall()
+        return konvertiere_booleans(cursor.fetchall())
 
     except mariadb.Error as e:
         print(f"Fehler beim Abrufen durchgespielter Spiele: {e}")
         return []
 
     finally:
-        if connection:
+        if 'connection' in locals():
             connection.close()
 
 
-#EMPFOHLEN ABRUFEN
 def empfohlen_abrufen(nutzer):
     try:
         connection = mariadb.connect(
@@ -156,12 +175,12 @@ def empfohlen_abrufen(nutzer):
             WHERE spieldaten.Benutzer_ID = ? AND spieldaten.Empfohlen = 1
         """, (nutzer.id,))
 
-        return cursor.fetchall()
+        return konvertiere_booleans(cursor.fetchall())
 
     except mariadb.Error as e:
         print(f"Fehler beim Abrufen empfohlener Spiele: {e}")
         return []
 
     finally:
-        if connection:
+        if 'connection' in locals():
             connection.close()
