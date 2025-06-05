@@ -82,13 +82,14 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
                     messagebox.showerror("Speicherung", "Leider gab es ein Problem mit der Speicherung der Spieldaten. Bitte versuchen Sie es erneut.")
                     aendern()
 
-        wahl = cb_spielname.get()
-        #print(game)
+        wahl = cb_spielname.current()
+        spiel = cb_spielname.get()
+        eid = ids[wahl]
+        # print(eid)
+        # print(type(eid))
         if wahl != "":
             main_clearwdw()
-            spdaten.eintragid = int(wahl[0]) # Eintrag ID ist immer am Anfang des jeweiligen Eintrags und wird hier abgerufen und zu INT umgewandelt
-            #print(eintragid)
-            #spdaten, rw1 = z_Spieldaten.spieldaten_abrufen(eintragid)
+            spdaten.eintragid = eid # Eintrag ID ist immer am Anfang des jeweiligen Eintrags und wird hier abgerufen und zu INT umgewandelt
             rw1 = True
             if rw1 == False:
                 messagebox.showerror("MariaDB Fehler", "Fehler bei dem Abrufen von Daten. Sie gelangen nun in das Hauptmenü.")
@@ -102,7 +103,7 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             xadd = 150
             yadd = 20
 
-            label.gen_title(f"Bearbeiten von {wahl}")
+            label.gen_title(f"Bearbeiten von {spiel}")
             pic_background2.place(x=0, y=80, relwidth=1, relheight=1)
 
             tk.Label(root, text="Level").place(x=xwert, y=ywert)
@@ -154,10 +155,10 @@ def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
             ttk.Button(root, text="Speichern", command=check).place(x=730, y=700, width=200)
 
         else:
-            messagebox.showwarning("Eingabe", "Bitte wählen Sie ein Spiel aus. Sofern nicht vorhanden, bitte anlegen.")
+            messagebox.showwarning("Eingabe", "Bitte wählen Sie ein Spiel aus.")
 
     main_clearwdw()
-    spielliste, rw = z_Spieldaten.spiele_liste_fuer_bearbeitung(nutzer.id) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
+    spielliste, rw, ids = z_Spieldaten.spiele_liste_fuer_bearbeitung(nutzer.id) # Erstellung einer liste mit allen Spielen und den jeweiligen Plattformen
 
     if rw == 1:
         messagebox.showerror("MariaDB Fehler", "Es gab einen Fehler bei der Datenübertragung. Sie gelangen zurück zum Hauptmenü.")
@@ -305,8 +306,8 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
 
     ttk.Button(root, text="Speichern", command=check).place(x=730, y=700, width=200)
 
-def nutzer_verwaltung(nutzer):
-    print("Nutzer verwalten geklickt")
+# def nutzer_verwaltung(nutzer):
+#     print("Nutzer verwalten geklickt")
 
 def abmelden(nutzer):
     sys.exit()
@@ -314,9 +315,10 @@ def abmelden(nutzer):
 def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()
     button.gen_hauptmenue(50, 110, 200, 0, 35) # Übergabe x,y,l
-    pic_background.place(x=0, y=80, relwidth=1, relheight=1)
-    button.gen_abmelden()
     label.gen_title("Hauptmenü")
+    #pic_background.place(x=0, y=80, relwidth=1, relheight=1)
+    pic_background.pack()
+    button.gen_abmelden()
 
 callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines Buttons (Übergabewert "uebersicht" ruft uebersicht auf)
     "uebersicht": uebersicht,
@@ -324,7 +326,7 @@ callbacks = { # Verzeichnis zum Aufrufen der Funktionen nach Betätigung eines B
     "durchgespielt": durchgespielt,
     "empfohlen": empfohlen,
     "spiel_hinzufg": spiel_hinzufg,
-    "nutzer_verwaltung": nutzer_verwaltung,
+#    "nutzer_verwaltung": nutzer_verwaltung,
     "abmelden": abmelden,
     "main": main,
     "spiel_bearbeiten" : spiel_bearbeiten
@@ -346,8 +348,8 @@ nutzer, login_status = anmeldung.start()
 
 if login_status == True:
     root = tk.Tk()
-    #root.geometry("1920x1080")
-    root.attributes("-fullscreen", True) # Vollbildansicht
+    root.geometry("1920x1080")
+    #root.attributes("-fullscreen", True) # Vollbildansicht
     root.title("GameStat - Dein Spielmanager")
 
     # Einstellung des Aussehens der Benutzeroberfläche
@@ -363,7 +365,8 @@ if login_status == True:
     #hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
     #hint_bild = ImageTk.PhotoImage(hint_bild)
     background = Image.open(pic_background) # Deklaration des Programmlogos
-    background = background.resize((1750, 900)) # Einstellung der größe
+    #background = background.resize((1750, 900)) # Einstellung der größe
+    background = background.resize((1920, 1080)) # Einstellung der größe
     background = ImageTk.PhotoImage(background) # Macht es zu einem TKinter Bild
     pic_background = tk.Label(root, image=background) # Speichert das Bild in ein Label
 
@@ -375,7 +378,7 @@ if login_status == True:
 
     # hb_canvas = tk.Canvas(root, width=1200, height=800)
     # hb_canvas.pack(fill="both", expand=True)
-    # hb_canvas.create_image(0, 0, image=hint_bild, anchor="nw")
+    # hb_canvas.create_image(0, 0, image=background2, anchor="nw")
 
     button = elemente.HauptBedienung(root, nutzer, callbacks) # Buttons werden aus elemente.py generiert.
     label = elemente.HauptLabel(root) # Labels werden aus elemente.py generiert.

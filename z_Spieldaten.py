@@ -8,7 +8,7 @@ from tkinter import messagebox
 def verbinden():
     try:
         connection = mariadb.connect(
-            host="10.80.0.206",
+            host="localhost",
             user="team03",
             password="V6W92",
             database="team03",
@@ -142,7 +142,8 @@ def spiele_liste_fuer_bearbeitung(nutzer_id):
             return [], 2
 
         spielliste = [f"{row[0]} - {row[1]} ({row[2]})" for row in daten]
-        return spielliste, 0
+        ids = [row[0] for row in daten]
+        return spielliste, 0, ids
 
     except mariadb.Error as e:
         print(f"Fehler beim Laden der Spieleliste: {e}")
