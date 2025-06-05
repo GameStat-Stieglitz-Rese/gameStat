@@ -1,6 +1,7 @@
 import mariadb
 
 # 🔁 Hilfsfunktion zum Umwandeln von 1/2/3 in Text
+
 def konvertiere_booleans(eintraege):
     def ja_nein(wert):
         if wert == 1:
@@ -27,7 +28,6 @@ def konvertiere_booleans(eintraege):
         for eintrag in eintraege
     ]
 
-
 # 🔎 Gesamtliste aller Spiele des Nutzers
 def gesamtuebersicht_abrufen(nutzer):
     try:
@@ -52,11 +52,12 @@ def gesamtuebersicht_abrufen(nutzer):
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
                 spieldaten.Empfohlen,
-                spieldaten.Herausgeber
+                herausgeber.Name
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
             JOIN spielkategorie ON spiele.Kategorie_ID = spielkategorie.ID
+            JOIN herausgeber ON spiele.Herausgeber_ID = herausgeber.ID
             WHERE spieldaten.Benutzer_ID = ?
         """, (nutzer.id,))
 
@@ -69,7 +70,6 @@ def gesamtuebersicht_abrufen(nutzer):
     finally:
         if 'connection' in locals():
             connection.close()
-
 
 # 🔎 Nach Bewertung sortiert
 def sort_bewertung_abrufen(nutzer):
@@ -95,11 +95,12 @@ def sort_bewertung_abrufen(nutzer):
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
                 spieldaten.Empfohlen,
-                spieldaten.Herausgeber
+                herausgeber.Name
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
             JOIN spielkategorie ON spiele.Kategorie_ID = spielkategorie.ID
+            JOIN herausgeber ON spiele.Herausgeber_ID = herausgeber.ID
             WHERE spieldaten.Benutzer_ID = ?
             ORDER BY spieldaten.Eigenbewertung ASC
         """, (nutzer.id,))
@@ -113,7 +114,6 @@ def sort_bewertung_abrufen(nutzer):
     finally:
         if 'connection' in locals():
             connection.close()
-
 
 # 🔎 Nur durchgespielte
 def durchgespielt_abrufen(nutzer):
@@ -139,11 +139,12 @@ def durchgespielt_abrufen(nutzer):
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
                 spieldaten.Empfohlen,
-                spieldaten.Herausgeber
+                herausgeber.Name
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
             JOIN spielkategorie ON spiele.Kategorie_ID = spielkategorie.ID
+            JOIN herausgeber ON spiele.Herausgeber_ID = herausgeber.ID
             WHERE spieldaten.Benutzer_ID = ? AND spieldaten.Durchgespielt = 1
         """, (nutzer.id,))
 
@@ -156,7 +157,6 @@ def durchgespielt_abrufen(nutzer):
     finally:
         if 'connection' in locals():
             connection.close()
-
 
 # 🔎 Nur empfohlene
 def empfohlen_abrufen(nutzer):
@@ -182,11 +182,12 @@ def empfohlen_abrufen(nutzer):
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
                 spieldaten.Empfohlen,
-                spieldaten.Herausgeber
+                herausgeber.Name
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
             JOIN spielkategorie ON spiele.Kategorie_ID = spielkategorie.ID
+            JOIN herausgeber ON spiele.Herausgeber_ID = herausgeber.ID
             WHERE spieldaten.Benutzer_ID = ? AND spieldaten.Empfohlen = 1
         """, (nutzer.id,))
 
