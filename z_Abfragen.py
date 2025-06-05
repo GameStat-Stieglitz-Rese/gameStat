@@ -21,7 +21,8 @@ def konvertiere_booleans(eintraege):
             eintrag[6],  # Eigenbewertung
             eintrag[7],  # Startdatum
             ja_nein(eintrag[8]),  # Durchgespielt
-            ja_nein(eintrag[9])   # Empfohlen
+            ja_nein(eintrag[9]),  # Empfohlen
+            eintrag[10]  # Herausgeber
         )
         for eintrag in eintraege
     ]
@@ -50,7 +51,8 @@ def gesamtuebersicht_abrufen(nutzer):
                 spieldaten.Eigenbewertung,
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
-                spieldaten.Empfohlen
+                spieldaten.Empfohlen,
+                spieldaten.Herausgeber
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
@@ -92,7 +94,8 @@ def sort_bewertung_abrufen(nutzer):
                 spieldaten.Eigenbewertung,
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
-                spieldaten.Empfohlen
+                spieldaten.Empfohlen,
+                spieldaten.Herausgeber
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
@@ -135,7 +138,8 @@ def durchgespielt_abrufen(nutzer):
                 spieldaten.Eigenbewertung,
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
-                spieldaten.Empfohlen
+                spieldaten.Empfohlen,
+                spieldaten.Herausgeber
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
@@ -177,7 +181,8 @@ def empfohlen_abrufen(nutzer):
                 spieldaten.Eigenbewertung,
                 spieldaten.Startdatum,
                 spieldaten.Durchgespielt,
-                spieldaten.Empfohlen
+                spieldaten.Empfohlen,
+                spieldaten.Herausgeber
             FROM spieldaten
             JOIN spiele ON spieldaten.Spiel_ID = spiele.ID
             JOIN platform ON spieldaten.Platform_ID = platform.ID
