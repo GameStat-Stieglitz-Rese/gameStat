@@ -132,17 +132,15 @@ class Idlist:
 # Funktion, die eine Tabelle generiert
 def tbl_spdaten(root, liste):
     def none_umwandeln(liste):
-        print(liste)
-        if liste[9] == None:
-            liste[9] = "K.A."
-        if liste[10] == None:
-            liste[10] = "K.A."
+        for c in liste:
+            if c == None:
+                c = "k.A."
 
     #liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]] # Nur für Testzwecke
-    
+    #none_umwandeln(liste)
     # Treeview-Widget erstellen         0       1           2           3              4         5         6               7               8               9               10
     tree = ttk.Treeview(root, columns=("ID", "Spiel", "Herausgeber", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
-    none_umwandeln(liste)
+    
     # Spaltenüberschriften definieren
     tree.heading("ID", text="ID")
     tree.heading("Spiel", text="Spiel")

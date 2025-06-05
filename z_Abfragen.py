@@ -9,7 +9,13 @@ def konvertiere_booleans(eintraege):
         elif wert == 2:
             return "Nein"
         else:
-            return "Keine Angabe"
+            return "K.A."
+        
+    def check_none(wert):
+        if wert == None:
+            return "K.A."
+        else:
+            return wert
 
     return [
         (
@@ -17,10 +23,10 @@ def konvertiere_booleans(eintraege):
             eintrag[1],  # Spielname
             eintrag[2],  # Plattform
             eintrag[3],  # Kategorie
-            eintrag[4],  # Level
+            check_none(eintrag[4]),  # Level
             eintrag[5],  # Spielzeit
             eintrag[6],  # Eigenbewertung
-            eintrag[7],  # Startdatum
+            check_none(eintrag[7]),  # Startdatum
             ja_nein(eintrag[8]),  # Durchgespielt
             ja_nein(eintrag[9]),  # Empfohlen
             eintrag[10]  # Herausgeber
