@@ -11,6 +11,7 @@ import check_var
 import test_objektTestAnzeige
 import z_Abfragen
 import os
+import sys
 
 
 def main_clearwdw(): # Löscht den gesamten Inhalt eines Fensters!
@@ -308,7 +309,7 @@ def nutzer_verwaltung(nutzer):
     print("Nutzer verwalten geklickt")
 
 def abmelden(nutzer):
-    exit()
+    sys.exit()
     
 def main(): # Das "eigentliche" Programm, bzw. Ablauf des Programms
     main_clearwdw()

@@ -62,7 +62,7 @@ def check_datum(datum_str, name, erforderlich): # Prüft, ob die Eingaabe dem am
     else:
         return True
 
-def check_sqlblock(wert, name): # Prüft Leerzeichen, Zeichenanzahl (max 25), Sonderzeichen wie #, ; und `.
+def check_sqlblock(wert, name): # Prüft Leerzeichen, Zeichenanzahl (max 45), Sonderzeichen wie #, ; und `.
     i = 0
     for c in wert:
         i += 1
@@ -72,7 +72,7 @@ def check_sqlblock(wert, name): # Prüft Leerzeichen, Zeichenanzahl (max 25), So
         if c == "#" or c == ";" or c == "`":
             messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} darf kein #, ; und ´ vorkommen.")
             return False
-    max_laenge = 25
+    max_laenge = 45
     if i > max_laenge:
         messagebox.showerror("Nicht akzeptierte Eingabe", f"Im Feld {name} dürfen maximal {max_laenge} Zeichen vorkommen.")
         return False

@@ -10,6 +10,7 @@ import elemente
 import hashlib
 import check_var
 import os
+import sys
 
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
@@ -66,7 +67,7 @@ def home():
 
     # Deklaration Buttons Anmeldeseite
     bn_anmelden = tk.Button(root_login, text="Anmelden", command=partial(anmelden_check, nutzer))
-    bn_abbrechen = tk.Button(root_login, text="Abbruch", command=exit, width=19)
+    bn_abbrechen = tk.Button(root_login, text="Abbruch", command=sys.exit, width=19)
     bn_registrieren = tk.Button(root_login, text="Registrieren", command=partial(registrieren, nutzer))
 
     # Deklaration Textfelder Anmeldeseite

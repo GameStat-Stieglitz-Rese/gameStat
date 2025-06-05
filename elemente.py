@@ -138,17 +138,17 @@ def tbl_spdaten(root, liste):
     tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung", "Herausgeber"), show="headings")
     
     # Spaltenüberschriften definieren
-    tree.heading("ID", text="ID")
-    tree.heading("Spiel", text="Spiel")
-    tree.heading("Plattform", text="Plattform")
-    tree.heading("Kategorie", text="Kategorie")
-    tree.heading("Level", text="Level")
-    tree.heading("Spielzeit", text="Spielzeit")
-    tree.heading("Eigenbewertung", text="Eigenbewertung")
-    tree.heading("Startdatum", text="Startdatum")
-    tree.heading("Durchgespielt", text="Durchgespielt")
-    tree.heading("Empfehlung", text="Empfehlung")
-    tree.heading("Herausgeber", text="Herausgeber")
+    tree.heading("ID", text="ID", anchor="w")
+    tree.heading("Spiel", text="Spiel", anchor="w")
+    tree.heading("Plattform", text="Plattform", anchor="w")
+    tree.heading("Kategorie", text="Kategorie", anchor="w")
+    tree.heading("Level", text="Level", anchor="w")
+    tree.heading("Spielzeit", text="Spielzeit", anchor="w")
+    tree.heading("Eigenbewertung", text="Eigenbewertung", anchor="w")
+    tree.heading("Startdatum", text="Startdatum", anchor="w")
+    tree.heading("Durchgespielt", text="Durchgespielt", anchor="w")
+    tree.heading("Empfehlung", text="Empfehlung", anchor="w")
+    tree.heading("Herausgeber", text="Herausgeber", anchor="w")
 
     # Spaltenbreiten
     tree.column("ID", width=20) # ID soll unbedingt als Ganzzahl ausgegeben werden
