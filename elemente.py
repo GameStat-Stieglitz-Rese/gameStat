@@ -11,6 +11,7 @@ class Spieldaten:
         self.benutzerid = ""
         self.plattformid = ""
         self.kategorieid = ""
+        self.herausgeber = ""
         self.level = ""
         self.spielzeit = ""
         self.bewertung = ""
@@ -130,14 +131,22 @@ class Idlist:
 
 # Funktion, die eine Tabelle generiert
 def tbl_spdaten(root, liste):
+    def none_umwandeln(liste):
+        print(liste)
+        if liste[9] == None:
+            liste[9] = "K.A."
+        if liste[10] == None:
+            liste[10] = "K.A."
+
     #liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]] # Nur für Testzwecke
-
-    # Treeview-Widget erstellen
-    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
-
+    
+    # Treeview-Widget erstellen         0       1           2           3              4         5         6               7               8               9               10
+    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Herausgeber", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
+    none_umwandeln(liste)
     # Spaltenüberschriften definieren
     tree.heading("ID", text="ID")
     tree.heading("Spiel", text="Spiel")
+    tree.heading("Herausgeber", text="Herausgeber")
     tree.heading("Plattform", text="Plattform")
     tree.heading("Kategorie", text="Kategorie")
     tree.heading("Level", text="Level")
@@ -150,6 +159,7 @@ def tbl_spdaten(root, liste):
     # Spaltenbreiten
     tree.column("ID", width=15) # ID soll unbedingt als Ganzzahl ausgegeben werden
     tree.column("Spiel", width=200) # Spielname (bezeichnung, nicht ID)
+    tree.column("Herausgeber", width=240) # Herausgeber
     tree.column("Plattform", width=100) # Plattformname
     tree.column("Kategorie", width=150) # Kategoriename
     tree.column("Level", width=50)
