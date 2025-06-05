@@ -161,7 +161,7 @@ def tbl_spdaten(root, liste):
     tree.column("Startdatum", width=100)
     tree.column("Durchgespielt", width=100)
     tree.column("Empfehlung", width=100)
-    tree.column("Herausgeber", width=240) # Herausgeber
+    tree.column("Herausgeber", width=180) # Herausgeber
 
     # Daten einfügen
     for eintrag in liste:
