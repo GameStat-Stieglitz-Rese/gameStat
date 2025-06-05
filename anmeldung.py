@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from functools import partial # Zum ausführen von Commands in einem Tkinter Element. Syntax: partial({Funktion}, {Argument})
-import objektTestAnzeige
+import test_objektTestAnzeige
 import z_Anmeldung_SQL
 import z_Registrierung_SQL
 from PIL import Image, ImageTk
@@ -51,7 +51,7 @@ def home():
             if rm_anmeldung == 0:
                 loggedin = True # Globale Variable als Rückmeldung, ob Login erfolgreich war
                 root_login.destroy()
-                objektTestAnzeige.useranzeigen(nutzer) # ENTFERNEN
+                #test_objektTestAnzeige.useranzeigen(nutzer) # Für Test, aktivieren, wenn Nutzerdaten in Konsole Printen
             elif rm_anmeldung == 1:
                 print("Login nicht ok")
                 messagebox.showwarning("Anmeldung", "Die Logindaten waren ungültig. Bitte wiederholen.")

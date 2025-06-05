@@ -8,7 +8,7 @@ from PIL import Image, ImageTk
 import z_Datenuebertragung_SQL
 import z_Spieldaten
 import check_var
-import objektTestAnzeige
+import test_objektTestAnzeige
 import z_Abfragen
 import os
 
@@ -349,7 +349,7 @@ idlist = elemente.Idlist()
 
 nutzer, login_status = anmeldung.start()
 #nutzer, login_status = anmeldung.bypass()
-objektTestAnzeige.useranzeigen(nutzer)
+#test_objektTestAnzeige.useranzeigen(nutzer) Nur zum Testen
 
 if login_status == True:
     root = tk.Tk()
