@@ -131,20 +131,15 @@ class Idlist:
 
 # Funktion, die eine Tabelle generiert
 def tbl_spdaten(root, liste):
-    def none_umwandeln(liste):
-        for c in liste:
-            if c == None:
-                c = "k.A."
 
     #liste = [[4, "GTA5", "PC", 122, 123, 10, "2025-12-12", "Nein", "Ja"]] # Nur für Testzwecke
-    #none_umwandeln(liste)
+
     # Treeview-Widget erstellen         0       1           2           3              4         5         6               7               8               9               10
-    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Herausgeber", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung"), show="headings")
+    tree = ttk.Treeview(root, columns=("ID", "Spiel", "Plattform", "Kategorie", "Level", "Spielzeit", "Eigenbewertung", "Startdatum", "Durchgespielt", "Empfehlung", "Herausgeber"), show="headings")
     
     # Spaltenüberschriften definieren
     tree.heading("ID", text="ID")
     tree.heading("Spiel", text="Spiel")
-    tree.heading("Herausgeber", text="Herausgeber")
     tree.heading("Plattform", text="Plattform")
     tree.heading("Kategorie", text="Kategorie")
     tree.heading("Level", text="Level")
@@ -153,11 +148,11 @@ def tbl_spdaten(root, liste):
     tree.heading("Startdatum", text="Startdatum")
     tree.heading("Durchgespielt", text="Durchgespielt")
     tree.heading("Empfehlung", text="Empfehlung")
+    tree.heading("Herausgeber", text="Herausgeber")
 
     # Spaltenbreiten
     tree.column("ID", width=15) # ID soll unbedingt als Ganzzahl ausgegeben werden
     tree.column("Spiel", width=200) # Spielname (bezeichnung, nicht ID)
-    tree.column("Herausgeber", width=240) # Herausgeber
     tree.column("Plattform", width=100) # Plattformname
     tree.column("Kategorie", width=150) # Kategoriename
     tree.column("Level", width=50)
@@ -166,6 +161,7 @@ def tbl_spdaten(root, liste):
     tree.column("Startdatum", width=100)
     tree.column("Durchgespielt", width=100)
     tree.column("Empfehlung", width=100)
+    tree.column("Herausgeber", width=240) # Herausgeber
 
     # Daten einfügen
     for eintrag in liste:
