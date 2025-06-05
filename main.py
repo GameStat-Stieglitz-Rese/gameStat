@@ -348,8 +348,8 @@ nutzer, login_status = anmeldung.start()
 
 if login_status == True:
     root = tk.Tk()
-    root.geometry("1920x1080")
-    #root.attributes("-fullscreen", True) # Vollbildansicht
+    #root.geometry("1920x1080")
+    root.attributes("-fullscreen", True) # Vollbildansicht
     root.title("GameStat - Dein Spielmanager")
 
     # Einstellung des Aussehens der Benutzeroberfläche
