@@ -187,15 +187,14 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
         empf = empf_wahl.get()
         spname = cb_spielname.get()
         pltfrm = cb_plattform.get()
-        spkat = cb_kategorie.get()
         lvl = tf_level.get()
         spz = tf_spielzeit.get()
         ebw = tf_bewertung.get()
         esp = tf_erstSpieltag.get()
 
         # Prüfung, ob die nötigen Felder ausgefüllt und die Datentypen eingehalten wurden
-        if spname == "" or pltfrm == "" or spkat == "":
-            messagebox.showinfo("Fehlende Eingabe", "Bitte geben Sie Spielnamen, Plattform und Spielkategorie ein.")
+        if spname == "" or pltfrm == "":
+            messagebox.showinfo("Fehlende Eingabe", "Bitte geben Sie Spielnamen und Plattform ein.")
         elif dg == 0 or empf == 0:
             messagebox.showinfo("Fehlende Eingabe", "Bitte wählen Sie auch aus, ob Sie bereits angefangen und / oder durchgespielt haben.")
         elif check_var.check_int(lvl, "Level", False) == False:
@@ -214,7 +213,6 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
             spdaten.benutzerid = nutzer.id
             spdaten.spielid = idlist.dict_spiele(spname)
             spdaten.plattformid = idlist.dict_plattformen(pltfrm)
-            spdaten.kategorieid = idlist.dict_kategorien(spkat)
             spdaten.level = int(lvl) if lvl != "" else None
             spdaten.spielzeit = int(spz)
             spdaten.bewertung = int(ebw)
@@ -226,11 +224,11 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
             if spBear_rm == 1: # Wenn allgemeine Probleme bei der Speicherung der Daten
                 messagebox.showerror("Störung MariaDB", "Es gab bei der speicherung der Daten ein Problem. Sie gelangen nun in das Hauptmenü.")
                 main() # Springt bei kritischem Fehler in das Hauptmenü
-            elif spBear_rm == 2: # Gleicher Datensatz bereits vorhanden (Spielid, Plattformid, Kategorieid sind auf der DB ein gemeinsames Unique)
+            elif spBear_rm == 2: # Gleicher Datensatz bereits vorhanden (Spielid, Plattformid sind auf der DB ein gemeinsames Unique)
                 messagebox.showerror("Störung MariaDB", "Es existiert bereits ein gleicher Eintrag.")
             elif spBear_rm == 0: # Wenn erfolgreich
                 messagebox.showinfo("Speicherung erfolgreich", "Die Spieldaten wurden erfolgreich gespeichert. Sie gelangen nun zum Homescreen")
-                print(spdaten.spielid, spdaten.benutzerid, spdaten.kategorieid, spdaten.plattformid, spdaten.level)
+                #print(spdaten.spielid, spdaten.benutzerid, spdaten.kategorieid, spdaten.plattformid, spdaten.level)
                 main() # Springt zurück in das Hauptmenü
             else:
                 messagebox.showerror("Störung MariaDB", "Fataler Fehler.")
@@ -256,12 +254,6 @@ def spiel_hinzufg(): # Hinzufügen neuer Spielstände
     ywert += yadd
     cb_plattform = ttk.Combobox(root, values=idlist.plattformen, state="readonly")#.place(x=xwert, y=ywert)
     cb_plattform.place(x=xwert, y=ywert)
-    ywert += yadd * 2
-    
-    tk.Label(root, text="Spielgategorie *").place(x=xwert, y=ywert)
-    ywert += yadd
-    cb_kategorie = ttk.Combobox(root, values=idlist.kategorien, state="readonly")#.place(x=xwert, y=ywert) # Noch schauen wegen Mehrfachauswahl!! (ggf Combobox!)
-    cb_kategorie.place(x=xwert, y=ywert)
     ywert += yadd * 2
     
     tk.Label(root, text="Level").place(x=xwert, y=ywert)
