@@ -151,7 +151,7 @@ def tbl_spdaten(root, liste):
     tree.heading("Herausgeber", text="Herausgeber")
 
     # Spaltenbreiten
-    tree.column("ID", width=15) # ID soll unbedingt als Ganzzahl ausgegeben werden
+    tree.column("ID", width=20) # ID soll unbedingt als Ganzzahl ausgegeben werden
     tree.column("Spiel", width=200) # Spielname (bezeichnung, nicht ID)
     tree.column("Plattform", width=100) # Plattformname
     tree.column("Kategorie", width=150) # Kategoriename
@@ -167,7 +167,7 @@ def tbl_spdaten(root, liste):
     for eintrag in liste:
         tree.insert("", "end", values=eintrag)
 
-    tree.place(x=350, y=70)     
+    tree.place(x=300, y=70)     
 
 
 # liste = 0
