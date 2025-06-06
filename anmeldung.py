@@ -66,16 +66,16 @@ def home():
             messagebox.showerror("Eingabefehler", "Bitte geben Sie Benutzernamen und Passwort ein.")
 
     # Deklaration Buttons Anmeldeseite
-    bn_anmelden = tk.Button(root_login, text="Anmelden", command=partial(anmelden_check, nutzer))
+    bn_anmelden = tk.Button(root_login, text="Anmelden", command=partial(anmelden_check, nutzer), bg="aqua")
     bn_abbrechen = tk.Button(root_login, text="Abbruch", command=sys.exit, width=19)
     bn_registrieren = tk.Button(root_login, text="Registrieren", command=partial(registrieren, nutzer))
 
     # Deklaration Textfelder Anmeldeseite
-    tf_nutzername = tk.Entry(root_login)
-    tf_nutzerpasswort = tk.Entry(root_login, show="*")
+    tf_nutzername = tk.Entry(root_login, width=23)
+    tf_nutzerpasswort = tk.Entry(root_login, show="*", width=23)
 
     # Deklaration Labels Anmeldeseite
-    lb_info = tk.Label(root_login, text="Bitte Benutzerdaten eingeben", bg="yellow")
+    #lb_info = tk.Label(root_login, text="Bitte Benutzerdaten eingeben", fg="azure")
     lb_nutzername = tk.Label(root_login, text="Benutzername")
     lb_nutzerpasswort = tk.Label(root_login, text="Passwort")
     lb_rueckmeldung = tk.Label(root_login, text="")
@@ -88,7 +88,7 @@ def home():
     
     # Startseite generieren / Elemente platzieren
     logo_place()
-    lb_info.place(x=a, y=b)
+    #lb_info.place(x=a, y=b)
     b+= abstand + 3
     lb_nutzername.place(x=a, y=b)
     b += abstand
@@ -103,9 +103,9 @@ def home():
     # Buttons Anordnung:
     bn_anmelden.place(x=a, y=b)
     #b += abstand
-    a += 73
+    a += 71
     bn_registrieren.place(x=a, y=b)
-    a -= 73
+    a -= 71
     b += abstand
     bn_abbrechen.place(x=a, y=b)
     b += abstand
@@ -182,19 +182,19 @@ def registrieren(nutzer):
         clearwdw()
         print("Seite 1 ausführung")
         # Deklaration Labels Seite 1
-        lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus", bg="yellow")
+        lb_1 = tk.Label(root_login, text="Neuern Benutzer anlegen")
         lb_2 = tk.Label(root_login, text="Benutzername")
         lb_3 = tk.Label(root_login, text="Passwort")
         lb_4 = tk.Label(root_login, text="Passwort bestätigen")
 
         # Deklaration Button Seite 1
-        bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
-        bn_weiter = tk.Button(root_login, text="Weiter", command=partial(checkp1, nutzer))
+        bn_zurueck = tk.Button(root_login, text="Zurück", command=home, width=8)
+        bn_weiter = tk.Button(root_login, text="Weiter", command=partial(checkp1, nutzer), width=8)
 
         # Deklaration Textfelder Seite 1
-        tf_feld1 = tk.Entry(root_login)
-        tf_feld2 = tk.Entry(root_login, show="*")
-        tf_feld3 = tk.Entry(root_login, show="*")
+        tf_feld1 = tk.Entry(root_login, width=23)
+        tf_feld2 = tk.Entry(root_login, show="*", width=23)
+        tf_feld3 = tk.Entry(root_login, show="*", width=23)
         
         # Definition von Abständen (einheitlich)
         a = 60
@@ -218,7 +218,7 @@ def registrieren(nutzer):
         tf_feld3.place(x=a, y=b)
         b += abstand + 10
         bn_zurueck.place(x=a, y=b)
-        a += 80
+        a += 76
         bn_weiter.place(x=a, y=b)
 
     def page2(nutzer): # Eingabe Name, Geschlecht, E-Mail und Geburtsdatum
@@ -262,18 +262,18 @@ def registrieren(nutzer):
         print(f"Seite 2 ausführung")
         clearwdw()
         # Deklaration Labels Seite 2
-        lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
+        lb_1 = tk.Label(root_login, text="Neuern Benutzer anlegen")
         lb_2 = tk.Label(root_login, text="E-Mail Adresse")
         lb_4 = tk.Label(root_login, text="Geschlecht")
         lb_3 = tk.Label(root_login, text="Geburtsdatum (JJJJ-MM-TT)")
 
         # Deklaration Buttons Seite 2
-        bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
-        bn_weiter = tk.Button(root_login, text="Weiter", command=partial(checkp2, nutzer))
+        bn_zurueck = tk.Button(root_login, text="Zurück", command=home, width=8)
+        bn_weiter = tk.Button(root_login, text="Weiter", command=partial(checkp2, nutzer), width=8)
 
         # Deklaration Textfelder Seite 2
-        tf_feld1 = tk.Entry(root_login)
-        tf_feld2 = tk.Entry(root_login)
+        tf_feld1 = tk.Entry(root_login, width=23)
+        tf_feld2 = tk.Entry(root_login, width=23)
 
         # Deklaration weitere Elemente Seite 2
         cb_box1 = ttk.Combobox(root_login, values=idlist.geschlecht, state="readonly")
@@ -300,7 +300,7 @@ def registrieren(nutzer):
         cb_box1.place(x=a, y=b)
         b += abstand + 10
         bn_zurueck.place(x=a, y=b)
-        a += 80
+        a += 76
         bn_weiter.place(x=a, y=b)
 
 
@@ -335,17 +335,17 @@ def registrieren(nutzer):
         clearwdw()
 
         # Deklaration Labels Seite 3
-        lb_1 = tk.Label(root_login, text="Bitte füllen Sie alle Felder aus:", bg="yellow")
+        lb_1 = tk.Label(root_login, text="Neuern Benutzer anlegen")
         lb_2 = tk.Label(root_login, text="Land")
         lb_3 = tk.Label(root_login, text="Sprache")
         lb_4 = tk.Label(root_login, text="Vorname")
 
         # Deklaration Buttons Seite 3
-        bn_zurueck = tk.Button(root_login, text="Zurück", command=home)
-        bn_weiter = tk.Button(root_login, text="Fertig", command=partial(checkp3, nutzer))
+        bn_zurueck = tk.Button(root_login, text="Zurück", command=home, width=8)
+        bn_weiter = tk.Button(root_login, text="Fertig", command=partial(checkp3, nutzer), width=8)
 
         # Deklaration weiterer Elemente Seite 3
-        tf_1 = tk.Entry(root_login)
+        tf_1 = tk.Entry(root_login, width=23)
         cb_box1 = ttk.Combobox(root_login, values=idlist.laender, state="readonly") # state=readonly bedeutet, dass nur die eingegebenen Optionen gewählt werden können.
         cb_box2 = ttk.Combobox(root_login, value=idlist.sprache, state="readonly")
         
@@ -371,7 +371,7 @@ def registrieren(nutzer):
         cb_box2.place(x=a, y=b)
         b += abstand + 10
         bn_zurueck.place(x=a, y=b)
-        a += 80
+        a += 76
         bn_weiter.place(x=a, y=b)
 
     #clearwdw()
