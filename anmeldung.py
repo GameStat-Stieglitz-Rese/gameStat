@@ -15,14 +15,14 @@ import sys
 class Nutzer(): # Diese Klasse legt bei Aufruf ein Objekt mit allen relevanten Benutzerdaten an.
     def __init__(self):
         self.id = ""
-        self.nutzername = "Lester"#None
-        self.passwort = "1234"#None
-        self.vorname = "Lester"#None
-        self.email = "lester@tester.com"#None
-        self.land = "Lesterwald"#None
-        self.sprache = "Lestisch"#None
-        self.geschlecht = "Lestisch"#None
-        self.geburtsdatum = "ll"#None
+        self.nutzername = None
+        self.passwort = None
+        self.vorname = None
+        self.email = None
+        self.land = None
+        self.sprache = None
+        self.geschlecht = None
+        self.geburtsdatum = None
 
 def logo_place():
     lb_logo.place(x=27, y=-55)

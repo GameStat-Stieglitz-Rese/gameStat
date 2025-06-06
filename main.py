@@ -26,7 +26,9 @@ def uebersicht(nutzer): # Zeigt eine Tabelle mit allen Spielständen / Games an
 
 def bewertungen(nutzer): # Zeigt eine Tabelle mit allen Spielen mit aufsteigender Bewertung an
     label.gen_title("Spielstände sortiert nach Bewertung")
-    liste = z_Abfragen.sort_bewertung_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft 
+    liste = z_Abfragen.sort_bewertung_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft
+    sort_liste = liste.sort(key=lambda x: x[6], reverse=True)
+    print(sort_liste)
     elemente.tbl_spdaten(root, liste)
 
 def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spielen an
@@ -36,7 +38,7 @@ def durchgespielt(nutzer): # Zeigt eine Tabelle mit allen durchgespielten Spiele
 
 def empfohlen(nutzer): # Zeigt eine Tabelle mit allen empfohlenen Games an
     label.gen_title("Von dir empfohlene Spiele")
-    liste = z_Abfragen.empfohlen_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft 
+    liste = z_Abfragen.empfohlen_abrufen(nutzer) # SQL Befehl, der anhand der Benutzer ID eine Gesamtliste abruft
     elemente.tbl_spdaten(root, liste)
 
 def spiel_bearbeiten(): # Bearbeiten vorhandener Spielstände
@@ -365,7 +367,6 @@ if login_status == True:
     #hint_bild = Image.open("images/Bild1.jpg") # Setzen eines potentiellen Hintergrundbildes
     #hint_bild = ImageTk.PhotoImage(hint_bild)
     background = Image.open(pic_background) # Deklaration des Programmlogos
-    #background = background.resize((1750, 900)) # Einstellung der größe
     background = background.resize((1920, 1080)) # Einstellung der größe
     background = ImageTk.PhotoImage(background) # Macht es zu einem TKinter Bild
     pic_background = tk.Label(root, image=background) # Speichert das Bild in ein Label
