@@ -182,7 +182,7 @@ def registrieren(nutzer):
         clearwdw()
         print("Seite 1 ausführung")
         # Deklaration Labels Seite 1
-        lb_1 = tk.Label(root_login, text="Neuern Benutzer anlegen")
+        lb_1 = tk.Label(root_login, text="Neuen Benutzer anlegen")
         lb_2 = tk.Label(root_login, text="Benutzername")
         lb_3 = tk.Label(root_login, text="Passwort")
         lb_4 = tk.Label(root_login, text="Passwort bestätigen")
@@ -262,7 +262,7 @@ def registrieren(nutzer):
         print(f"Seite 2 ausführung")
         clearwdw()
         # Deklaration Labels Seite 2
-        lb_1 = tk.Label(root_login, text="Neuern Benutzer anlegen")
+        lb_1 = tk.Label(root_login, text="Neuen Benutzer anlegen")
         lb_2 = tk.Label(root_login, text="E-Mail Adresse")
         lb_4 = tk.Label(root_login, text="Geschlecht")
         lb_3 = tk.Label(root_login, text="Geburtsdatum (JJJJ-MM-TT)")
@@ -335,7 +335,7 @@ def registrieren(nutzer):
         clearwdw()
 
         # Deklaration Labels Seite 3
-        lb_1 = tk.Label(root_login, text="Neuern Benutzer anlegen")
+        lb_1 = tk.Label(root_login, text="Neuen Benutzer anlegen")
         lb_2 = tk.Label(root_login, text="Land")
         lb_3 = tk.Label(root_login, text="Sprache")
         lb_4 = tk.Label(root_login, text="Vorname")
